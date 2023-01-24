@@ -4,9 +4,9 @@ This will house the Text Encoded Numbers as Base 64 bit project, with an accompa
 
 ## Special Characters;
 ```
-'#'   Optional explicit end of #Ten64 binary stream / chunk
-'.'   The Decimal / List Seperator
-';'   Optional explicit begining of #Ten64 binary stream / chunk
+#   Optional explicit end of #Ten64 binary stream / chunk
+.   The Decimal / List Seperator
+;   Optional explicit begining of #Ten64 binary stream / chunk
 ```
 
 ## Primary Virtual Binary Alphabet;
