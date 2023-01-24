@@ -3,9 +3,11 @@ This will house the Text Encoded Numbers as Base 64 bit project, with an accompa
   It will use a big ending virtual binary system as follows;
 
 ## Special Characters;
+```
 '#'   Optional explicit end of #Ten64 binary stream / chunk
 '.'   The Decimal / List Seperator
 ';'   Optional explicit begining of #Ten64 binary stream / chunk
+```
 
 ## Primary Virtual Binary Alphabet;
 | Primary ASCII / UTF8 Character   |  Arabic Numeral Value |  Virtual Binary Sextet  | 
