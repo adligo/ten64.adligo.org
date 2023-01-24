@@ -6,8 +6,7 @@ Special Characters;
 .   The Decimal / List Seperator
 ;   Optional explicit begining of #Ten64 binary stream / chunk
 
-| Primary ASCII /   |  Arabic Numeral  |  Virtual Binary  | 
-| UTF8 Character    |  Value           |  Sextet          |
-|-------------------|------------------|------------------|
-| 0                 |  0               | 000000           |
-| 1                 |  1               | 100000           |
+| Primary ASCII / UTF8 Character   |  Arabic Numeral Value |  Virtual Binary Sextet  | 
+|----------------------------------|-----------------------|-------------------------|
+| 0                                |  0                    | 000000                  |
+| 1                                |  1                    | 100000                  |
