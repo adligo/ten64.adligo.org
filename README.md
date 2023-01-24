@@ -1,5 +1,5 @@
 # ten64.adligo.org
-This will house the Text Encoded Numbers as Base 64 binary project, with an accompanying RFC.   It will NOT use the regular Base64 alphabet but a virtual binary alphabet similar to hexidecimal 0-9,a-z,A-Z,@ along with some additional special characters most notably '#','.' and ';'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ symbol and other alphabet symbals were chosen becase they are NOT mathmatical symbals, so theoretically this system could also be used embed numbers into programming languages in the future.
+This will house the Text Encoded Numbers as Base 64 binary project, with an accompanying RFC.   It will NOT use the regular Base64 alphabet but a virtual binary alphabet similar to hexidecimal 0-9,a-z,A-Z,@ along with some additional special characters most notably '#','.' and ';','-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ symbol and other alphabet symbals were chosen becase they are NOT mathmatical symbals, so theoretically this system could also be used embed numbers into programming languages in the future.
   It will use a big ending virtual binary system as follows;
 
 ## Special Characters;
@@ -7,6 +7,7 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
 #   Optional explicit begining of #Ten64 binary stream / chunk
 .   The Decimal / List Seperator
 ;   Optional explicit end of #Ten64 binary stream / chunk
+-   The negative indicator
 ```
 
 ## Primary Virtual Binary Alphabet;
@@ -76,3 +77,14 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
 | Y                                |  61                   | 101111                  |
 | Z                                |  62                   | 011111                  |
 | @                                |  63                   | 111111                  |
+
+
+## All virtual binary sequences are interpreted as integers
+  The following sequences explode as follows;
+  ```
+  #0.1;   expandes to a list of integers 0, 1 which can also be interperted as the decimal 0.1 depending on the context.
+  #0.1.2; expandes to a list of integers 0, 1, 2.
+  #01.11; expands the a list of integers 64, 65 which can also be interperted as the decimal 64.65 depending on the context.
+  #-7.-8; expands to a list of integers -7, -8 and can NOT be interpreted as a decimal.
+  #-1.8;  expands to a list of integers -1, 8 and can also be interpreted as a decimal -1.8 depending on the context.
+  ```
