@@ -83,8 +83,39 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
   The following sequences explode as follows;
   ```
   #0.1;   expandes to a list of integers 0, 1 which can also be interperted as the decimal 0.1 depending on the context.
-  #0.1.2; expandes to a list of integers 0, 1, 2.
+  #0.1.2; expandes to a segmented number / list of integers 0, 1, 2.
   #01.11; expands the a list of integers 64, 65 which can also be interperted as the decimal 64.65 depending on the context.
-  #-7.-8; expands to a list of integers -7, -8 and can NOT be interpreted as a decimal.
   #-1.8;  expands to a list of integers -1, 8 and can also be interpreted as a decimal -1.8 depending on the context.
   ```
+## Segmented Numbers
+  There are seveal Use-Cases for segmented numbers incluinding Dates, Datetimes, MiliTimestamps, NanoTimestamps, Ican OIDs, ThreeDPoints and more.
+  
+## Dates
+  Dates can be greatly condenced using the Segmented Number base class.  Dates should be standardized as the year ten64 followed by a dot, and one ten64 character for the month and one ten64 character for the day.  For example;
+ ```
+   #Vv.21;  expands to 2023-02-01
+ ```
+
+## Datetimes
+  Datetimes add the additional timezone, (military time) hour and minute to the date.  The timezone, (military time) hour and minute each only take one ten64 character and can be encoded as follows;
+  ```
+    #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
+  ```
+  
+  ## Datetimes
+  Datetimes add the additional timezone, (military time) hour and minute to the date.  The timezone, (military time) hour and minute each only take one ten64 character and can be encoded as follows;
+  ```
+    #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
+  ```
+    ## MiliTimestamp
+  MiliTimestamps add a single ten64 character for seconds and seperate miliseconds with an additional dot. 
+  ```
+    #Vv.216jR11;  expands to 2023-02-01 CST 7:53:01.1 PM
+  ```
+  
+      ## NanoTimestamp
+  NanoTimestamps add an additional dot, as the MiliSeconds can be multiple characters (with values 0-1000), and then multiple ten64 characters representing the additional (0-1,000,000) nanoseconds that are NOT tracked as miliseconds. 
+  ```
+    #Vv.216jR11.1;  expands to 2023-02-01 CST 7:53:01.1.1 PM  or 2023-02-01 CST 7:53:01.000001001 PM
+  ```
+  
