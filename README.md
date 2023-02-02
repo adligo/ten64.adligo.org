@@ -110,12 +110,12 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
     ## MiliTimestamp
   MiliTimestamps add a single ten64 character for seconds and seperate miliseconds with an additional dot. 
   ```
-    #Vv.216jR11;  expands to 2023-02-01 CST 7:53:01.1 PM
+    #Vv.216jR12;  expands to 2023-02-01 CST 7:53:01.2 PM
   ```
   
       ## NanoTimestamp
   NanoTimestamps add an additional dot, as the MiliSeconds can be multiple characters (with values 0-1000), and then multiple ten64 characters representing the additional (0-1,000,000) nanoseconds that are NOT tracked as miliseconds. 
   ```
-    #Vv.216jR11.1;  expands to 2023-02-01 CST 7:53:01.1.1 PM  or 2023-02-01 CST 7:53:01.000001001 PM
+    #Vv.216jR12.7;  expands to 2023-02-01 CST 7:53:01.2.7 PM  or with nanoseconds expanded 2023-02-01 CST 7:53:01.00200007 PM
   ```
   
