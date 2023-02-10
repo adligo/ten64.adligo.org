@@ -5,9 +5,11 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
 ## Special Characters;
 ```
 #   Optional explicit begining of #Ten64 binary stream / chunk
-.   The Decimal / List Seperator
-;   Optional explicit end of #Ten64 binary stream / chunk
+.   The Decimal Seperator
+,   The Seperator for Number Lists
+;   Optional explicit end of #Ten64 number or number list / binary stream / chunk
 -   The negative indicator
+    Whitespace Characters including Line Feeds, Tabs, Spaces, Return Sequences, Etc
 ```
 
 ## Primary Virtual Binary Alphabet;
@@ -101,6 +103,14 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
   ```
     #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
   ```
+  
+## Lists
+  Ten64 supports lists of number seperated by commas, each number MAY include whitespace characters on either side of the number;
+  ```
+    #1,2 , 3,4;  expands to a number list of 1,2,3,4
+    #1.2.3, 4.5.6, 7.8.9;  expands to a list of 3d points
+  ```
+
 ## MiliTimestamp
   MiliTimestamps add a single ten64 character for seconds and seperate miliseconds with an additional dot. 
   ```
@@ -112,4 +122,6 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
   ```
     #Vv.216jR12.7;  expands to 2023-02-01 CST 7:53:01.2.7 PM  or with nanoseconds expanded 2023-02-01 CST 7:53:01.00200007 PM
   ```
+  
+ 
   
