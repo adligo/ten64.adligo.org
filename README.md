@@ -91,6 +91,9 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
   ```
 ## Segmented Numbers
   There are seveal Use-Cases for segmented numbers incluinding Dates, Datetimes, MiliTimestamps, NanoTimestamps, Ican OIDs, ThreeDPoints and more.
+
+## BigDecimals
+  Big Decimals (i.e. Java or Javascript type) can be easily represented with Ten64, which encodes the EXACT number of Decimal Places.  This provides and advantage over JSON which uses IETF Double Precision Floating Point numbers, which can cause precision issues in transit.
   
 ## Dates
   Dates can be greatly condenced using the Segmented Number base class.  Dates should be standardized as the year ten64 followed by a dot, and one ten64 character for the month and one ten64 character for the day.  For example;
@@ -122,6 +125,7 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
   ```
     #Vv.216jR12.7;  expands to 2023-02-01 CST 7:53:01.2.7 PM  or with nanoseconds expanded 2023-02-01 CST 7:53:01.00200007 PM
   ```
-  
+ ## Points
+   Ten64 can encode 2d, 3d and Nd points as segmented numbers.
  
   
