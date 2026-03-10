@@ -1,12 +1,15 @@
 # ten64.adligo.org
-This will house the Text Encoded Numbers as Base 64 binary project, with an accompanying RFC.   It will NOT use the regular Base64 alphabet but a virtual binary alphabet similar to hexidecimal 0-9,a-z,A-Z,@ along with some additional special characters most notably '#','.' and ';','-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ symbol and other alphabet symbals were chosen becase they are NOT mathmatical symbals, so theoretically this system could also be used embed numbers into programming languages in the future.
+
+Ten64 is a number serialization format similar to hexadecimal and Base-64.  The main differences are the use of big-endian, also known as network ordering, of the virtual binary represented by the text encoding.  This allows for more efficient serialization to and from binary memory structures.
+
+It does NOT use the regular Base64 alphabet but a virtual binary alphabet similar to hexadecimal 0-9,a-z,A-Z,@ along with some additional special characters most notably '#','.' and ';','-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
   It will use a big ending virtual binary system as follows;
 
 ## Special Characters;
 ```
-#   Optional explicit begining of #Ten64 binary stream / chunk
-.   The Decimal or Number Space Seperator
-,   The Seperator for Number Lists
+#   Optional explicit beginning of #Ten64 binary stream / chunk
+.   The Decimal or Number Space Separator
+,   The Separator for Number Lists
 ;   Optional explicit end of #Ten64 number or number list / binary stream / chunk
 -   The negative indicator
     Whitespace Characters including Line Feeds, Tabs, Spaces, Return Sequences, Etc
@@ -84,19 +87,19 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
 ## All virtual binary sequences are interpreted as integers
   The following sequences explode as follows;
   ```
-  #0.1;   expandes to a list of integers 0, 1 which can also be interperted as the decimal 0.1 depending on the context.
-  #0.1.2; expandes to a segmented number / list of integers 0, 1, 2.
-  #01.11; expands the a list of integers 64, 65 which can also be interperted as the decimal 64.65 depending on the context.
+  #0.1;   expands to a list of integers 0, 1 which can also be interpreted as the decimal 0.1 depending on the context.
+  #0.1.2; expands to a segmented number / list of integers 0, 1, 2.
+  #01.11; expands the a list of integers 64, 65 which can also be interpreted as the decimal 64.65 depending on the context.
   #-1.8;  expands to a list of integers -1, 8 and can also be interpreted as a decimal -1.8 depending on the context.
   ```
 ## Segmented Numbers
-  There are seveal Use-Cases for segmented numbers incluinding Dates, Datetimes, MiliTimestamps, NanoTimestamps, Ican OIDs, ThreeDPoints and more.
+  There are several Use-Cases for segmented numbers including Dates, Datetimes, MiliTimestamps, NanoTimestamps, IANA OIDs, ThreeDPoints and more.
 
 ## BigDecimals
   Big Decimals (i.e. Java or Javascript type) can be easily represented with Ten64, which encodes the EXACT number of Decimal Places.  This provides and advantage over JSON which uses IETF Double Precision Floating Point numbers, which can cause precision issues in transit.
   
 ## Dates
-  Dates can be greatly condenced using the Segmented Number base class.  Dates should be standardized as the year ten64 followed by a dot, and one ten64 character for the month and one ten64 character for the day.  For example;
+  Dates can be greatly condensed using the Segmented Number base class.  Dates should be standardized as the year ten64 followed by a dot, and one ten64 character for the month and one ten64 character for the day.  For example;
  ```
    #Vv.21;  expands to 2023-02-01
  ```
@@ -108,7 +111,7 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
   ```
   
 ## Lists
-  Ten64 supports lists of number seperated by commas, each number MAY include whitespace characters on either side of the number;
+  Ten64 supports lists of number separated by commas, each number MAY include whitespace characters on either side of the number;
   ```
     #1,2 , 3,4;  expands to a number list of 1,2,3,4
     #1.2.3, 4.5.6, 7.8.9;  expands to a list of 3d points
