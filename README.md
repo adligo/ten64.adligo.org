@@ -5,6 +5,10 @@ Ten64 is a number serialization format similar to hexadecimal and Base-64.  The 
 It does NOT use the regular Base64 alphabet but a virtual binary alphabet similar to hexadecimal 0-9,a-z,A-Z,@ along with some additional special characters most notably '#','.' and ';','-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
   It will use a big ending virtual binary system as follows;
 
+## Draft RFC
+
+- [rfc.xml](rfc.xml)
+
 ## Special Characters;
 ```
 #   Optional explicit beginning of #Ten64 binary stream / chunk
