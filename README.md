@@ -5,7 +5,7 @@ This will house the Text Encoded Numbers as Base 64 binary project, with an acco
 ## Special Characters;
 ```
 #   Optional explicit begining of #Ten64 binary stream / chunk
-.   The Decimal Seperator
+.   The Decimal or Number Space Seperator
 ,   The Seperator for Number Lists
 ;   Optional explicit end of #Ten64 number or number list / binary stream / chunk
 -   The negative indicator
