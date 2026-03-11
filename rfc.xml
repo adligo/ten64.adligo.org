@@ -101,7 +101,7 @@
           <tr>
             <th>Primary ASCII / UTF8</th>
             <th>Arabic Numeral Value</th>
-            <th>Virtual Binary Sextet</th>
+            <th>Virtual Big-Ending Binary Sextet</th>
           </tr>
         </thead>
         <tbody>

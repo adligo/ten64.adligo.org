@@ -20,7 +20,7 @@ It does NOT use the regular Base64 alphabet but a virtual binary alphabet simila
 ```
 
 ## Primary Virtual Binary Alphabet;
-| Primary ASCII / UTF8 Character   |  Arabic Numeral Value |  Virtual Binary Sextet  | 
+| Primary ASCII / UTF8 Character   |  Arabic Numeral Value |  Virtual Big-Ending Binary Sextet  | 
 |----------------------------------|-----------------------|-------------------------|
 | 0                                |  0                    | 000000                  |
 | 1                                |  1                    | 100000                  |
