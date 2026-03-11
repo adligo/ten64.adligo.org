@@ -124,13 +124,15 @@ It does NOT use the regular Base64 alphabet but a virtual binary alphabet simila
 ## MiliTimestamp
   MiliTimestamps add a single ten64 character for seconds and separate milliseconds with an additional dot. 
   ```
-    #Vv.216jR1.2; expands to 2023-02-01 CST 7:53:01.2 or with milliseconds expanded PM 2023-02-01 CST 7:53:01.002 PM
+    #Vv.216jR1.2; expands to 2023-02-01 CST 7:53:01.2
+    or with milliseconds expanded PM 2023-02-01 CST 7:53:01.002 PM
   ```
   
 ## NanoTimestamp
   NanoTimestamps add an additional dot, as the MiliSeconds can be multiple characters (with values 0-1000), and then multiple ten64 characters representing the additional (0-1,000,000,000) nanoseconds that are NOT tracked as milliseconds. 
   ```
-    #Vv.216jR1.2.7;  expands to 2023-02-01 CST 7:53:01.2.7 PM or with nanoseconds expanded 2023-02-01 CST 7:53:01.002000007 PM
+    #Vv.216jR1.2.7;  expands to 2023-02-01 CST 7:53:01.2.7 PM
+    or with nanoseconds expanded 2023-02-01 CST 7:53:01.002000007 PM
   ```
  ## Points
    Ten64 can encode 2d, 3d and Nd points as segmented numbers.
