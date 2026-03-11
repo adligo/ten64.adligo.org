@@ -200,9 +200,13 @@
           require one char appended to the date (e.g., "#Vv.216jR;" expands 
           to 2023-02-01 CST 7:53 PM).</li>
           <li><strong>MiliTimestamps:</strong> Appends a char for seconds and 
-          uses a dot for milliseconds (e.g., "#Vv.216jR12;").</li>
+          uses a dot for milliseconds (e.g.,#Vv.216jR1.2;  expands to
+          2023-02-01 CST 7:53:01.2 PM or with miliseconds expanded 2023-02-01
+          CST 7:53:01.002 PM).</li>
           <li><strong>NanoTimestamps:</strong> Appends additional characters 
-          representing nanoseconds not tracked as milliseconds.</li>
+          representing nanoseconds not tracked as milliseconds. (e.g., 
+          #Vv.216jR1.2.7; expands to 2023-02-01 CST 7:53:01.2.7 PM or with
+          nanoseconds expanded 2023-02-01 CST 7:53:01.002000007 PM)</li>
         </ul>
       </section>
 
