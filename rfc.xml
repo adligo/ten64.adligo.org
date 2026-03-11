@@ -208,9 +208,9 @@
 
       <section anchor="lists-and-points">
         <name>Lists and Geometric Points</name>
-        <t>Ten64 supports 1D lists separated by commas (e.g., "#1,2, 3,4;") 
+        <t>Ten64 supports 1D lists separated by commas (e.g., "#1,2,3,4;") 
         and N-dimensional points combined with decimal segmentation 
-        (e.g., "#1.2.3, 4.5.6;" expands to a list of 3D points).</t>
+        (e.g., "#1.2.3,4.5.6;" expands to a list of 3D points).</t>
       </section>
     </section>
 

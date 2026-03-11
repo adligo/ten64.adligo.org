@@ -117,8 +117,8 @@ It does NOT use the regular Base64 alphabet but a virtual binary alphabet simila
 ## Lists
   Ten64 supports lists of number separated by commas, each number MAY include whitespace characters on either side of the number;
   ```
-    #1,2 , 3,4;  expands to a number list of 1,2,3,4
-    #1.2.3, 4.5.6, 7.8.9;  expands to a list of 3d points
+    #1,2,3,4;  expands to a number list of 1,2,3,4
+    #1.2.3,4.5.6,7.8.9;  expands to a list of 3d points
   ```
 
 ## MiliTimestamp
