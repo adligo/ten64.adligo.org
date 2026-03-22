@@ -29,6 +29,7 @@
       characters to support safe embedding in programming languages and
       addresses transit precision issues commonly found in ubiquitous data
       interchange formats like JSON or XML.</t>
+      
     </abstract>
   </front>
 
@@ -66,7 +67,7 @@
         <xref target="RFC2026"/>.</t>
       </section>
     </section>
-
+    
     <section anchor="special-chars">
       <name>Special Characters</name>
       <t>Beyond the primary alphabet, Ten64 relies on explicit syntactic 
@@ -100,7 +101,7 @@
         <thead>
           <tr>
             <th>Primary ASCII / UTF8</th>
-            <th>Arabic Numeral Value</th>
+            <th>Vedic Numeral Value</th>
             <th>Virtual Big-Ending Binary Sextet</th>
           </tr>
         </thead>
