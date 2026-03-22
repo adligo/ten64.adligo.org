@@ -22,7 +22,7 @@
       representing Text Encoded Numbers as a Base-64 binary stream. Similar 
       to how hexadecimal uses characters 0-9 and a-f to represent base-16 
       data, Ten64 expands on this concept by using a virtual binary alphabet 
-      of 0-9, a-z, A-Z, and the "@" symbol to represent base-64 numeric 
+      of 0-9, a-z, A-Z, "@" and the "!" symbol to represent base-64 numeric 
       data.</t>
       <t>Using big-ending (aka network ordering), Ten64 is designed to optimize
       the reading, writing, and streaming of numbers.  It uses math-safe
@@ -165,11 +165,11 @@
           <tr><td>U</td><td>56</td><td>000111</td></tr>
           <tr><td>V</td><td>57</td><td>100111</td></tr>
           <tr><td>W</td><td>58</td><td>010111</td></tr>
-          <tr><td>Y</td><td>59</td><td>110111</td></tr>
-          <tr><td>X</td><td>60</td><td>001111</td></tr>
-          <tr><td>Y</td><td>61</td><td>101111</td></tr>
-          <tr><td>Z</td><td>62</td><td>011111</td></tr>
-          <tr><td>@</td><td>63</td><td>111111</td></tr>
+          <tr><td>X</td><td>59</td><td>110111</td></tr>
+          <tr><td>Y</td><td>60</td><td>001111</td></tr>
+          <tr><td>Z</td><td>61</td><td>101111</td></tr>
+          <tr><td>@</td><td>62</td><td>011111</td></tr>
+          <tr><td>!</td><td>63</td><td>111111</td></tr>
         </tbody>
       </table>
     </section>

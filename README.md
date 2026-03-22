@@ -2,7 +2,7 @@
 
 Ten64 is a number serialization format similar to hexadecimal and Base-64.  The main differences are the use of big-endian, also known as network ordering, of the virtual binary represented by the text encoding.  This allows for more efficient serialization to and from binary memory structures.
 
-It does NOT use the regular Base64 alphabet but a virtual binary alphabet similar to hexadecimal 0-9,a-z,A-Z,@ along with some additional special characters most notably '#','.' and ';','-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
+It does NOT use the regular Base64 alphabet but a virtual binary alphabet similar to hexadecimal 0-9,a-z,A-Z,@ along with some additional special characters most notably '#','.' and ';','-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and ! symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
   It will use a big ending virtual binary system as follows;
 
 ## Draft RFC
@@ -85,11 +85,11 @@ It does NOT use the regular Base64 alphabet but a virtual binary alphabet simila
 | U                                |  56                   | 000111                  |
 | V                                |  57                   | 100111                  |
 | W                                |  58                   | 010111                  |
-| Y                                |  59                   | 110111                  |
-| X                                |  60                   | 001111                  |
-| Y                                |  61                   | 101111                  |
-| Z                                |  62                   | 011111                  |
-| @                                |  63                   | 111111                  |
+| X                                |  59                   | 110111                  |
+| Y                                |  60                   | 001111                  |
+| Z                                |  61                   | 101111                  |
+| @                                |  62                   | 011111                  |
+| !                                |  63                   | 111111                  |
 
 
 ## All virtual binary sequences are interpreted as integers
