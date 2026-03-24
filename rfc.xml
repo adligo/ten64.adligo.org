@@ -18,17 +18,15 @@
     <workgroup>Internet Engineering Task Force</workgroup>
 
     <abstract>
-      <t>This document specifies Ten64, a novel number serialization format 
-      representing Text Encoded Numbers as a Base-64 binary stream. Similar 
-      to how hexadecimal uses characters 0-9 and a-f to represent base-16 
-      data, Ten64 expands on this concept by using a virtual binary alphabet 
-      of 0-9, a-z, A-Z, "@" and the "!" symbol to represent base-64 numeric 
-      data.</t>
-      <t>Using big-ending (aka network ordering), Ten64 is designed to optimize
-      the reading, writing, and streaming of numbers.  It uses math-safe
-      characters to support safe embedding in programming languages and
-      addresses transit precision issues commonly found in ubiquitous data
-      interchange formats like JSON or XML.</t>
+      <t>Ten64 is a number serialization format similar to hexadecimal
+      (<xref target="Wikipedia.Hexadecimal"/>).  The main differences are the use 
+      of sextets (<xref target="Wikipedia.Sextet"/>) instead of octets 
+      (<xref target="Wikipedia.Octet"/>).  Similar to hexadecimal 
+      (<xref target="Wikipedia.Hexadecimal"/>), ten64 can be used to create binary 
+      strings of arbitrary length.  However, it is often used 
+      to encode one or more Modern Western integers 
+      (<xref target="Musa-Numerals"/>), interpreting the 
+      binary as a big-endian Modern Western (<xref target="Musa-Numerals"/>) integer.</t>
       
     </abstract>
   </front>
@@ -36,13 +34,31 @@
   <middle>
     <section anchor="intro">
       <name>Introduction</name>
+      
+      <t>This section is non-normative.</t>
+      
       <t>As computer systems scale in both volume and streaming throughput, 
-      standard text-representation formats like Extensible Markup Language 
-      (XML) <xref target="W3C.REC-xml-20081126"/> and JavaScript Object 
-      Notation (JSON) <xref target="RFC8259"/> often introduce precision loss 
-      during transit. This is particularly prevalent due to double-precision 
-      floating-point <xref target="IEEE754"/> constraints. To solve these 
-      and related issues, Ten64 is introduced.</t>
+      standard JavaScript Object Notation (JSON) <xref target="RFC8259"/> 
+      often introduce precision loss. This is particularly prevalent due to 
+      double-precision floating-point <xref target="IEEE754"/> constraints.  
+      In addition, streaming formats like base64 are often fairly verbose to 
+      map binary data to octets.  This incurs a large cost when one bit is 
+      encoded as four bytes.  To solve these and related issues, 
+      Ten64 is introduced.</t>
+      
+      <t>As computer systems scale in both volume and streaming throughput, 
+      standard JavaScript Object Notation (JSON)<xref target="RFC8259" /> often 
+      introduce precision issues. This is particularly prevalent due to 
+      double-precision (floating-point)<xref target="IEEE754" /> constraints.
+      Although (double floating point precision)<xref target="IEEE754" /> is 
+      specified in the (JSON)<xref target="RFC8259" /> spec. Parsers have 
+      interpreted this differently, most notably 
+      (Jackson)<xref target="Jackson-GitHub"/> and 
+      (Gson)<xref target="Gson-GitHub"/>. In addition, streaming formats like 
+      (base64)<xref target="RFC4648"/> are often fairly verbose to map binary data to octets.  This incurs a large cost when one bit is encoded as four bytes.  To solve these and related issues, Ten64 is introduced.
+      </t>
+      
+      <t>TODO Below</t>
       
       <t>Alternative notations and bases have historically been explored to 
       improve human-machine interfaces, ranging from early discussions on 
@@ -169,7 +185,7 @@
           <tr><td>Y</td><td>60</td><td>001111</td></tr>
           <tr><td>Z</td><td>61</td><td>101111</td></tr>
           <tr><td>@</td><td>62</td><td>011111</td></tr>
-          <tr><td>!</td><td>63</td><td>111111</td></tr>
+          <tr><td>_</td><td>63</td><td>111111</td></tr>
         </tbody>
       </table>
     </section>
@@ -307,6 +323,42 @@
         </front>
         <seriesInfo name="IEEE" value="754-2019"/>
       </reference>
+
+      <reference anchor="Wikipedia.Hexadecimal" 
+                 target="https://en.wikipedia.org/wiki/Hexadecimal">
+        <front>
+          <title>Hexadecimal</title>
+          <author>
+            <organization>Wikipedia Contributors</organization>
+          </author>
+          <date year="2026" month="March"/>
+        </front>
+        <seriesInfo name="Wikipedia" value="Hexadecimal"/>
+      </reference>
+
+      <reference anchor="Wikipedia.Octet" 
+                 target="https://en.wikipedia.org/wiki/Octet">
+        <front>
+          <title>Octet</title>
+          <author>
+            <organization>Wikipedia Contributors</organization>
+          </author>
+          <date year="2026" month="March"/>
+        </front>
+        <seriesInfo name="Wikipedia" value="Octet"/>
+      </reference>
+
+      <reference anchor="Wikipedia.Sextet" 
+                 target="https://en.wikipedia.org/wiki/Sextet">
+        <front>
+          <title>Sextet</title>
+          <author>
+            <organization>Wikipedia Contributors</organization>
+          </author>
+          <date year="2026" month="March"/>
+        </front>
+        <seriesInfo name="Wikipedia" value="Sextet"/>
+      </reference>
     </references>
     
     <references>
@@ -321,6 +373,24 @@
         </front>
       </reference>
 
+      <reference anchor="Boucenna-Numerals" target="https://arxiv.org/abs/math/0606699">
+        <front>
+          <title>Origin of the numerals</title>
+          <author initials="A." surname="Boucenna" fullname="Ahmed Boucenna">
+            <organization>Department of Physics, Faculty of Sciences, Ferhat Abbas University</organization>
+            <address>
+              <postal>
+                <city>Sétif</city>
+                <code>19000</code>
+                <country>Algeria</country>
+              </postal>
+            </address>
+          </author>
+          <date year="2006" month="June" day="30"/>
+        </front>
+        <seriesInfo name="arXiv" value="math/0606699"/>
+      </reference>
+
       <reference anchor="CACM-Binary" 
                  target="https://doi.org/10.1145/364096.364107">
         <front>
@@ -331,6 +401,28 @@
         <seriesInfo name="DOI" value="10.1145/364096.364107"/>
       </reference>
 
+      <reference anchor="Gson-GitHub" target="https://github.com/google/gson">
+        <front>
+          <title>Gson: A Java serialization/deserialization library to convert Java Objects into JSON and back</title>
+          <author>
+            <organization>Google</organization>
+          </author>
+          <date year="2026" month="March"/>
+        </front>
+        <refcontent>GitHub repository</refcontent>
+      </reference>
+
+      <reference anchor="Jackson-GitHub" target="https://github.com/fasterxml/jackson">
+        <front>
+          <title>Jackson: Main Portal page for the Jackson project</title>
+          <author>
+            <organization>FasterXML, LLC</organization>
+          </author>
+          <date year="2026" month="March"/>
+        </front>
+        <refcontent>GitHub repository</refcontent>
+      </reference>
+
       <reference anchor="ISO8601" 
                  target="https://www.iso.org/standard/40874.html">
         <front>
@@ -339,6 +431,28 @@
           <date year="2004"/>
         </front>
         <seriesInfo name="ISO" value="8601"/>
+      </reference>
+
+      <reference anchor="Smithsonian-Zero" target="https://www.smithsonianmag.com/smart-news/dating-ancient-indian-text-gives-new-timeline-history-zero-180964896/">
+        <front>
+          <title>Carbon Dating Reveals the History of Zero Is Older Than Previously Thought</title>
+          <author initials="B." surname="Katz" fullname="Brigit Katz">
+            <organization>Smithsonian Magazine</organization>
+          </author>
+          <date year="2017" month="September" day="14"/>
+        </front>
+        <refcontent>Smart News</refcontent>
+      </reference>
+
+      <reference anchor="Musa-Numerals">
+        <front>
+          <title>Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?</title>
+          <author initials="A." surname="Musa" fullname="Auwalu Musa">
+            <organization>Mubi North Education Authority, Mubi North Local Government Area, Adamawa State – Nigeria</organization>
+          </author>
+          <date year="2014"/>
+        </front>
+        <seriesInfo name="Page" value="46"/>
       </reference>
 
       <reference anchor="RFC4648" 
@@ -361,5 +475,6 @@
         <seriesInfo name="W3C REC" value="REC-xml-20081126"/>
       </reference>
     </references>
+
   </back>
 </rfc>
