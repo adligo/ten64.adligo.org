@@ -38,10 +38,18 @@
       <t>This section is non-normative.</t>
       
       <t>As computer systems scale in both volume and streaming throughput, 
-      standard <xref target="RFC8259" format="none" sectionFormat="bare" >JavaScript Object Notation (JSON)</xref> 
-      often introduce precision loss. This is particularly prevalent due to 
-      <xref target="IEEE754" format="none" sectionFormat="bare" >double-precision floating-point</xref> constraints.  
-      In addition, streaming formats like base64 are often fairly verbose to 
+      standard 
+      <xref target="RFC8259" format="none" sectionFormat="bare" >JavaScript Object Notation (JSON)</xref> 
+      often introduce precision issues. This is particularly prevalent due to 
+      <xref target="IEEE754" format="none" sectionFormat="bare" >double-precision floating-point</xref> 
+      constraints.  Although double floating point precision is specified in the 
+      <xref target="RFC8259" format="none" sectionFormat="bare" > JSON RFC</xref>, 
+      parsers have interpreted this differently, most notably 
+      <xref target="Jackson-GitHub" format="none" sectionFormat="bare" >Jackson</xref> and 
+      <xref target="Gson-GitHub" format="none" sectionFormat="bare" >GSON</xref>.
+      In addition, streaming formats like 
+      <xref target="RFC4648" >Base64</xref>
+      are often fairly verbose to 
       map binary data to <xref target="Wikipedia.Octet" format="none" sectionFormat="bare" >octets</xref>.  This incurs 
       a large cost when one bit is encoded as four bytes.  To solve these and 
       related issues, Ten64 is introduced.</t>
@@ -77,7 +85,7 @@
     <section anchor="special-chars-intro">
       <name>Special Characters Introduction</name>
 
-      <t>It does NOT use the (Base64)<xref target="RFC4648"/> alphabet but a 
+      <t>It does NOT use the <xref target="RFC4648">Base64</xref> alphabet but a 
       binary alphabet similar to hexadecimal 0-9,a-z,A-Z, '@' and'_' 
       along with some additional special characters most notably '#','.' 
       and ';','-', and '!'.  It is designed to be human and machine 
@@ -90,7 +98,7 @@
     </section>
     
     <section anchor="special-chars">
-      <name>Special Characters</name>
+      <name>Special Characters Details</name>
       
       <t>TODO Below</t>
             

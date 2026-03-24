@@ -17,7 +17,7 @@ Ten64 is a number serialization format similar to hexadecimal.  The main differe
 
 This section is non-normative.
 
-As computer systems scale in both volume and streaming throughput, standard JavaScript Object Notation [JSON](#json-rfc-8259) often introduce precision issues. This is particularly prevalent due to double-precision [floating-point](#floating-point) constraints.  Although double floating point precision is specified in the JSON spec. Parsers have interpreted this differently, most notably [Jackson](#fasterxml-jackson) and [Gson](#gson).
+As computer systems scale in both volume and streaming throughput, standard JavaScript Object Notation [JSON](#json-rfc-8259) often introduce precision issues. This is particularly prevalent due to double-precision [floating-point](#floating-point) constraints.  Although double floating point precision is specified in the [JSON RFC](#json-rfc-8259). Parsers have interpreted this differently, most notably [Jackson](#fasterxml-jackson) and [Gson](#gson).
 In addition, streaming formats like [base64](#base64-rfc-4648) are often fairly verbose to map binary data to octets.  This incurs a large cost when one bit is encoded as four bytes.  To solve these and related issues, Ten64 is introduced.
 
 Alternative notations and bases have historically been explored to
@@ -31,12 +31,14 @@ avoiding standard mathematical symbols, Ten64 allows exact numbers to
 be embedded directly into programming environments without compiler
 confusion.</t>
 
+## Special Characters Introduction
+
 It does NOT use the [Base64](#base64-rfc-4648) alphabet but a binary alphabet similar to hexadecimal 0-9,a-z,A-Z, '@' and'_' along with some additional special characters most notably '#','.' and ';','-', and '!'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
 It will use a big ending binary system as follows;
 
 # TODO Below
 
-## Special Characters;
+## Special Characters Details
 ```
 #   Optional explicit beginning of #Ten64 binary stream / chunk
 .   The Decimal or Number Space Separator
