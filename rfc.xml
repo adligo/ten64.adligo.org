@@ -337,7 +337,7 @@
       </reference>
 
       <reference anchor="Wikipedia.Octet" 
-                 target="https://en.wikipedia.org/wiki/Octet">
+                 target="https://en.wikipedia.org/wiki/Octet_(computing)">
         <front>
           <title>Octet</title>
           <author>
@@ -349,7 +349,7 @@
       </reference>
 
       <reference anchor="Wikipedia.Sextet" 
-                 target="https://en.wikipedia.org/wiki/Sextet">
+                 target="https://en.wikipedia.org/wiki/Units_of_information#sextet">
         <front>
           <title>Sextet</title>
           <author>

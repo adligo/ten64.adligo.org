@@ -196,7 +196,7 @@ Bray, T., "The JSON Data Interchange Format," RFC 8259, STD 90, December 2017, <
 
 ##### Octet
 
-https://en.wikipedia.org/wiki/Octet "Wikipedia Contributors. (2026, March). Octet. Wikipedia."
+https://en.wikipedia.org/wiki/Octet_(computing) "Wikipedia Contributors. (2026, March). Octet. Wikipedia."
 
 ##### Origin of Modern Mathematical Numeral
 
@@ -204,7 +204,7 @@ Musa, A., "Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 
 
 ##### Sextet
 
-https://en.wikipedia.org/wiki/Sextet "Wikipedia Contributors. (2026, March). Sextet. Wikipedia."
+https://en.wikipedia.org/wiki/Units_of_information "Wikipedia Contributors. (2026, March). Sextet. Wikipedia."
 
 # Informational references.
 
