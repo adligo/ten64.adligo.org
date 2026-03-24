@@ -2,7 +2,7 @@
 
 ### Abstract
 
-Ten64 is a number serialization format similar to hexadecimal.  The main differences are the use of sextets (six bits) instead of octets (aka bytes).  Similar to hexadecimal, ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more Vedic (aka Arabic) integers, interpreting the binary as a big-endian integer.
+Ten64 is a number serialization format similar to hexadecimal.  The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western (aka Arabic, Vedic)](#modern-western-numeral-system) integers, interpreting the binary as a big-endian integer.
 
 ## Draft RFC
 
@@ -186,12 +186,25 @@ IEEE, "IEEE Standard for Floating-Point Arithmetic," IEEE 754-2019, July 2019, <
 
 Google, "Gson: A Java serialization/deserialization library to convert Java Objects into JSON and back," GitHub, <https://github.com/google/gson>.
 
+
+##### Hexadecimal
+
+https://en.wikipedia.org/wiki/Hexadecimal "Wikipedia Contributors. (2026, March). Hexadecimal. Wikipedia."
+
 ##### JSON RFC 8259
 Bray, T., "The JSON Data Interchange Format," RFC 8259, STD 90, December 2017, <https://www.rfc-editor.org/info/rfc8259>.
+
+##### Octet
+
+https://en.wikipedia.org/wiki/Octet "Wikipedia Contributors. (2026, March). Octet. Wikipedia."
 
 ##### Origin of Modern Mathematical Numeral
 
 Musa, A., "Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?", Mubi North Education Authority, Adamawa State – Nigeria, p. 46.
+
+##### Sextet
+
+https://en.wikipedia.org/wiki/Sextet "Wikipedia Contributors. (2026, March). Sextet. Wikipedia."
 
 # Informational references.
 
