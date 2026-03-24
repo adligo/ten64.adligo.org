@@ -134,7 +134,7 @@ Ten64 is a system to create [BitSlotMaps#1.3.6.1.4.1.33097.1.1.3](#bitslotmaps-1
 
 ## Ten64 to Octet (Byte) Array Conversion
 
-When converting Ten64 binary to an array of [octets](#octet), all missing bits MUST be filled with zeros.  This is to ensure that the binary is always an [octet](#octet).
+When converting Ten64 binary to an array of [octets](#octet), all missing bits MUST be filled with zeros.  This is to ensure that the binary consists of complete [octets](#octet).
 
 ## Ten64 from Octet (Byte) Array Conversion
 
