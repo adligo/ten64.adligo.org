@@ -2,7 +2,7 @@
 
 ### Abstract
 
-Ten64 is a number serialization format similar to hexadecimal.  The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western (aka Arabic, Vedic)](#modern-western-numeral-system) integers, interpreting the binary as a big-endian integer.
+Ten64 is a number serialization format similar to hexadecimal.  The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western Integers (aka Arabic, Vedic)](#modern-western-numeral-system) , interpreting the binary as a big-endian [Modern Western Integers](#modern-western-numeral-system).
 
 ## Draft RFC
 
@@ -25,7 +25,7 @@ improve human-machine interfaces, ranging from early discussions on
 [binary notations](#CACM-Binary) to modern concepts like
 [Hexadecimal](#hexadecimal), and [Bioctal](#bioctal)
 . Ten64 builds on this history by utilizing a
-64-character virtual binary alphabet composed of standard [ASCII-7](#ascii-7) /
+64-character binary alphabet composed of standard [ASCII-7](#ascii-7) /
 [UTF-8 characters](#utf-8). By
 avoiding standard mathematical symbols, Ten64 allows exact numbers to
 be embedded directly into programming environments without compiler
@@ -33,88 +33,92 @@ confusion.</t>
 
 ## Special Characters Introduction
 
-It does NOT use the [Base64](#base64-rfc-4648) alphabet but a binary alphabet similar to hexadecimal 0-9,a-z,A-Z, '@' and'_' along with some additional special characters most notably '#','.' and ';','-', and '!'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
+It does NOT use the [Base64](#base64-rfc-4648) alphabet but a binary alphabet similar to hexadecimal 0-9,a-z,A-Z, '@' and'_' along with some additional special characters most notably '#','.' and ';', and '-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
 It will use a big ending binary system as follows;
-
-# TODO Below
 
 ## Special Characters Details
 ```
-#   Optional explicit beginning of #Ten64 binary stream / chunk
+#   Optional explicit beginning of #Ten64 binary section, use depending on context.
 .   The Decimal or Number Space Separator
 ,   The Separator for Number Lists
-;   Optional explicit end of #Ten64 number or number list / binary stream / chunk
+;   Optional explicit end of #Ten64 sequence.
 -   The negative indicator
-    Whitespace Characters including Line Feeds, Tabs, Spaces, Return Sequences, Etc
+    Whitespace Characters: including Line Feeds, Tabs,
+       Spaces, Return Sequences, etc. MAY be included
+       and MUST cause end of interpretation of the
+       Ten64 sequence.
+    Other Non Alphabet Characters: MAY be included
+       and MUST cause end of interpretation of the
+       Ten64 sequence.
 ```
 
-## Primary Virtual Binary Alphabet;
-| [Primary ASCII](#ascii) / [UTF8 Character](#utf8) | [Western Numeral Value](#modern-western-numeral-system) | Binary [Sextet](#sextet) |
-|---------------------------------------------------|----------------------------|--------------------|
-| 0                                                 | 0                          | 000000             |
-| 1                                                 | 1                          | 100000             |
-| 2                                                 | 2                          | 010000             |
-| 3                                                 | 3                          | 110000             |
-| 4                                                 | 4                          | 001000             |
-| 5                                                 | 5                          | 101000             |
-| 6                                                 | 6                          | 011000             |
-| 7                                                 | 7                          | 111000             |
-| 8                                                 | 8                          | 000100             |
-| 9                                                 | 9                          | 100100             |
-| a                                                 | 10                         | 010100             |
-| b                                                 | 11                         | 110100             |
-| c                                                 | 12                         | 001100             |
-| d                                                 | 13                         | 101100             |
-| e                                                 | 14                         | 011100             |
-| f                                                 | 15                         | 111100             |
-| g                                                 | 16                         | 000010             |
-| h                                                 | 17                         | 100010             |
-| i                                                 | 18                         | 010010             |
-| j                                                 | 19                         | 110010             |
-| k                                                 | 20                         | 001010             |
-| l                                                 | 21                         | 101010             |
-| m                                                 | 22                         | 011010             |
-| n                                                 | 23                         | 111010             |
-| o                                                 | 24                         | 000110             |
-| p                                                 | 25                         | 100110             |
-| q                                                 | 26                         | 010110             |
-| r                                                 | 27                         | 110110             |
-| s                                                 | 28                         | 001110             |
-| t                                                 | 29                         | 101110             |
-| u                                                 | 30                         | 011110             |
-| v                                                 | 31                         | 111110             |
-| w                                                 | 32                         | 000001             |
-| y                                                 | 33                         | 100001             |
-| x                                                 | 34                         | 010001             |
-| z                                                 | 35                         | 110001             |
-| A                                                 | 36                         | 001001             |
-| B                                                 | 37                         | 101001             |
-| C                                                 | 38                         | 011001             |
-| D                                                 | 39                         | 111001             |
-| E                                                 | 40                         | 000101             |
-| F                                                 | 41                         | 100101             |
-| G                                                 | 42                         | 010101             |
-| H                                                 | 43                         | 110101             |
-| I                                                 | 44                         | 001101             |
-| J                                                 | 45                         | 101101             |
-| K                                                 | 46                         | 011101             |
-| L                                                 | 47                         | 111101             |
-| M                                                 | 48                         | 000011             |
-| N                                                 | 49                         | 100011             |
-| O                                                 | 50                         | 010011             |
-| P                                                 | 51                         | 110011             |
-| Q                                                 | 52                         | 001011             |
-| R                                                 | 53                         | 101011             |
-| S                                                 | 54                         | 011011             |
-| T                                                 | 55                         | 111011             |
-| U                                                 | 56                         | 000111             |
-| V                                                 | 57                         | 100111             |
-| W                                                 | 58                         | 010111             |
-| X                                                 | 59                         | 110111             |
-| Y                                                 | 60                         | 001111             |
-| Z                                                 | 61                         | 101111             |
-| @                                                 | 62                         | 011111             |
-| _                                                 | 63                         | 111111             |
+## Ten64 Alphabet Mappings;
+| [Primary ASCII](#ascii) / [UTF8 Character](#utf8) | [Modern Western Integer](#modern-western-integers) | Big-Ending Binary [Sextet](#sextet) |
+|---------------------------------------------------|---------------------------------------------|-----------------------------------------|
+| 0                                                 | 0                                           | 000000                                  |
+| 1                                                 | 1                                           | 100000                                  |
+| 2                                                 | 2                                           | 010000                                  |
+| 3                                                 | 3                                           | 110000                                  |
+| 4                                                 | 4                                           | 001000                                  |
+| 5                                                 | 5                                           | 101000                                  |
+| 6                                                 | 6                                           | 011000                                  |
+| 7                                                 | 7                                           | 111000                                  |
+| 8                                                 | 8                                           | 000100                                  |
+| 9                                                 | 9                                           | 100100                                  |
+| a                                                 | 10                                          | 010100                                  |
+| b                                                 | 11                                          | 110100                                  |
+| c                                                 | 12                                          | 001100                                  |
+| d                                                 | 13                                          | 101100                                  |
+| e                                                 | 14                                          | 011100                                  |
+| f                                                 | 15                                          | 111100                                  |
+| g                                                 | 16                                          | 000010                                  |
+| h                                                 | 17                                          | 100010                                  |
+| i                                                 | 18                                          | 010010                                  |
+| j                                                 | 19                                          | 110010                                  |
+| k                                                 | 20                                          | 001010                                  |
+| l                                                 | 21                                          | 101010                                  |
+| m                                                 | 22                                          | 011010                                  |
+| n                                                 | 23                                          | 111010                                  |
+| o                                                 | 24                                          | 000110                                  |
+| p                                                 | 25                                          | 100110                                  |
+| q                                                 | 26                                          | 010110                                  |
+| r                                                 | 27                                          | 110110                                  |
+| s                                                 | 28                                          | 001110                                  |
+| t                                                 | 29                                          | 101110                                  |
+| u                                                 | 30                                          | 011110                                  |
+| v                                                 | 31                                          | 111110                                  |
+| w                                                 | 32                                          | 000001                                  |
+| y                                                 | 33                                          | 100001                                  |
+| x                                                 | 34                                          | 010001                                  |
+| z                                                 | 35                                          | 110001                                  |
+| A                                                 | 36                                          | 001001                                  |
+| B                                                 | 37                                          | 101001                                  |
+| C                                                 | 38                                          | 011001                                  |
+| D                                                 | 39                                          | 111001                                  |
+| E                                                 | 40                                          | 000101                                  |
+| F                                                 | 41                                          | 100101                                  |
+| G                                                 | 42                                          | 010101                                  |
+| H                                                 | 43                                          | 110101                                  |
+| I                                                 | 44                                          | 001101                                  |
+| J                                                 | 45                                          | 101101                                  |
+| K                                                 | 46                                          | 011101                                  |
+| L                                                 | 47                                          | 111101                                  |
+| M                                                 | 48                                          | 000011                                  |
+| N                                                 | 49                                          | 100011                                  |
+| O                                                 | 50                                          | 010011                                  |
+| P                                                 | 51                                          | 110011                                  |
+| Q                                                 | 52                                          | 001011                                  |
+| R                                                 | 53                                          | 101011                                  |
+| S                                                 | 54                                          | 011011                                  |
+| T                                                 | 55                                          | 111011                                  |
+| U                                                 | 56                                          | 000111                                  |
+| V                                                 | 57                                          | 100111                                  |
+| W                                                 | 58                                          | 010111                                  |
+| X                                                 | 59                                          | 110111                                  |
+| Y                                                 | 60                                          | 001111                                  |
+| Z                                                 | 61                                          | 101111                                  |
+| @                                                 | 62                                          | 011111                                  |
+| _                                                 | 63                                          | 111111                                  |
 
 
 # Binary
@@ -126,10 +130,10 @@ Ten64 is a system to create [BitSlotMaps#1.3.6.1.4.1.33097.1.1.3](#bitslotmaps-1
   The following sequences explode as follows;
 
   ```
-  #0.1;   expands to a list of integers 0, 1 which can also be interpreted as the decimal 0.1 depending on the context.
+  #0.1;   expands to a list of integers 0, 1 which MAY also be interpreted as the decimal 0.1 depending on the context.
   #0.1.2; expands to a segmented number / list of integers 0, 1, 2.
-  #01.11; expands the a list of integers 64, 65 which can also be interpreted as the decimal 64.65 depending on the context.
-  #-1.8;  expands to a list of integers -1, 8 and can also be interpreted as a decimal -1.8 depending on the context.
+  #01.11; expands the a list of integers 64, 65 which MAY also be interpreted as the decimal 64.65 depending on the context.
+  #-1.8;  expands to a list of integers -1, 8 and MAY also be interpreted as a decimal -1.8 depending on the context.
   ```
 
 ## Ten64 to Octet (Byte) Array Conversion
@@ -183,17 +187,26 @@ When converting arrays of octets to the Ten64 alphabet, all '0' characters from 
 
 ## Modern Western Numeral System
 
-Arabic, Vedic, and Ghubari and many other numeral systems were considered for use in this RFC.  I finally settled down on modern the name <b>The Modern Western Numeral System</b>.  It appears that numeral systems have influenced each other over the ages, And we will likely continue carbon dating each glyph 0-9 for some time, as we have recently carbon dated the glyph '0'.  In addition, even if we do find an older carbon date of a particular glyph, It could take a considerable amount of time to determine if that carbon dating references a different culture than the main culture which recorded the glyph.
+Arabic, Ghubari, and Vedic as well as many other numeral systems were considered for use in this RFC.  I finally settled down on modern the name <b>The Modern Western Numeral System</b>.  It appears that numeral systems have influenced each other over the ages, and we will likely continue carbon dating each glyph 0-9 for some time, as we have recently carbon dated the glyph '0'.  In addition, even if we do find an older carbon date of a particular glyph, It could take a considerable amount of time to determine if that carbon dating references a different culture than the main culture which recorded the glyph.
 
-```aiignore
+- [Origin of the Numerals](#origin-of-modern-mathematical-numeral)
+- [Carbon Dating Reveals the History of Zero Is Older Than Previously Thought](#carbon-dating-zero)
+```
 Before we go on to analytically review the
 Hindu-Indian Brahmagubta and Islamo-Arabic
 Ghubari origin of the modern mathematical
 numeral system which is now regarded as the
-Western Numeral System
+Western Numeral System.
 ```
 - [Origin of Modern Mathematical Numeral pg 46](#origin-of-modern-mathematical-numeral)
 
+### Modern Western Integers
+
+Modern Western Integers are simply integers composed using the Modern Western Numerical System. <b>Modern Western Integers</b> MAY be positive, negative, or zero.
+
+### Modern Western Decimal Numbers
+
+Modern Western Decimal Numbers Are simply numbers using the modern Western numeral system, which contain a decimal point.
 
 # Citations
 
@@ -254,7 +267,10 @@ https://www.rfc-editor.org/rfc/rfc3629 "Yergeau, F. (2003). UTF-8, a transformat
 
 # Informational references.
 
+##### Origin of the Numerals
 Boucenna, A., "Origin of the numerals," June 2006, arXiv:math/0606699, <https://arxiv.org/abs/math/0606699>.
+
+##### Carbon Dating Zero
 
 Katz, B., "Carbon Dating Reveals the History of Zero Is Older Than Previously Thought," Smithsonian Magazine, September 2017, <a href="https://www.smithsonianmag.com/smart-news/dating-ancient-indian-text-gives-new-timeline-history-zero-180964896/" target="_blank" >https://www.smithsonianmag.com/smart-news/dating-ancient-indian-text-gives-new-timeline-history-zero-180964896/</a>
 

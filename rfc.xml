@@ -25,8 +25,8 @@
       <xref target="Wikipedia.Hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref>, ten64 can be used to create binary 
       strings of arbitrary length.  However, it is often used 
       to encode one or more  
-      <xref target="Musa-Numerals" format="none" sectionFormat="bare">Modern Western integers</xref>, interpreting the 
-      binary as a big-endian <xref target="Musa-Numerals" format="none" sectionFormat="bare">Modern Western integers</xref>.</t>
+      <xref target="modern_western_integers" format="none" sectionFormat="bare">Modern Western Integers</xref>, interpreting the 
+      binary as a big-endian <xref target="modern_western_integers" format="none" sectionFormat="bare">Modern Western Integers</xref>.</t>
       
     </abstract>
   </front>
@@ -60,14 +60,12 @@
       <xref target="Wikipedia.Hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref>
       , and <xref target="Bioctal" format="none" sectionFormat="bare">bioctal</xref>. 
       Ten64 builds on this history by utilizing a
-      64-character virtual binary alphabet composed of standard 
+      64-character binary alphabet composed of standard 
       <xref target="ASCII-7" format="none" sectionFormat="bare">ASCII-7</xref> / 
       <xref target="RFC3629" >UTF-8 characters</xref>. By
       avoiding standard mathematical symbols, Ten64 allows exact numbers to
       be embedded directly into programming environments without compiler
       confusion.</t>
-
-      <t>TODO Below</t>
 
       <section anchor="requirements">
         <name>Requirements Language</name>
@@ -88,7 +86,7 @@
       <t>It does NOT use the <xref target="RFC4648">Base64</xref> alphabet but a 
       binary alphabet similar to hexadecimal 0-9,a-z,A-Z, '@' and'_' 
       along with some additional special characters most notably '#','.' 
-      and ';','-', and '!'.  It is designed to be human and machine 
+      and ';', and '-'.  It is designed to be human and machine 
       readable but is really designed to optimized the reading and writing 
       of numbers for streaming and storage computer systems.  The @ and _ 
       symbol and other alphabet symbols were chosen because they are NOT 
@@ -99,42 +97,44 @@
     
     <section anchor="special-chars">
       <name>Special Characters Details</name>
-      
-      <t>TODO Below</t>
-            
-      <t>Beyond the primary alphabet, Ten64 relies on explicit syntactic 
+
+      <t>Beyond the primary alphabet, Ten64 relies on the following explicit  
       characters to organize binary streams and chunks.</t>
       <dl>
         <dt>#</dt>
-        <dd>OPTIONAL explicit beginning of a Ten64 binary stream / chunk.</dd>
+        <dd>OPTIONAL explicit beginning of a Ten64 alphabet section, use depending on context.</dd>
         <dt>.</dt>
         <dd>The Decimal or Number Space Separator.</dd>
         <dt>,</dt>
         <dd>The Separator for Number Lists.</dd>
         <dt>;</dt>
-        <dd>OPTIONAL explicit end of a Ten64 number or number list.</dd>
+        <dd>OPTIONAL explicit end of a Ten64 sequence.</dd>
         <dt>-</dt>
         <dd>The negative indicator.</dd>
         <dt>Whitespace</dt>
         <dd>Any whitespace characters (Line Feeds, Tabs, Spaces, Return 
-        Sequences) MAY be included and MUST be ignored during evaluation.</dd>
+        Sequences) MAY be included and MUST cause end of interpretation of the Ten64 sequence.</dd>
+        <dt>Other Non Alphabet Characters:</dt>
+        <dd>MAY be included and MUST cause end of interpretation of the
+       Ten64 sequence.</dd>
       </dl>
     </section>
 
     <section anchor="alphabet">
       <name>The Ten64 Alphabet</name>
-      <t>The primary Ten64 alphabet acts as a big-endian virtual binary system. 
+      <t>The primary Ten64 alphabet acts as a big-endian binary system. 
       Unlike the encodings defined in <xref target="RFC4648"/>, each valid 
-      character maps to a specific 6-bit binary chunk and an Arabic numeral 
-      value (0-63). All virtual binary sequences are interpreted as integers.</t>
+      character maps to a specific 6-bit binary chunk and an 
+      <xref target="modern_western_integers" format="none" sectionFormat="bare">Modern Western Integer</xref>
+      numeral  value (0-63).</t>
       
       <table align="center">
-        <name>Primary Virtual Binary Alphabet Mapping</name>
+        <name>Ten64 Alphabet Mappings</name>
         <thead>
           <tr>
             <th>Primary ASCII / UTF8</th>
-            <th>Vedic Numeral Value</th>
-            <th>Virtual Big-Ending Binary Sextet</th>
+            <th>Modern Western Integer Value</th>
+            <th>Big-Ending Binary Sextet</th>
           </tr>
         </thead>
         <tbody>
@@ -206,6 +206,38 @@
       </table>
     </section>
 
+    <section anchor="binary" title="Binary">
+      <section anchor="binary_sequences" title="Binary big ending sequences MAY be interpreted as integers">
+        <t>
+          The following sequences explode as follows:
+        </t>
+        <sourcecode type="example"><![CDATA[
+  #0.1;   expands to a list of integers 0, 1 which MAY also be 
+          interpreted as the decimal 0.1 depending on the context.
+  #0.1.2; expands to a segmented number / list of integers 0, 1, 2.
+  #01.11; expands the a list of integers 64, 65 which MAY also be 
+          interpreted as the decimal 64.65 depending on the context.
+  #-1.8;  expands to a list of integers -1, 8 and MAY also be 
+          interpreted as a decimal -1.8 depending on the context.
+        ]]></sourcecode>
+      </section>
+  
+      <section anchor="ten64_to_octet" title="Ten64 to Octet (Byte) Array Conversion">
+        <t>
+          When converting Ten64 binary to an array of <xref target="Wikipedia.Octet" format="none" sectionFormat="bare">octets</xref>, 
+          all missing bits <bcp14>MUST</bcp14> be filled with zeros. This is to ensure 
+          that the binary consists of complete <xref target="Wikipedia.Octet" format="none" sectionFormat="bare">octets</xref>.
+        </t>
+      </section>
+  
+      <section anchor="ten64_from_octet" title="Ten64 from Octet (Byte) Array Conversion">
+        <t>
+          When converting arrays of octets to the Ten64 alphabet, all '0' characters 
+          from the Ten64 alphabet at the right <bcp14>MUST</bcp14> be omitted.
+        </t>
+      </section>
+    </section>
+    
     <section anchor="segmented-numbers">
       <name>Segmented Numbers and Use Cases</name>
       <t>A core feature of Ten64 is the "Segmented Number" representing a list 
@@ -250,7 +282,61 @@
         (e.g., "#1.2.3,4.5.6;" expands to a list of 3D points).</t>
       </section>
     </section>
+    
 
+    <section anchor="modern_western_numeral_system">
+      <name>Modern Western Numeral System</name>
+      <t>
+        Arabic, Ghubari, and Vedic as well as many other numeral systems 
+        were considered for use in this RFC. I finally settled down on 
+        the name <bcp14>The Modern Western Numeral System</bcp14>. It 
+        appears that numeral systems have influenced each other over the 
+        ages, and we will likely continue carbon dating each glyph 0-9 
+        for some time, as we have recently carbon dated the glyph '0'. 
+        In addition, even if we do find an older carbon date of a 
+        particular glyph, it could take a considerable amount of time 
+        to determine if that carbon dating references a different culture 
+        than the main culture which recorded the glyph.
+      </t>
+
+      <t>
+        — <xref target="OriginOfTheNumerals" format="none" sectionFormat="bare">Origin of the Numerals</xref>
+      </t>
+      <t>
+        — <xref target="Smithsonian-Zero" format="none" sectionFormat="bare">Carbon Dating Reveals the History of Zero Is Older Than Previously Thought</xref>
+      </t>
+
+      <blockquote>
+        <t>
+          Before we go on to analytically review the Hindu-Indian 
+          Brahmagubta and Islamo-Arabic Ghubari origin of the modern 
+          mathematical numeral system which is now regarded as the 
+          Western Numeral System.
+        </t>
+      </blockquote>
+    
+      <t>
+        — <xref target="Musa-Numerals" format="none" sectionFormat="bare">Origin of Modern Matematical Numerals, pg 46</xref>
+      </t>
+      
+      <section anchor="modern_western_integers">
+        <name>Modern Western Integers</name>
+        
+        <t>Modern Western integers are simply integers composed using the 
+        Modern Western Numerical System. Modern Western Integers MAY be positive, negative, or zero.
+        </t>
+      </section>
+      
+      <section anchor="modern_western_decimal_numbers">
+        <name>Modern Western Decimal Numbers</name>
+        
+        <t>Modern Western Decimal Numbers Are simply numbers using the 
+        Modern Western Numeral System, which contain a decimal point. 
+        Modern Western Decimal Numbers MAY be positive, negative, or zero.
+        </t>
+      </section>
+    </section>
+    
     <section anchor="iana">
       <name>IANA Considerations</name>
       <t>Adligo Inc. maintains a Private Enterprise Number (PEN) Object 
@@ -438,7 +524,7 @@
         </front>
       </reference>
 
-      <reference anchor="Boucenna-Numerals" target="https://arxiv.org/abs/math/0606699">
+      <reference anchor="OriginOfTheNumerals" target="https://arxiv.org/abs/math/0606699">
         <front>
           <title>Origin of the numerals</title>
           <author initials="A." surname="Boucenna" fullname="Ahmed Boucenna">
