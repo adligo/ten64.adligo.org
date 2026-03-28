@@ -4,12 +4,17 @@
 
 Ten64 is a number serialization format similar to hexadecimal.  The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western Integers (aka Arabic, Vedic)](#modern-western-numeral-system) , interpreting the big-endian binary as a one or more  [Modern Western Integers](#modern-western-numeral-system).
 
-The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, such as [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid), dates, time(stamp)s, coodinates, and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
+The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, such as [DIDs](#decentralized-identifiers-dids), [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid), dates, time(stamp)s, coodinates, and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
 
 ## Authors
 
 - S Morgan
+
+### Acknowledgments
+
 - R Ismo
+
+R Ismo was instrumental in providing meticulous scrutiny to this project.  Although he disagreed and MAY still disagree with much of it, the discourse was wonderful and fully worthwhile.
 
 ## Draft RFC
 
@@ -135,7 +140,18 @@ It will use a big ending binary system as follows;
 
 # Use-Cases
 
+The primary Use-Case is simply an upgrade of [hexadecimal](#hexadecimal), where Ten64 provides a more succinct/compressed string of characters.  In addition, we target the encoding of numbers (n in the Text Encoded Numbers title).  Generally, we are also targeting identifiers of all kinds, attempting to make them as short as possible to improve human readability.  Finally, we target human-readable compressed identifiers shortening [UUID's](#uuid-rfc9562) as follows;
 
+```
+# 36 character UUID
+00000000-0000-0000-0000-000000000000
+# to 27 characers
+000000.000.000.000.00000000
+# or 22 characters 128/6
+0000000000000000000000
+# or single or short sequences characters for small numbers
+0
+```
 
 # Binary
 
@@ -162,51 +178,72 @@ When converting Ten64 binary to an array of [octets](#octet), all missing bits M
 When converting arrays of octets to the Ten64 alphabet, all '0' characters from the Ten64 alphabet at the right MUST be omitted.
 
 ## Segmented Numbers
-  There are several Use-Cases for segmented numbers including Dates, Datetimes, MiliTimestamps, NanoTimestamps, IANA OIDs, ThreeDPoints and more.
+
+  There are several Use-Cases for segmented numbers, including Dates, Datetimes, MiliTimestamps, NanoTimestamps, [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), ThreeDPoints and more.
 
 ## BigDecimals
+
   Big Decimals (i.e. Java or Javascript type) can be easily represented with Ten64, which encodes the EXACT number of Decimal Places.  This provides and advantage over [JSON](#json-rfc-8259) which uses [IETF Double Precision Floating Point](#floating-point) numbers, which can cause precision issues in transit.
 
 ## Dates
+
   Dates can be greatly condensed using the Segmented Number base class.  Dates should be standardized as the year ten64 followed by a dot, and one ten64 character for the month and one ten64 character for the day.  For example;
+
  ```
    #Vv.21;  expands to 2023-02-01
  ```
 
 ## Datetimes
+
   Datetimes add the additional timezone, (military time) hour and minute to the date.  The timezone, (military time) hour and minute each only take one ten64 character and can be encoded as follows;
+
   ```
     #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
   ```
 
 ## Lists
+
   Ten64 supports lists of number separated by commas, each number MAY include whitespace characters on either side of the number;
+
   ```
     #1,2,3,4;  expands to a number list of 1,2,3,4
     #1.2.3,4.5.6,7.8.9;  expands to a list of 3d points
   ```
 
 ## MiliTimestamp
+
   MiliTimestamps add a single ten64 character for seconds and separate milliseconds with an additional dot.
+
   ```
     #Vv.216jR1.2; expands to 2023-02-01 CST 7:53:01.2
     or with milliseconds expanded PM 2023-02-01 CST 7:53:01.002 PM
   ```
 
 ## NanoTimestamp
-  NanoTimestamps add an additional dot, as the MiliSeconds can be multiple characters (with values 0-1000), and then multiple ten64 characters representing the additional (0-1,000,000,000) nanoseconds that are NOT tracked as milliseconds.
-  ```
+
+NanoTimestamps add an additional dot, as the MiliSeconds can be multiple characters (with values 0-1000), and then multiple ten64 characters representing the additional (0-1,000,000,000) nanoseconds that are NOT tracked as milliseconds.
+
+```
     #Vv.216jR1.2.7;  expands to 2023-02-01 CST 7:53:01.2.7 PM
     or with nanoseconds expanded 2023-02-01 CST 7:53:01.002000007 PM
-  ```
- ## Points
-   Ten64 can encode 2d, 3d, and Nd points as segmented numbers.
+```
 
+ ## Points
+
+Ten64 can encode 2d, 3d, and Nd points as segmented numbers.
+
+```
+# A 3d decimal point
+#-1.7,-5.2,-7.9;
+```
 # Related Technologies
+
+There are a ton of number libraries in various languages, [Java's BigInt](#bigint-java) likely influenced [ECMA Scripts BigDecimal](#ecma-262).  In addition, this [ECMA Script](#ecma-262) [BigDecimal](#bigdecimal-npm) implementation is based on [Java's BigDecimal](#bigdecimal-java).  We do NOT expect Ten64 to gain wide adoption over the [Modern Western Numeral System](#modern-western-numeral-system).  However, we do believe that Ten64 can be read and written faster than the [Modern Western Numeral System], and may gain some traction in processor intensive applications.
+
 
 ## Modern Western Numeral System
 
-Arabic, Ghubari, and Vedic as well as many other numeral systems were considered for use in this RFC.  I finally settled down on modern the name <b>The Modern Western Numeral System</b>.  It appears that numeral systems have influenced each other over the ages, and we will likely continue carbon dating each glyph 0-9 for some time, as we have recently carbon dated the glyph '0'.  In addition, even if we do find an older carbon date of a particular glyph, It could take a considerable amount of time to determine if that carbon dating references a different culture than the main culture which recorded the glyph.
+Arabic, Ghubari, and Vedic as well as many other numeral systems were considered for use in this RFC.  We finally settled down on modern the name <b>The Modern Western Numeral System</b>.  It appears that numeral systems have influenced each other over the ages, and we will likely continue carbon dating each glyph 0-9 for some time, as we have recently carbon dated the glyph '0'.  In addition, even if we do find an older carbon date of a particular glyph, It could take a considerable amount of time to determine if that carbon dating references a different culture than the main culture which recorded the glyph.
 
 - [Origin of the Numerals](#origin-of-modern-mathematical-numeral)
 - [Carbon Dating Reveals the History of Zero Is Older Than Previously Thought](#carbon-dating-zero)
@@ -229,7 +266,7 @@ Modern Western Decimal Numbers Are simply numbers using the modern Western numer
 
 # Compatibility
 
-When drafting Ten64, we went through great lengths to attempt to make it as compatible as possible with the largest number of usage environments.  However, it is impossible to have pristine compatibility with such a large variety of usage environments.
+When drafting Ten64, we went through great lengths to attempt to make it as compatible as possible with the largest number of usage environments.  However, it is impossible to have pristine compatibility with such a large variety of usage environments.  In short, we recommend using Reserved Expansion from [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) with Ten64, ommitting the '#' and ';'.
 
 ### URI and URI Template Compatibility
 
@@ -270,7 +307,7 @@ Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor
 
 ##### URI Period '.'
 
-The period is unreserved in [URIs RFC3986](https://www.rfc-editor.org/rfc/rfc3986).  However, it is often used for relative paths, We do not anticipate any compatibility issues.
+The period is unreserved in [URIs RFC3986](https://www.rfc-editor.org/rfc/rfc3986).  However, it is often used for relative paths, We do NOT anticipate any compatibility issues.
 
 ##### URI Semicolon ';'
 
@@ -278,18 +315,30 @@ The semicolon symbol is a sub-delim character by the [URIs RFC3986 section 3.4](
 
 Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the seimcolon symbol ';' as '%3B'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the semicolon ';'.
 
+### DID Compatibility
+
+Because the colon ':' is used as a heavyweight delimiter in the [DID specification](#decentralized-identifiers-dids), Ten64 will need to be URI encoded for use with [DIDs](#decentralized-identifiers-dids).
+
 ### EJCN Compatibility
 
+[EJCN](#extensible-json-classification-notation-ejcn) uses Ten64 in a downstream manner, so it is fully compatible with Ten64.
 
 ### JSON Compatibility
 
+[JSON Strings](#json-rfc-8259) are fully compatible with Ten64, as they use the backslash character '\' for escaping characters.
+
 ### Terminal-Shell Compatibility
 
+Various shells (i.e. Bash) will likely have some compatibility issues due to the dollar sign character '\$' use when referenceing ENVIRONMENT_VARIABLES and function parameters.  This can be overcome by escaping the dollar sign character '$'
+ with a backslash '\$', or by wrapping the text in single quotes.
 
 ### XML Compatibility
 
+[XML Strings](#xml-compatibility) are fully compatible with Ten64, as they use the are distinct from the big five XML characters '<', '>', '&', ", and '.
+
 ### Other Textual Compatibility
 
+Ten64 SHOULD be generally compatible with most text files and programming syntax.  We have intentionally avoided commonly used characters like brackets, braces and parentheses '[',']','{','}','(',')'.  In addition, we have avoided common escape characters '%','&', etc.
 
 # Commentary
 
@@ -317,13 +366,31 @@ msporny, "The Base58 Encoding Scheme," IETF Draft (Individual Submission), Febru
 
 Josefsson, S., "The Base16, Base32, and Base64 Data Encodings," RFC 4648, October 2006, <https://datatracker.ietf.org/doc/html/rfc4648>.
 
-##### BitSlotMaps 1.3.6.1.4.1.33097.1.1.3
+##### BigInt Java
 
-https://adligo.github.io/papers.adligo.com/data_structures/BitSlotMaps.html "Morgan, S. (2025). BitSlotMaps. Adligo Papers."
+https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigInteger.html
+    "Java Platform, Standard Edition v21: Class BigInteger",
+    Oracle Corporation, 2023.
+
+##### BigDecimal Java
+
+https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html
+    "Java Platform, Standard Edition v21: Class BigDecimal",
+    Oracle Corporation, 2023.
+
+##### BigDecimal NPM
+
+ https://www.npmjs.com/package/bigdecimal
+    "bigdecimal: Arbitrary-precision decimal arithmetic",
+    STZ-IDA, September 2024.
 
 ##### Bioctal
 
 https://en.wikipedia.org/wiki/Bioctal "Community. (n.d.). Bioctal: Hexadecimal 2.0. Wikipedia."
+
+##### BitSlotMaps 1.3.6.1.4.1.33097.1.1.3
+
+https://adligo.github.io/papers.adligo.com/data_structures/BitSlotMaps.html "Morgan, S. (2025). BitSlotMaps. Adligo Papers."
 
 ##### Bitcoin
 Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*. [https://bitcoin.org/bitcoin.pdf](https://bitcoin.org/bitcoin.pdf)
@@ -332,10 +399,26 @@ Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*. [https://
 
 https://doi.org/10.1145/364096.364107 "ACM. (1968). Letters to the editor: On binary notation. Communications of the ACM."
 
+### Decentralized Identifiers (DIDs)
+
+"Decentralized Identifiers (DIDs) v1.0: Core Architecture, Data Model, and Representations." Edited by Manu Sporny, Drummond Reed, Markus Sabadello, Drummond Reed, and Dave Longley. 19 July 2022. W3C Recommendation. [https://www.w3.org/TR/did-core/](https://www.w3.org/TR/did-core/).
+
 ##### DOID-Repo
 
 https://github.com/adligo/doid.adligo.org
     "doid.adligo.org: Domain Oracle Identifiers",
+    Adligo, October 2024.
+
+##### ECMA 262
+
+https://tc39.es/ecma262/
+"ECMAScript 2025 Language Specification",
+Ecma International, June 2025.
+
+##### Extensible JSON Classification Notation (EJCN)
+
+https://github.com/adligo/ejcn.adligo.org
+    "ejcn.adligo.org: Extensible JSON Classification Notation",
     Adligo, October 2024.
 
 ##### FasterXML Jackson

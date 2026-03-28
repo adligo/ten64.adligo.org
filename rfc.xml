@@ -31,7 +31,8 @@
       <t>The motivation for Ten64 is to encode numbers in a compact and human-readable format 
       similar to <xref target="Base58" format="none" sectionFormat="bare">Base58</xref>.  
       However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, 
-      such as <xref target="DOID-Repo" format="none" sectionFormat="bare">DOIDs</xref>, 
+      such as <xref target="Decentralized-Identifiers-DIDs" format="none" sectionFormat="bare">DIDs</xref>, 
+      <xref target="DOID-Repo" format="none" sectionFormat="bare">DOIDs</xref>, 
       <xref target="IANA-OIDs" format="none" sectionFormat="bare">IANA OIDs</xref>, 
       <xref target="UUID-RFC9562" format="none" sectionFormat="bare">UUIDs</xref>, dates, 
       time(stamp)s, coodinates, and more.  Unlike 
@@ -365,6 +366,7 @@
   </middle>
 
   <back>
+  
     <references>
       <name>Normative References</name>
       
@@ -417,6 +419,29 @@
         </front>
       </reference>
       
+      <reference anchor="Decentralized-Identifiers-DIDs" target="https://www.w3.org/TR/2022/REC-did-core-20220719/">
+        <front>
+          <title>Decentralized Identifiers (DIDs) v1.0</title>
+          <author fullname="Manu Sporny" initials="M." surname="Sporny">
+            <organization>Digital Bazaar</organization>
+          </author>
+          <author fullname="Amy Guy" initials="A." surname="Guy">
+            <organization>Digital Bazaar</organization>
+          </author>
+          <author fullname="Markus Sabadello" initials="M." surname="Sabadello">
+            <organization>Danube Tech</organization>
+          </author>
+          <author fullname="Drummond Reed" initials="D." surname="Reed">
+            <organization>Avast</organization>
+          </author>
+          <author fullname="Manu Sporny" initials="M." surname="Sporny">
+            <organization>Digital Bazaar</organization>
+          </author>
+          <date day="19" month="July" year="2022" />
+        </front>
+        <seriesInfo name="W3C Recommendation" value="REC-did-core-20220719" />
+      </reference>
+
       <reference anchor="DOID-Repo" target="https://github.com/adligo/doid.adligo.org">
         <front>
           <title>doid.adligo.org: Domain Oracle Identifiers</title>
@@ -424,6 +449,17 @@
             <organization>Adligo</organization>
           </author>
           <date year="2024" month="October"/> 
+        </front>
+        <refcontent>GitHub Repository</refcontent>
+      </reference>
+
+      <reference anchor="EJCN-Repo" target="https://github.com/adligo/ejcn.adligo.org">
+        <front>
+          <title>ejcn.adligo.org: Extensible JSON Class Notation</title>
+          <author>
+            <organization>Adligo</organization>
+          </author>
+          <date year="2024" month="October"/>
         </front>
         <refcontent>GitHub Repository</refcontent>
       </reference>
@@ -635,6 +671,38 @@
     <references>
       <name>Informative References</name>
       
+      <reference anchor="BigInt-Java" target="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigInteger.html">
+        <front>
+          <title>Java Platform, Standard Edition v21: Class BigInteger</title>
+          <author>
+            <organization>Oracle Corporation</organization>
+          </author>
+          <date year="2023"/>
+        </front>
+      </reference>
+
+      <reference anchor="BigDecimal-Java" target="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html">
+        <front>
+          <title>Java Platform, Standard Edition v21: Class BigDecimal</title>
+          <author>
+            <organization>Oracle Corporation</organization>
+          </author>
+          <date year="2023"/>
+        </front>
+        <refcontent>Java Standard Library</refcontent>
+      </reference>
+
+      <reference anchor="BigDecimalNPM" target="https://www.npmjs.com/package/bigdecimal">
+        <front>
+          <title>bigdecimal: Arbitrary-precision decimal arithmetic</title>
+          <author>
+            <organization>STZ-IDA</organization>
+          </author>
+          <date year="2024" month="September"/>
+        </front>
+        <refcontent>NPM Package</refcontent>
+      </reference>
+
       <reference anchor="Bioctal" 
                  target="https://en.wikipedia.org/wiki/Bioctal">
         <front>
@@ -672,6 +740,17 @@
         <seriesInfo name="DOI" value="10.1145/364096.364107"/>
       </reference>
 
+      <reference anchor="ECMA-262" target="https://tc39.es/ecma262/">
+        <front>
+          <title>ECMAScript 2025 Language Specification</title>
+          <author>
+            <organization>Ecma International</organization>
+          </author>
+          <date year="2025" month="June"/>
+        </front>
+        <seriesInfo name="Standard" value="ECMA-262"/>
+      </reference>
+  
       <reference anchor="Gson-GitHub" target="https://github.com/google/gson">
         <front>
           <title>Gson: A Java serialization/deserialization library to convert Java Objects into JSON and back</title>
@@ -734,7 +813,16 @@
         </front>
         <seriesInfo name="W3C REC" value="REC-xml-20081126"/>
       </reference>
+      
     </references>
 
+    <section anchor="acknowledgments" numbered="false" title="Acknowledgments">
+      <t>
+        The author wishes to acknowledge <contact fullname="R Ismo"/>, who was 
+        instrumental in providing meticulous scrutiny to this project. Although 
+        he disagreed and <bcp14>MAY</bcp14> still disagree with much of it, the 
+        discourse was wonderful and fully worthwhile.
+      </t>
+    </section>
   </back>
 </rfc>
