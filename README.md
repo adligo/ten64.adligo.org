@@ -4,7 +4,12 @@
 
 Ten64 is a number serialization format similar to hexadecimal.  The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western Integers (aka Arabic, Vedic)](#modern-western-numeral-system) , interpreting the big-endian binary as a one or more  [Modern Western Integers](#modern-western-numeral-system).
 
-The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, such as [IANA OIDs](#iana-oids), [UUIDs](#uuid), dates, time(stamp)s, coodinates, and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
+The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, such as [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid), dates, time(stamp)s, coodinates, and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
+
+## Authors
+
+S Morgan
+R Ismo
 
 ## Draft RFC
 
@@ -41,7 +46,7 @@ confusion.</t>
 
 ## Special Characters Introduction
 
-It does NOT use the [Base64](#base64-rfc-4648) alphabet but a binary alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,%,J-N,?,P-Z, '@' and'_' along with some additional special characters most notably '#','.' and ';', and '-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
+It does NOT use the [Base64](#base64-rfc-4648) alphabet but a binary alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,:,P-Z, '@' and'_' along with some additional special characters most notably '#','.' and ';', and '-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
 It will use a big ending binary system as follows;
 
 ## Special Characters Details
@@ -107,13 +112,13 @@ It will use a big ending binary system as follows;
 | F                                                 | 41                                          | 100101                                  |
 | G                                                 | 42                                          | 010101                                  |
 | H                                                 | 43                                          | 110101                                  |
-| %                                                 | 44                                          | 001101                                  |
+| +                                                 | 44                                          | 001101                                  |
 | J                                                 | 45                                          | 101101                                  |
 | K                                                 | 46                                          | 011101                                  |
 | L                                                 | 47                                          | 111101                                  |
 | M                                                 | 48                                          | 000011                                  |
 | N                                                 | 49                                          | 100011                                  |
-| ?                                                 | 50                                          | 010011                                  |
+| :                                                 | 50                                          | 010011                                  |
 | P                                                 | 51                                          | 110011                                  |
 | Q                                                 | 52                                          | 001011                                  |
 | R                                                 | 53                                          | 101011                                  |
@@ -222,12 +227,79 @@ Modern Western Integers are simply integers composed using the Modern Western Nu
 
 Modern Western Decimal Numbers Are simply numbers using the modern Western numeral system, which contain a decimal point.
 
+# Compatibility
+
+When drafting Ten64, we went through great lengths to attempt to make it as compatible as possible with the largest number of usage environments.  However, it is impossible to have pristine compatibility with such a large variety of usage environments.
+
+### URI and URI Template Compatibility
+
+The following Ten64 alphabet characters MAY have issues with [URIs](#uri-rfc3986) and [URI Templates](#uri-templates-rfc6570).  The following section is in order of usage in Ten64.
+
+### Leading Special Characters
+
+##### URI Pound Symbol '#'
+
+The pound symbol is a protected character by the [URIs RFC3986 section 3.2](https://www.rfc-editor.org/rfc/rfc3986#section-3.2).  When using Ten64 inside of URIs (aka URLs), the pound symbol MUST be either omitted or escaped with a percent sign '%23'.  Additionally, no major conflicts are foreseen with [URI Templates](https://www.rfc-editor.org/rfc/rfc6570).
+
+##### URI Minus Symbol '-'
+
+The minus symbol is an unreserved character by the [URIs RFC3986 section 2.3](https://www.rfc-editor.org/rfc/rfc3986#section-2.3).  No special treatment of this character is required for [URIs](#uri-rfc3986).  However, [URI Template Variable Names](https://www.rfc-editor.org/rfc/rfc6570#section-2.3) will require encoding as '%2D'.
+
+### Alphabet Characters
+
+##### URI Dollar Sign Symbol '$'
+
+The dollar sign symbol is a sub-delim character by the [URIs RFC3986 section 3.4](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).  It is explicitly permitted in the [query component of a URI](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).  Although NOT required by Ten64, some languages MAY require URL encode the dollar symbol.  In particular, Bash, PowerShell, PHP, Perl, and Ruby where it is used to trigger variable expansion.
+
+Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the dollar sign '$' as '%24'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) SHOULD NOT encode the dollar sign.
+
+##### URI Plus Symbol '+'
+
+The plus symbol is a sub-delim character by the [URIs RFC3986 section 3.4](https://www.rfc-editor.org/rfc/rfc3986#section-3.4). It is explicitly permitted in the [query component of a URI](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).  However, many languages and libraries (PHP, Python's urllib, Java Servlets) automatically decode this as a space, so it MAY need to be escaped as '%2B'.
+
+Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the plus symbol as '%3B'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) SHOULD NOT encode the dollar sign.
+
+##### URI Colon Symbol ':'
+
+The colon symbol is a gen-delim character by the [URIs RFC3986 section 2.2](https://www.rfc-editor.org/rfc/rfc3986#section-2.2). It is explicitly permitted in the [query component of a URI](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).
+However, many languages and libraries (Express.js, Ruby on Rails, and Django) automatically decode this as a space, so it MAY need to be escaped as '%3A'.
+
+Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the colon symbol ':' as '%3A'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) SHOULD NOT encode the dollar sign.
+
+### Internal and Trailing Special Characters
+
+##### URI Period '.'
+
+The period is unreserved in [URIs RFC3986](https://www.rfc-editor.org/rfc/rfc3986).  However, it is often used for relative paths, We do not anticipate any compatibility issues.
+
+##### URI Semicolon ';'
+
+The semicolon symbol is a sub-delim character by the [URIs RFC3986 section 3.4](https://www.rfc-editor.org/rfc/rfc3986#section-3.4). It is explicitly permitted in the [query component of a URI](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).  There may be legacy issues with Python and Java servlets, which have NOT received security patches.  The semicolon MAY be omitted or encoded as '%3B'.
+
+Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the seimcolon symbol ';' as '%3B'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) SHOULD NOT encode the dollar sign.
+
+### EJCN Compatibility
+
+
+### JSON Compatibility
+
+### Terminal-Shell Compatibility
+
+
+### XML Compatibility
+
+### Other Textual Compatibility
+
+
 # Commentary
 
-To improve human readability, we replaced these characters with their respective characters;
-lower case 'l' →  '$'
-upper case 'I' → '%'
-upper case 'O' → '?'
+To improve human readability, we replaced these characters with their respective characters. The following chart shows the history of this.
+
+```
+21: lower case 'l' →  '$'
+44: upper case 'I' → '%' → '+'
+50: upper case 'O' → '?' → ':'
+```
 
 # Citations
 
@@ -260,6 +332,12 @@ Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*. [https://
 
 https://doi.org/10.1145/364096.364107 "ACM. (1968). Letters to the editor: On binary notation. Communications of the ACM."
 
+##### DOID-Repo
+
+https://github.com/adligo/doid.adligo.org
+    "doid.adligo.org: Domain Oracle Identifiers",
+    Adligo, October 2024.
+
 ##### FasterXML Jackson
 
 FasterXML, "Jackson: Main Portal page for the Jackson project," GitHub, <https://github.com/fasterxml/jackson>.
@@ -288,6 +366,10 @@ Bray, T., "The JSON Data Interchange Format," RFC 8259, STD 90, December 2017, <
 
 https://en.wikipedia.org/wiki/Octet_(computing) "Wikipedia Contributors. (2026, March). Octet. Wikipedia."
 
+##### OData Protocol
+
+OASIS. "OData Version 4.01. Part 1: Protocol." Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. 22 June 2021. OASIS Standard. [https://docs.oasis-open.org/odata/odata/v4.01/os/part1-protocol/odata-v4.01-os-part1-protocol.html](https://docs.oasis-open.org/odata/odata/v4.01/os/part1-protocol/odata-v4.01-os-part1-protocol.html).
+
 ##### Origin of Modern Mathematical Numeral
 
 Musa, A., "Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?", Mubi North Education Authority, Adamawa State – Nigeria, p. 46.
@@ -297,11 +379,19 @@ https://www.academia.edu/9099310/Origin_of_Modern_Mathematical_Numeral_0_1_2_3_4
 
 https://en.wikipedia.org/wiki/Units_of_information "Wikipedia Contributors. (2026, March). Sextet. Wikipedia."
 
+##### URI RFC3986
+
+[RFC 3986: Uniform Resource Identifier (URI): Generic Syntax](https://www.rfc-editor.org/rfc/rfc3986#section-3.4), T. Berners-Lee et al., January 2005. (Updated by [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110) for HTTP-specific context).
+
+##### URI Templates RFC6570
+
+[RFC 6570: URI Template](https://www.rfc-editor.org/rfc/rfc6570), J. Gregorio et al., March 2012.
+
 ##### UTF-8
 
 https://www.rfc-editor.org/rfc/rfc3629 "Yergeau, F. (2003). UTF-8, a transformation format of ISO 10646 (RFC 3629)."
 
-##### UUID RFC 9562
+##### UUID RFC9562
 
 Davis, K., Peabody, B., and P. Leach, "Universally Unique IDentifiers (UUIDs)", RFC 9562, DOI 10.17487/RFC9562, May 2024, <https://www.rfc-editor.org/info/rfc9562>.
 
