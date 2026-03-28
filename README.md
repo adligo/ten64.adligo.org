@@ -51,7 +51,7 @@ confusion.</t>
 
 ## Special Characters Introduction
 
-It does NOT use the [Base64](#base64-rfc-4648) alphabet but a binary alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,:,P-Z, '@' and'_' along with some additional special characters most notably '#','.' and ';', and '-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
+Ten64 does NOT use the [Base64](#base64-rfc-4648) alphabet but a alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,:,P-Z, '@' and'_' along with some additional special characters most notably '#','.',',' and ';', and '-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
 It will use a big ending binary system as follows;
 
 ## Special Characters Details
@@ -238,7 +238,7 @@ Ten64 can encode 2d, 3d, and Nd points as segmented numbers.
 ```
 # Related Technologies
 
-There are a ton of number libraries in various languages, [Java's BigInt](#bigint-java) likely influenced [ECMA Scripts BigDecimal](#ecma-262).  In addition, this [ECMA Script](#ecma-262) [BigDecimal](#bigdecimal-npm) implementation is based on [Java's BigDecimal](#bigdecimal-java).  We do NOT expect Ten64 to gain wide adoption over the [Modern Western Numeral System](#modern-western-numeral-system).  However, we do believe that Ten64 can be read and written faster than the [Modern Western Numeral System], and may gain some traction in processor intensive applications.
+There are a ton of number libraries in various languages, [Java's BigInt](#bigint-java) likely influenced [ECMA Scripts BigDecimal](#ecma-262).  In addition, this [ECMA Script](#ecma-262) [BigDecimal](#bigdecimal-npm) implementation is based on [Java's BigDecimal](#bigdecimal-java).  We do NOT expect Ten64 to gain wide adoption over the [Modern Western Numeral System](#modern-western-numeral-system).  However, we do believe that Ten64 can be read and written faster than the [Modern Western Numeral System](#modern-western-numeral-system), and may gain some traction in processor intensive applications.
 
 
 ## Modern Western Numeral System
@@ -262,7 +262,7 @@ Modern Western Integers are simply integers composed using the Modern Western Nu
 
 ### Modern Western Decimal Numbers
 
-Modern Western Decimal Numbers Are simply numbers using the modern Western numeral system, which contain a decimal point.
+Modern Western Decimal Numbers Are simply numbers using the Modern Western Numeral System, which contain a decimal point.
 
 # Compatibility
 
@@ -317,7 +317,11 @@ Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor
 
 ### DID Compatibility
 
-Because the colon ':' is used as a heavyweight delimiter in the [DID specification](#decentralized-identifiers-dids), Ten64 will need to be URI encoded for use with [DIDs](#decentralized-identifiers-dids).
+Because the colon ':' is used as a heavyweight delimiter in the [DID specification](#decentralized-identifiers-dids), Ten64 MUST be URI encoded for use with [DIDs](#decentralized-identifiers-dids).
+
+### DOID Compatibility
+
+[DOID](#doid-repo) uses Ten64 in a downstream manner, so it is fully compatible with Ten64.
 
 ### EJCN Compatibility
 
