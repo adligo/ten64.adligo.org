@@ -251,13 +251,13 @@ The minus symbol is an unreserved character by the [URIs RFC3986 section 2.3](ht
 
 The dollar sign symbol is a sub-delim character by the [URIs RFC3986 section 3.4](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).  It is explicitly permitted in the [query component of a URI](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).  Although NOT required by Ten64, some languages MAY require URL encode the dollar symbol.  In particular, Bash, PowerShell, PHP, Perl, and Ruby where it is used to trigger variable expansion.
 
-Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the dollar sign '$' as '%24'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) SHOULD NOT encode the dollar sign.
+Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the dollar sign '$' as '%24'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the dollar sign '$'.
 
 ##### URI Plus Symbol '+'
 
 The plus symbol is a sub-delim character by the [URIs RFC3986 section 3.4](https://www.rfc-editor.org/rfc/rfc3986#section-3.4). It is explicitly permitted in the [query component of a URI](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).  However, many languages and libraries (PHP, Python's urllib, Java Servlets) automatically decode this as a space, so it MAY need to be escaped as '%2B'.
 
-Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the plus symbol as '%3B'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the dollar sign '$'.
+Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the plus symbol as '%3B'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the dollar sign '+'.
 
 ##### URI Colon Symbol ':'
 
