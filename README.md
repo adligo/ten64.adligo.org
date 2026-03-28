@@ -4,7 +4,7 @@
 
 Ten64 is a number serialization format similar to hexadecimal.  The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western Integers (aka Arabic, Vedic)](#modern-western-numeral-system) , interpreting the big-endian binary as a one or more  [Modern Western Integers](#modern-western-numeral-system).
 
-The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, such as [IANA OIDs](#iana-oid), [UUIDs](#uuid), dates, time(stamp)s, coodinates, and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 alligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
+The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, such as [IANA OIDs](#iana-oids), [UUIDs](#uuid), dates, time(stamp)s, coodinates, and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
 
 ## Draft RFC
 
@@ -41,7 +41,7 @@ confusion.</t>
 
 ## Special Characters Introduction
 
-It does NOT use the [Base64](#base64-rfc-4648) alphabet but a binary alphabet similar to hexadecimal 0-9,a-z,A-Z, '@' and'_' along with some additional special characters most notably '#','.' and ';', and '-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
+It does NOT use the [Base64](#base64-rfc-4648) alphabet but a binary alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,%,J-N,?,P-Z, '@' and'_' along with some additional special characters most notably '#','.' and ';', and '-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
 It will use a big ending binary system as follows;
 
 ## Special Characters Details
@@ -84,7 +84,7 @@ It will use a big ending binary system as follows;
 | i                                                 | 18                                          | 010010                                  |
 | j                                                 | 19                                          | 110010                                  |
 | k                                                 | 20                                          | 001010                                  |
-| l                                                 | 21                                          | 101010                                  |
+| $                                                 | 21                                          | 101010                                  |
 | m                                                 | 22                                          | 011010                                  |
 | n                                                 | 23                                          | 111010                                  |
 | o                                                 | 24                                          | 000110                                  |
@@ -107,13 +107,13 @@ It will use a big ending binary system as follows;
 | F                                                 | 41                                          | 100101                                  |
 | G                                                 | 42                                          | 010101                                  |
 | H                                                 | 43                                          | 110101                                  |
-| I                                                 | 44                                          | 001101                                  |
+| %                                                 | 44                                          | 001101                                  |
 | J                                                 | 45                                          | 101101                                  |
 | K                                                 | 46                                          | 011101                                  |
 | L                                                 | 47                                          | 111101                                  |
 | M                                                 | 48                                          | 000011                                  |
 | N                                                 | 49                                          | 100011                                  |
-| O                                                 | 50                                          | 010011                                  |
+| ?                                                 | 50                                          | 010011                                  |
 | P                                                 | 51                                          | 110011                                  |
 | Q                                                 | 52                                          | 001011                                  |
 | R                                                 | 53                                          | 101011                                  |
@@ -222,6 +222,13 @@ Modern Western Integers are simply integers composed using the Modern Western Nu
 
 Modern Western Decimal Numbers Are simply numbers using the modern Western numeral system, which contain a decimal point.
 
+# Commentary
+
+To improve human readability, we replaced these characters with their respective characters;
+lower case 'l' →  '$'
+upper case 'I' → '%'
+upper case 'O' → '?'
+
 # Citations
 
 ##### ASCII-7
@@ -268,6 +275,11 @@ Google, "Gson: A Java serialization/deserialization library to convert Java Obje
 ##### Hexadecimal
 
 https://en.wikipedia.org/wiki/Hexadecimal "Wikipedia Contributors. (2026, March). Hexadecimal. Wikipedia."
+
+##### IANA OIDs
+
+IANA, "Private Enterprise Numbers (PEN)", March 2026,
+<https://www.iana.org/assignments/enterprise-numbers>.
 
 ##### JSON RFC 8259
 Bray, T., "The JSON Data Interchange Format," RFC 8259, STD 90, December 2017, <https://www.rfc-editor.org/info/rfc8259>.

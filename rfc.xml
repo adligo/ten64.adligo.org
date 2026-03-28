@@ -28,6 +28,16 @@
       <xref target="modern_western_integers" format="none" sectionFormat="bare">Modern Western Integers</xref>, interpreting the 
       big-endian binary as a one or more <xref target="modern_western_integers" format="none" sectionFormat="bare">Modern Western Integers</xref>.</t>
       
+      <t>The motivation for Ten64 is to encode numbers in a compact and human-readable format 
+      similar to <xref target="Base58" format="none" sectionFormat="bare">Base58</xref>.  
+      However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, 
+      such as <xref target="IANA-OIDs" format="none" sectionFormat="bare">IANA OIDs</xref>, 
+      <xref target="UUID-RFC9562" format="none" sectionFormat="bare">UUIDs</xref>, dates, 
+      time(stamp)s, coodinates, and more.  Unlike 
+      <xref target="Base58" format="none" sectionFormat="bare">Base58</xref>, and more 
+      like <xref target="Wikipedia.Hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref> 
+      Ten64 aligns the <xref target="modern_western_integers" format="none" sectionFormat="bare">Modern Western Numerals</xref>
+      with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).</t>
     </abstract>
   </front>
 
@@ -466,6 +476,17 @@
         </front>
         <seriesInfo name="STD" value="90"/>
         <seriesInfo name="RFC" value="8259"/>
+      </reference>
+
+      <reference anchor="IANA-OIDs" target="https://www.iana.org/assignments/enterprise-numbers">
+        <front>
+          <title>Private Enterprise Numbers (PEN)</title>
+          <author>
+            <organization>IANA</organization>
+          </author>
+          <date year="2026" month="March"/>
+        </front>
+        <refcontent>IANA Registry</refcontent>
       </reference>
 
       <reference anchor="IEEE754" 
