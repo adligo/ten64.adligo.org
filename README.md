@@ -2,7 +2,9 @@
 
 ### Abstract
 
-Ten64 is a number serialization format similar to hexadecimal.  The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western Integers (aka Arabic, Vedic)](#modern-western-numeral-system) , interpreting the binary as a big-endian [Modern Western Integers](#modern-western-numeral-system).
+Ten64 is a number serialization format similar to hexadecimal.  The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western Integers (aka Arabic, Vedic)](#modern-western-numeral-system) , interpreting the big-endian binary as a one or more  [Modern Western Integers](#modern-western-numeral-system).
+
+The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, such as [IANA OIDs](#iana-oid), [UUIDs](#uuid), dates, time(stamp)s, coodinates, and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 alligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
 
 ## Draft RFC
 
@@ -12,6 +14,12 @@ Ten64 is a number serialization format similar to hexadecimal.  The main differe
 ## Discussion Channel
 
 - [https://discord.gg/2tdHn55Xur](https://discord.gg/2tdHn55Xur)
+
+# Implementations
+
+This Github project will contain the Java implementation.  A Typescript implementation will live at;
+
+- [https://github.com/adligo/ten64.ts.adligo.org](https://github.com/adligo/ten64.ts.adligo.org)
 
 # Introduction
 
@@ -120,6 +128,9 @@ It will use a big ending binary system as follows;
 | @                                                 | 62                                          | 011111                                  |
 | _                                                 | 63                                          | 111111                                  |
 
+# Use-Cases
+
+
 
 # Binary
 
@@ -134,6 +145,7 @@ Ten64 is a system to create [BitSlotMaps#1.3.6.1.4.1.33097.1.1.3](#bitslotmaps-1
   #0.1.2; expands to a segmented number / list of integers 0, 1, 2.
   #01.11; expands the a list of integers 64, 65 which MAY also be interpreted as the decimal 64.65 depending on the context.
   #-1.8;  expands to a list of integers -1, 8 and MAY also be interpreted as a decimal -1.8 depending on the context.
+  #-1.-9 expands to a list of integers -1, -9
   ```
 
 ## Ten64 to Octet (Byte) Array Conversion
@@ -183,7 +195,9 @@ When converting arrays of octets to the Ten64 alphabet, all '0' characters from 
     or with nanoseconds expanded 2023-02-01 CST 7:53:01.002000007 PM
   ```
  ## Points
-   Ten64 can encode 2d, 3d and Nd points as segmented numbers.
+   Ten64 can encode 2d, 3d, and Nd points as segmented numbers.
+
+# Related Technologies
 
 ## Modern Western Numeral System
 
@@ -214,6 +228,12 @@ Modern Western Decimal Numbers Are simply numbers using the modern Western numer
 
 https://www.ansi.org/ "American Standards Association. (1963). American Standard Code for Information Interchange (ASA X3.4-1963)."
 
+##### Base58
+
+Nakamoto, S. (2009). "Base58 Encoding Scheme." Bitcoin Source Code. [https://github.com/bitcoin/bitcoin/blob/master/src/base58.cpp](https://github.com/bitcoin/bitcoin/blob/master/src/base58.cpp)
+
+msporny, "The Base58 Encoding Scheme," IETF Draft (Individual Submission), February 2024. [https://datatracker.ietf.org/doc/html/draft-msporny-base58-03](https://datatracker.ietf.org/doc/html/draft-msporny-base58-03)
+
 ##### Base64 RFC 4648
 
 Josefsson, S., "The Base16, Base32, and Base64 Data Encodings," RFC 4648, October 2006, <https://datatracker.ietf.org/doc/html/rfc4648>.
@@ -225,6 +245,9 @@ https://adligo.github.io/papers.adligo.com/data_structures/BitSlotMaps.html "Mor
 ##### Bioctal
 
 https://en.wikipedia.org/wiki/Bioctal "Community. (n.d.). Bioctal: Hexadecimal 2.0. Wikipedia."
+
+##### Bitcoin
+Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*. [https://bitcoin.org/bitcoin.pdf](https://bitcoin.org/bitcoin.pdf)
 
 ##### CACM-Binary
 
@@ -256,6 +279,7 @@ https://en.wikipedia.org/wiki/Octet_(computing) "Wikipedia Contributors. (2026, 
 ##### Origin of Modern Mathematical Numeral
 
 Musa, A., "Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?", Mubi North Education Authority, Adamawa State – Nigeria, p. 46.
+https://www.academia.edu/9099310/Origin_of_Modern_Mathematical_Numeral_0_1_2_3_4_5_6_7_8_9_the_Hindu_Indian_Brahmagubta_The_Islamo_Arabic_or_the_West
 
 ##### Sextet
 
@@ -264,6 +288,10 @@ https://en.wikipedia.org/wiki/Units_of_information "Wikipedia Contributors. (202
 ##### UTF-8
 
 https://www.rfc-editor.org/rfc/rfc3629 "Yergeau, F. (2003). UTF-8, a transformation format of ISO 10646 (RFC 3629)."
+
+##### UUID RFC 9562
+
+Davis, K., Peabody, B., and P. Leach, "Universally Unique IDentifiers (UUIDs)", RFC 9562, DOI 10.17487/RFC9562, May 2024, <https://www.rfc-editor.org/info/rfc9562>.
 
 # Informational references.
 
