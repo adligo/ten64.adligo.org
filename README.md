@@ -8,8 +8,8 @@ The motivation for Ten64 is to encode numbers in a compact and human-readable fo
 
 ## Authors
 
-S Morgan
-R Ismo
+- S Morgan
+- R Ismo
 
 ## Draft RFC
 
