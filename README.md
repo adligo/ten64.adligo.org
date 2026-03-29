@@ -432,8 +432,10 @@ As a side note, the [ECMA Script 262 website](https://tc39.es/ecma262) chews up 
 - [ECMA Script 262 Section 6.1.6.1 Language Types Number Type](https://tc39.es/ecma262/#sec-ecmascript-language-types-number-type)
 - [ECMA Script 262 Section 21 Numbers and Dates](https://tc39.es/ecma262/#sec-numbers-and-dates)
 
-In some ways, this issue appears to be fixed in part by more modern RFC's including []()
+In some ways, this issue appears to be fixed in part by more modern RFC's including the following;
+- [CBOR RFC 8949](#cbor-rfc-8949) Which simply uses a binary format to transfer the [floating-point numbers](#floating-point-ieee-754-2019).
 
+- [HTTP Structured Fields RFC 9651](#http-structured-fields-rfc-9651) Which does NOT target text but [HTTP or really UIRs RFC 3986](#uri-rfc3986) and puts a tight limitation on decimal numbers, only allowing three digits, which isn't compatible with [Bitcoin](#bitcoin) and other large decimal number formats.
 
 # Citations
 
