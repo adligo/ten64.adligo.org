@@ -419,6 +419,25 @@
         </front>
       </reference>
       
+      <reference anchor="CBOR-RFC-8949" target="https://www.rfc-editor.org/info/rfc8949">
+        <front>
+          <title>Concise Binary Object Representation (CBOR)</title>
+          <author fullname="C. Bormann" initials="C." surname="Bormann">
+            <organization>Universität Bremen TZI</organization>
+          </author>
+          <author fullname="P. Hoffman" initials="P." surname="Hoffman">
+            <organization>ICANN</organization>
+          </author>
+          <date month="December" year="2020"/>
+          <abstract>
+            <t>The Concise Binary Object Representation (CBOR) is a data format whose design goals include the possibility of extremely small code size, fairly small message size, and extensibility without the need for version negotiation.</t>
+          </abstract>
+        </front>
+        <seriesInfo name="RFC" value="8949"/>
+        <seriesInfo name="STD" value="94"/>
+        <seriesInfo name="DOI" value="10.17487/RFC8949"/>
+      </reference>
+      
       <reference anchor="Decentralized-Identifiers-DIDs" target="https://www.w3.org/TR/2022/REC-did-core-20220719/">
         <front>
           <title>Decentralized Identifiers (DIDs) v1.0</title>
@@ -464,6 +483,196 @@
         <refcontent>GitHub Repository</refcontent>
       </reference>
 
+      <reference anchor="Floating-Point" target="https://ieeexplore.ieee.org/document/8766229">
+        <front>
+          <title>IEEE Standard for Floating-Point Arithmetic</title>
+          <author>
+            <organization>IEEE</organization>
+          </author>
+          <date year="2019" month="July" day="22"/>
+          <abstract>
+            <t>This standard specifies interchange and arithmetic formats and methods for binary and decimal floating-point arithmetic in computer programming environments.</t>
+          </abstract>
+        </front>
+        <seriesInfo name="IEEE" value="Std 754-2019"/>
+        <seriesInfo name="DOI" value="10.1109/IEEESTD.2019.8766229"/>
+      </reference>
+
+      <reference anchor="Floating-Point-Gordon" target="https://cs.gordon.edu/courses/mat342/handouts/ieee.html">
+        <front>
+          <title>The IEEE 754 Floating-Point Standard</title>
+          <author>
+            <organization>Gordon College</organization>
+          </author>
+          <date year="2024"/>
+        </front>
+        <refcontent>MAT342 Numerical Analysis Course Material</refcontent>
+      </reference>
+
+      <reference anchor="Floating-Point-J-Burkardt" target="https://people.sc.fsu.edu/~jburkardt/html/ieee.html">
+        <front>
+          <title>IEEE Floating Point Numbers</title>
+          <author initials="J." surname="Burkardt" fullname="John Burkardt">
+            <organization>Florida State University</organization>
+          </author>
+          <date year="2023"/>
+        </front>
+        <refcontent>Department of Scientific Computing Resource</refcontent>
+      </reference>
+
+      <reference anchor="Floating-Point-Printing" target="https://dl.acm.org/doi/10.1145/1806596.1806623">
+        <front>
+          <title>Adaptive Floating-Point Summation and Arbitrary Precision Floating-Point Arithmetic</title>
+          <author initials="J. R." surname="Shewchuk" fullname="Jonathan Richard Shewchuk">
+            <organization>University of California at Berkeley</organization>
+          </author>
+          <date year="1997" month="October"/>
+          <abstract>
+            <t>Algorithms for exact addition and multiplication of floating-point numbers, and their use in robust geometric predicates.</t>
+          </abstract>
+        </front>
+        <seriesInfo name="DOI" value="10.1145/1806596.1806623"/>
+      </reference>
+
+      <reference anchor="Floating-Point-Wikipedia" target="https://en.wikipedia.org/wiki/IEEE_754">
+        <front>
+          <title>IEEE 754: Standard for Floating-Point Arithmetic</title>
+          <author>
+            <organization>Wikipedia</organization>
+          </author>
+          <date year="2023" month="October"/>
+        </front>
+        <refcontent>Wikipedia, The Free Encyclopedia</refcontent>
+      </reference>
+
+      <reference anchor="Grisu3" target="https://doi.org/10.1145/1806651.1806623">
+        <front>
+          <title>Printing floating-point numbers quickly and accurately with integers</title>
+          <author initials="F." surname="Loitsch" fullname="Florian Loitsch"/>
+          <date year="2010" month="June"/>
+        </front>
+        <seriesInfo name="ACM SIGPLAN Notices" value="vol. 45, no. 6, pp. 233-243"/>
+      </reference>
+
+      <reference anchor="HTTP-Structured-Fields-RFC-9651" target="https://www.rfc-editor.org/info/rfc9651">
+        <front>
+          <title>Structured Field Values for HTTP</title>
+          <author fullname="M. Nottingham" initials="M." surname="Nottingham">
+            <organization>Cloudflare</organization>
+          </author>
+          <author fullname="P-H. Kamp" initials="P-H." surname="Kamp">
+            <organization>The Varnish Cache Project</organization>
+          </author>
+          <date month="September" year="2024"/>
+          <abstract>
+            <t>This document describes a set of data types and associated algorithms that are intended to make it easier and safer to define and handle HTTP header and trailer fields, known as "Structured Fields", "Structured Headers", or "Structured Trailers".</t>
+          </abstract>
+        </front>
+        <seriesInfo name="RFC" value="9651"/>
+        <seriesInfo name="DOI" value="10.17487/RFC9651"/>
+      </reference>
+
+      <reference anchor="IANA-OIDs" target="https://www.iana.org/assignments/enterprise-numbers">
+        <front>
+          <title>Private Enterprise Numbers (PEN)</title>
+          <author>
+            <organization>IANA</organization>
+          </author>
+          <date year="2026" month="March"/>
+        </front>
+        <refcontent>IANA Registry</refcontent>
+      </reference>
+
+      <reference anchor="IEEE754" 
+                 target="https://ieeexplore.ieee.org/document/8766229">
+        <front>
+          <title>IEEE Standard for Floating-Point Arithmetic</title>
+          <author><organization>IEEE</organization></author>
+          <date year="2019" month="July"/>
+        </front>
+        <seriesInfo name="IEEE" value="754-2019"/>
+      </reference>
+      
+      <reference anchor="JavaScript-Wikipedia" target="https://en.wikipedia.org/wiki/JavaScript">
+        <front>
+          <title>JavaScript</title>
+          <author>
+            <organization>Wikipedia Contributors</organization>
+          </author>
+          <date year="2026" month="March" day="29"/>
+        </front>
+        <seriesInfo name="Wikipedia, The Free Encyclopedia" value="Online"/>
+      </reference>
+
+      <reference anchor="MathAsympoticProcessorPerformanceWikipedia" target="https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations">
+        <front>
+          <title>Computational complexity of mathematical operations</title>
+          <author>
+            <organization>Wikipedia</organization>
+          </author>
+          <date year="2023" month="October"/>
+        </front>
+        <refcontent>Wikipedia, The Free Encyclopedia</refcontent>
+      </reference>
+
+      <reference anchor="Musa-Numerals" target="https://www.academia.edu/9099310/Origin_of_Modern_Mathematical_Numeral_0_1_2_3_4_5_6_7_8_9_the_Hindu_Indian_Brahmagubta_The_Islamo_Arabic_or_the_West">
+        <front>
+          <title>Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?</title>
+          <author initials="A." surname="Musa" fullname="Auwalu Musa">
+            <organization>Mubi North Education Authority, Mubi North Local Government Area, Adamawa State – Nigeria</organization>
+          </author>
+          <date year="2014"/>
+        </front>
+        <seriesInfo name="Page" value="46"/>
+      </reference>
+      
+      <reference anchor="Number-Conversion-Instructables" target="https://www.instructables.com/How-to-Convert-From-Decimal-to-Binary/">
+        <front>
+          <title>How to Convert From Decimal to Binary</title>
+          <author>
+            <organization>Instructables</organization>
+          </author>
+          <date year="2023" month="October"/>
+        </front>
+        <refcontent>Instructables Science and Tech Category</refcontent>
+      </reference>
+      
+      <reference anchor="Number-Conversion-Khan-Academy" target="https://www.khanacademy.org/math/algebra-home/alg-intro-to-algebra/algebra-alternate-number-bases/v/large-number-decimal-to-binary">
+        <front>
+          <title>Large Number Decimal to Binary</title>
+          <author initials="S." surname="Khan" fullname="Sal Khan">
+            <organization>Khan Academy</organization>
+          </author>
+          <date year="2026"/>
+        </front>
+        <refcontent>Video Tutorial: Algebra / Alternate Number Bases</refcontent>
+      </reference>
+
+      <reference anchor="Number-Conversion-Lumen" target="https://courses.lumenlearning.com/waymakermath4libarts/chapter/converting-between-bases/">
+        <front>
+          <title>Converting Between Bases</title>
+          <author>
+            <organization>Lumen Learning</organization>
+          </author>
+          <date year="2024"/>
+          <abstract>
+            <t>A comprehensive guide to positional numeration systems, detailing methods for converting between decimal and non-decimal bases.</t>
+          </abstract>
+        </front>
+        <refcontent>Waymaker Mathematics for Liberal Arts</refcontent>
+      </reference>
+
+      <reference anchor="Number-Conversion-WikiHow" target="https://www.wikihow.com/Convert-from-Decimal-to-Binary">
+        <front>
+          <title>How to Convert from Decimal to Binary</title>
+          <author>
+            <organization>WikiHow</organization>
+          </author>
+          <date year="2023" month="September" day="14"/>
+        </front>
+        <refcontent>WikiHow Technology Category</refcontent>
+      </reference>
+
       <reference anchor="OData-Protocol" target="https://docs.oasis-open.org/odata/odata/v4.01/os/part1-protocol/odata-v4.01-os-part1-protocol.html">
         <front>
           <title>OData Version 4.01. Part 1: Protocol</title>
@@ -480,7 +689,7 @@
         </front>
         <seriesInfo name="OASIS Standard" value="OData-v4.01-Part1" />
       </reference>
-
+      
       <reference anchor="RFC20" target="https://www.rfc-editor.org/info/rfc20">
         <front>
           <title>ASCII format for Network Interchange</title>
@@ -545,38 +754,29 @@
         <seriesInfo name="RFC" value="8259"/>
       </reference>
 
-      <reference anchor="IANA-OIDs" target="https://www.iana.org/assignments/enterprise-numbers">
+      <reference anchor="Ryu" target="https://doi.org/10.1145/3192366.3192369">
         <front>
-          <title>Private Enterprise Numbers (PEN)</title>
+          <title>Ryū: fast float-to-string conversion</title>
+          <author initials="U." surname="Adams" fullname="Ulf Adams"/>
+          <date year="2018" month="June"/>
+        </front>
+        <seriesInfo name="Proceedings of the 39th ACM SIGPLAN Conference on Programming Language Design and Implementation" value="PLDI 2018, pp. 270-282"/>
+      </reference>
+
+      <reference anchor="Ten64-Integer-Serialization-Algorithm" target="https://adligo.github.io/papers.adligo.com/algorithms/concrete/Ten64IntegerSerialization.html">
+        <front>
+          <title>Ten64IntegerSerialization: A Concrete Algorithm for 64-bit Integer Representation</title>
           <author>
-            <organization>IANA</organization>
+            <organization>Adligo</organization>
           </author>
-          <date year="2026" month="March"/>
+          <date year="2024"/>
+          <abstract>
+            <t>A specification for the deterministic serialization and deserialization of 64-bit signed integers into a string format suitable for high-performance computing and data transmission.</t>
+          </abstract>
         </front>
-        <refcontent>IANA Registry</refcontent>
+        <refcontent>Adligo Algorithm Specification Series</refcontent>
       </reference>
 
-      <reference anchor="IEEE754" 
-                 target="https://ieeexplore.ieee.org/document/8766229">
-        <front>
-          <title>IEEE Standard for Floating-Point Arithmetic</title>
-          <author><organization>IEEE</organization></author>
-          <date year="2019" month="July"/>
-        </front>
-        <seriesInfo name="IEEE" value="754-2019"/>
-      </reference>
-
-      <reference anchor="Musa-Numerals" target="https://www.academia.edu/9099310/Origin_of_Modern_Mathematical_Numeral_0_1_2_3_4_5_6_7_8_9_the_Hindu_Indian_Brahmagubta_The_Islamo_Arabic_or_the_West">
-        <front>
-          <title>Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?</title>
-          <author initials="A." surname="Musa" fullname="Auwalu Musa">
-            <organization>Mubi North Education Authority, Mubi North Local Government Area, Adamawa State – Nigeria</organization>
-          </author>
-          <date year="2014"/>
-        </front>
-        <seriesInfo name="Page" value="46"/>
-      </reference>
-      
       <reference anchor="UTF-8" 
                  target="https://www.rfc-editor.org/rfc/rfc3629">
         <front>
@@ -616,6 +816,7 @@
         <seriesInfo name="RFC" value="6570"/>
         <seriesInfo name="DOI" value="10.17487/RFC6570"/>
       </reference>
+      
       <reference anchor="UUID-RFC9562" target="https://www.rfc-editor.org/info/rfc9562">
         <front>
           <title>Universally Unique IDentifiers (UUIDs)</title>
@@ -692,9 +893,9 @@
         <refcontent>Java Standard Library</refcontent>
       </reference>
 
-      <reference anchor="BigDecimalNPM" target="https://www.npmjs.com/package/bigdecimal">
+      <reference anchor="BigDecimal-NPM" target="https://www.npmjs.com/package/bigdecimal">
         <front>
-          <title>bigdecimal: Arbitrary-precision decimal arithmetic</title>
+          <title>BigDecimal: Arbitrary-precision decimal arithmetic</title>
           <author>
             <organization>STZ-IDA</organization>
           </author>
@@ -771,6 +972,20 @@
           <date year="2026" month="March"/>
         </front>
         <refcontent>GitHub repository</refcontent>
+      </reference>
+
+      <reference anchor="IETF-Style" target="https://authors.ietf.org/language-and-style">
+        <front>
+          <title>Language and Style Guide for IETF Authors</title>
+          <author>
+            <organization>Internet Engineering Task Force (IETF)</organization>
+          </author>
+          <date year="2024"/>
+          <abstract>
+            <t>Style guidelines for the preparation of Internet-Drafts and RFCs, covering English usage, technical terminology, and document structure.</t>
+          </abstract>
+        </front>
+        <refcontent>IETF Author Resources</refcontent>
       </reference>
 
       <reference anchor="ISO8601" 

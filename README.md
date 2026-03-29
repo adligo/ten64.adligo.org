@@ -49,9 +49,37 @@ avoiding standard mathematical symbols, Ten64 allows exact numbers to
 be embedded directly into programming environments without compiler
 confusion.</t>
 
+## Human-Readable Verses Human-Decipherable
+
+In Ten64, we are targeting human-readable characters in the alphabet but do NOT intend to be human-decipherable.
+
+##### What is Human-Readable?
+
+Our intended meaning of the term human-readable in Ten64 is that a human will be able to distinguish the characters from each other.  We believe the best way of explaining this is with an example where one human would literally read the characters to another human over an audio-only telephone call.  For example, the word AdLigo is spelled out using a spelled-out phonetic alphabet.
+
+```
+Capital A, as in Apple.
+Small d, as in dog.
+Small l, as in lake.
+Small i, as in indigo.
+Small g, as in golf.
+Small o as in otter.
+```
+
+This is clearly human-readable.
+
+##### What is Human-Decipherable?
+
+Our intended meaning of the term human-decipherable in Ten64 is that most humans would be able to decipher the character stream.  Ten64 does not target human-decipherability.  We consider human-decipherability to be out of scope and may target another ID or RFC for this work.  Ten64 targets computer-decipherability and will rely on computer algorithms to translate Ten64 into in-memory integer and decimal numbers. In particular;
+
+- [The Ten64 Integer Serialization Algorithm](#ten64-integer-serialization-algorithm)
+- [The Ten64 Decimal Serialization Algorithm](#ten64-decimal-serialization-algorithm)
+
+Although for some humans who are developers or software architects, this point might seem insignificant.  For the vast majority of the population, it is significant.
+
 ## Special Characters Introduction
 
-Ten64 does NOT use the [Base64](#base64-rfc-4648) alphabet but a alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,:,P-Z, '@' and'_' along with some additional special characters most notably '#','.',',' and ';', and '-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
+Ten64 does NOT use the [Base64](#base64-rfc-4648) alphabet but a alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and'_' along with some additional special characters most notably '#','.',',' and ';', and '-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
 It will use a big ending binary system as follows;
 
 ## Special Characters Details
@@ -123,7 +151,7 @@ It will use a big ending binary system as follows;
 | L                                                 | 47                                          | 111101                                  |
 | M                                                 | 48                                          | 000011                                  |
 | N                                                 | 49                                          | 100011                                  |
-| :                                                 | 50                                          | 010011                                  |
+| !                                                 | 50                                          | 010011                                  |
 | P                                                 | 51                                          | 110011                                  |
 | Q                                                 | 52                                          | 001011                                  |
 | R                                                 | 53                                          | 101011                                  |
@@ -228,7 +256,7 @@ NanoTimestamps add an additional dot, as the MiliSeconds can be multiple charact
     or with nanoseconds expanded 2023-02-01 CST 7:53:01.002000007 PM
 ```
 
- ## Points
+## Points
 
 Ten64 can encode 2d, 3d, and Nd points as segmented numbers.
 
@@ -236,10 +264,40 @@ Ten64 can encode 2d, 3d, and Nd points as segmented numbers.
 # A 3d decimal point
 #-1.7,-5.2,-7.9;
 ```
+
+## Time
+
+Time will use the time segments from the [Datetime](#datetimes), [MiliTimestpan](#militimestamp), and [NanoTimestamp](#nanotimestamp).
+
+  ```
+    # The Date Time
+    #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
+    # vs just the time part
+    #216jR;  expands to CST 7:53 PM
+  ```
+
 # Related Technologies
 
-There are a ton of number libraries in various languages, [Java's BigInt](#bigint-java) likely influenced [ECMA Scripts BigDecimal](#ecma-262).  In addition, this [ECMA Script](#ecma-262) [BigDecimal](#bigdecimal-npm) implementation is based on [Java's BigDecimal](#bigdecimal-java).  We do NOT expect Ten64 to gain wide adoption over the [Modern Western Numeral System](#modern-western-numeral-system).  However, we do believe that Ten64 can be read and written faster than the [Modern Western Numeral System](#modern-western-numeral-system), and may gain some traction in processor intensive applications.
+There are a ton of number libraries in various languages, [Java's BigInt](#bigint-java) likely influenced [ECMA Scripts BigDecimal](#ecma-262).  In addition, this [ECMA Script](#ecma-262) [BigDecimal](#bigdecimal-npm) implementation is based on [Java's BigDecimal](#bigdecimal-java).  We do NOT expect Ten64 to gain wide adoption over the [Modern Western Numeral System](#modern-western-numeral-system), since the [Modern Western Numeral System](#modern-western-numeral-system) is taught in early elementary schools and used all the way through advanced mathematics classes.
 
+# Performance
+
+In addition, to significantly reducing the number of characters required for encoding, which saves on disk space in files and on the number of bytes transferred over sockets.  Ten64 SHOULD be implemented using a more optimal algorithm to serialize and deserialize the data than [Modern Base-10 Numeral System](#modern-western-numeral-system) serialization uses.
+
+To create integers from the Ten64 alphabet, algorithms SHOULD use case (aka switch) statements to convert the Ten64 alphabet into little-endian binary (used in the majority of in memory number systems).  Then the algorithms should shift the bits and use the binary and (i.e. &) operator to aggregate the number into integers.  This [Ten64 Integer Serialization#1.3.6.1.4.1.33097.0.2.4](#ten64-integer-serialization-algorithm) Algorithm will complete with a big O(s) time cost.
+
+Comparison with other algorithms which use various serialization and deserialization forms to and from the modern western numerical system is generally much slower.
+
+- [Number Conversion Calculator](#number-conversion-calculator)
+- [Number Conversion at Instructables](#number-conversion-instructables)
+- [Number Conversion at Khan Academy](#number-conversion-khan-academy)
+- [Number Conversion at Lumen](#number-conversion-lumen)
+- [Number Conversion at WikiHow](#number-conversion-wikihow)
+
+However, When converting decimal numbers using [Ten64 Decimal Serialization#1.3.6.1.4.1.33097.0.2.5](#ten64-decimal-serialization-algorithm), division is required.  This incurs the following time cost depending on the division algorithm used.
+
+- Serialization from [Modern Western Decimal Numbers](#modern-western-decimal-numbers) [O(c log c)](#ten64-decimal-serialization-algorithm)
+- De-Serialization to [Modern Western Decimal Numbers](#modern-western-decimal-numbers) [O(cd²) - O(M(cd))(#ten64-decimal-serialization-algorithm)
 
 ## Modern Western Numeral System
 
@@ -296,12 +354,12 @@ The plus symbol is a sub-delim character by the [URIs RFC3986 section 3.4](https
 
 Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the plus symbol as '%2B'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the dollar sign '+'.
 
-##### URI Colon Symbol ':'
+##### URI Exclamation Mark '!'
 
-The colon symbol is a gen-delim character by the [URIs RFC3986 section 2.2](https://www.rfc-editor.org/rfc/rfc3986#section-2.2). It is explicitly permitted in the [query component of a URI](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).
-However, many languages and libraries (Express.js, Ruby on Rails, and Django) automatically decode this as a space, so it MAY need to be escaped as '%3A'.
+The exclamation mark is a sub-delim character by the [URIs RFC3986 section 2.2](https://www.rfc-editor.org/rfc/rfc3986#section-2.2). It is explicitly permitted in the [query component of a URI](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).
+However, many languages and libraries (Express.js, Ruby on Rails, and Django) automatically decode this as a space, so it MAY need to be escaped as '%21'.
 
-Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the colon symbol ':' as '%3A'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the colon ':'.
+Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the exclamation mark '!' as '%21'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the exclamation mark '!'.
 
 ### Internal and Trailing Special Characters
 
@@ -317,7 +375,11 @@ Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor
 
 ### DID Compatibility
 
-Because the colon ':' is used as a heavyweight delimiter in the [DID specification](#decentralized-identifiers-dids), Ten64 MUST be URI encoded for use with [DIDs](#decentralized-identifiers-dids).
+We removed the use of the colon ':' and replaced it with an exclamation point '!', specifically to increase compatibility with the [DID specification](#decentralized-identifiers-dids). However depending on usage, Ten64 MAY still require URI encoding for use with [DIDs](#decentralized-identifiers-dids).
+
+```
+did:ten64:abc123
+```
 
 ### DOID Compatibility
 
@@ -325,7 +387,11 @@ Because the colon ':' is used as a heavyweight delimiter in the [DID specificati
 
 ### EJCN Compatibility
 
-[EJCN](#extensible-json-classification-notation-ejcn) uses Ten64 in a downstream manner, so it is fully compatible with Ten64.
+[EJCN (Extensible JSON Classification Notation)](#extensible-json-classification-notation-ejcn) uses Ten64 in a downstream manner, so it is fully compatible with Ten64.
+
+##### Grisu3
+
+Loitsch, F. (2010). "Printing floating-point numbers quickly and accurately with integers." ACM SIGPLAN Notices, 45(6), 233–243. https://doi.org/10.1145/1806651.1806623
 
 ### JSON Compatibility
 
@@ -351,8 +417,23 @@ To improve human readability, we replaced these characters with their respective
 ```
 21: lower case 'l' →  '$'
 44: upper case 'I' → '%' → '+'
-50: upper case 'O' → '?' → ':'
+50: upper case 'O' → '?' → ':' → '!'
 ```
+
+2026-03-28 Replaced the % sign with the + sign to make [URI (URL)](#uri-rfc3986) escaping easier.  Replaced the question mark with the colon to make [URI (URL)](#uri-rfc3986) escaping easier, and then later on replaced it with the exclamation point to make this Ten64 more compatible with [DIDs](#decentralized-identifiers-dids).
+
+Although Ten64 can encode and decode numbers of any size and precision, they are often not human-decipherable.  During the creation of this text, there was much discussion about [JSON](#json-rfc-8259), [JavaScript](#javascript-wikipedia) and [ECMA Script](#ecma-262) Numbers.  We believe that a separate document should be created to address the serialization/de-serialization (aka encoding/decoding) which uses the [Modern Western Numeral System](#modern-western-numeral-system) specifically.
+
+Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, It has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the J in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Nubmers](#floating-point-ieee-754-2019).
+
+As a side note, the [ECMA Script 262 website](https://tc39.es/ecma262) chews up enough resources (processor/RAM I didn't benchmark it?) that it slows down and crashes browsers on my computer with 64 GB of RAM.  However, for the brave people who want to click on these direct links;
+
+- [ECMA Script 262 Section 6.1.6 Numeric Types](https://tc39.es/ecma262/#sec-numeric-types)
+- [ECMA Script 262 Section 6.1.6.1 Language Types Number Type](https://tc39.es/ecma262/#sec-ecmascript-language-types-number-type)
+- [ECMA Script 262 Section 21 Numbers and Dates](https://tc39.es/ecma262/#sec-numbers-and-dates)
+
+In some ways, this issue appears to be fixed in part by more modern RFC's including []()
+
 
 # Citations
 
@@ -360,6 +441,10 @@ To improve human readability, we replaced these characters with their respective
 
 https://www.ansi.org/ "American Standards Association. (1963). American Standard Code for Information Interchange (ASA X3.4-1963)."
 
+##### Asymptotic Cost of Multiplication
+
+- [https://en.wikipedia.org/wiki/Multiplication_algorithm#Computational_complexity_of_multiplication](https://en.wikipedia.org/wiki/Multiplication_algorithm#Computational_complexity_of_multiplication)
+-
 ##### Base58
 
 Nakamoto, S. (2009). "Base58 Encoding Scheme." Bitcoin Source Code. [https://github.com/bitcoin/bitcoin/blob/master/src/base58.cpp](https://github.com/bitcoin/bitcoin/blob/master/src/base58.cpp)
@@ -378,7 +463,7 @@ https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigIntege
 
 ##### BigDecimal Java
 
-https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html
+https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/math/BigDecimal.html
     "Java Platform, Standard Edition v21: Class BigDecimal",
     Oracle Corporation, 2023.
 
@@ -402,6 +487,10 @@ Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*. [https://
 ##### CACM-Binary
 
 https://doi.org/10.1145/364096.364107 "ACM. (1968). Letters to the editor: On binary notation. Communications of the ACM."
+
+##### CBOR RFC 8949
+
+Bormann, C. and P. Hoffman, "Concise Binary Object Representation (CBOR)", RFC 8949, STD 94, DOI 10.17487/RFC8949, December 2020, https://www.rfc-editor.org/rfc/rfc8949.
 
 ### Decentralized Identifiers (DIDs)
 
@@ -429,17 +518,50 @@ https://github.com/adligo/ejcn.adligo.org
 
 FasterXML, "Jackson: Main Portal page for the Jackson project," GitHub, <https://github.com/fasterxml/jackson>.
 
-##### Floating-Point
+##### Floating-Point IEEE 754-2019
 
 IEEE, "IEEE Standard for Floating-Point Arithmetic," IEEE 754-2019, July 2019, <https://ieeexplore.ieee.org/document/8766229>.
+
+##### Floating-Point Gordon
+
+Gordon College Department of Mathematics and Computer Science, "The IEEE 754 Floating-Point Standard," MAT342 Numerical Analysis Handouts,
+[Gordon College: IEEE 754 Floating-Point Standard](https://cs.gordon.edu/courses/mat342/handouts/ieee.html)
+(accessed March 2026).
+
+##### Floating-Point J Burkardt
+
+Burkardt, John, "IEEE Floating Point Numbers," Florida State University, Department of Scientific Computing,
+[John Burkardt: IEEE Floating Point Numbers](https://people.sc.fsu.edu/~jburkardt/html/ieee.html)
+(accessed October 2023).
+
+##### Floating-Point Printing
+
+Jonathan Richard Shewchuk. 1997. Adaptive Floating-Point Summation and Arbitrary Precision Floating-Point Arithmetic. Discrete & Computational Geometry 18, 3 (October 1997), 305–363.
+[Shewchuk: Adaptive Floating-Point Summation](https://dl.acm.org/doi/10.1145/1806596.1806623)
+
+##### Floating-Point Wikipedia
+
+[Wikipedia: IEEE 754 (Standard for Floating-Point Arithmetic)](https://en.wikipedia.org/wiki/IEEE_754)
+
+##### Grisu3
+
+Loitsch, F. (2010). "Printing floating-point numbers quickly and accurately with integers." ACM SIGPLAN Notices, 45(6), 233–243. https://dl.acm.org/doi/10.1145/1806596.1806623
 
 ##### Gson
 
 Google, "Gson: A Java serialization/deserialization library to convert Java Objects into JSON and back," GitHub, <https://github.com/google/gson>.
 
+##### JavaScript Wikipedia
+
+Wikipedia contributors. "JavaScript." Wikipedia, The Free Encyclopedia. [https://en.wikipedia.org/wiki/JavaScript](https://en.wikipedia.org/wiki/JavaScript). Accessed 29 March 2026.
+
 ##### Hexadecimal
 
 https://en.wikipedia.org/wiki/Hexadecimal "Wikipedia Contributors. (2026, March). Hexadecimal. Wikipedia."
+
+##### HTTP Structured Fields RFC 9651
+
+Nottingham, M. and P. Kamp, "Structured Field Values for HTTP", RFC 9651, DOI 10.17487/RFC9651, September 2024, https://www.rfc-editor.org/rfc/rfc9651.
 
 ##### IANA OIDs
 
@@ -448,6 +570,36 @@ IANA, "Private Enterprise Numbers (PEN)", March 2026,
 
 ##### JSON RFC 8259
 Bray, T., "The JSON Data Interchange Format," RFC 8259, STD 90, December 2017, <https://www.rfc-editor.org/info/rfc8259>.
+
+##### Math Asymptotic Processor Performance Wikipedia
+
+Wikipedia contributors, "Computational complexity of mathematical operations," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations (accessed October 2023).
+
+##### Number Conversion Calculator
+
+RapidTables, "Decimal to Binary Converter," RapidTables.com,
+[RapidTables: Decimal to Binary Converter (Example: 756)](https://www.rapidtables.com/convert/number/decimal-to-binary.html?x=756)
+(accessed March 2026).
+
+##### Number Conversion Instructables
+
+Instructables User 'mistic', "How to Convert From Decimal to Binary," Instructables,
+[Instructables: How to Convert From Decimal to Binary](https://www.instructables.com/How-to-Convert-From-Decimal-to-Binary/)
+(accessed October 2023).
+
+##### Number Conversion Lumen
+
+Lumen Learning, "Converting Between Bases," Mathematics for the Liberal Arts, https://courses.lumenlearning.com/waymakermath4libarts/chapter/converting-between-bases/ (accessed March 2026).
+
+##### Number Conversion Khan Academy
+
+Khan, Sal, "Large Number Decimal to Binary," Khan Academy, https://www.khanacademy.org/math/algebra-home/alg-intro-to-algebra/algebra-alternate-number-bases/v/large-number-decimal-to-binary (accessed March 2026).
+
+##### Number Conversion WikiHow
+
+WikiHow Staff, "How to Convert from Decimal to Binary," WikiHow, September 14, 2023,
+[WikiHow: How to Convert from Decimal to Binary](https://www.wikihow.com/Convert-from-Decimal-to-Binary)
+(accessed March 29, 2026).
 
 ##### Octet
 
@@ -462,9 +614,19 @@ OASIS. "OData Version 4.01. Part 1: Protocol." Edited by Michael Pizzo, Ralf Han
 Musa, A., "Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?", Mubi North Education Authority, Adamawa State – Nigeria, p. 46.
 https://www.academia.edu/9099310/Origin_of_Modern_Mathematical_Numeral_0_1_2_3_4_5_6_7_8_9_the_Hindu_Indian_Brahmagubta_The_Islamo_Arabic_or_the_West
 
+##### Ryū
+
+Adams, U. (2018). "Ryū: fast float-to-string conversion." Proceedings of the 39th ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI), 270–282. https://doi.org/10.1145/3192366.3192369
+
 ##### Sextet
 
 https://en.wikipedia.org/wiki/Units_of_information "Wikipedia Contributors. (2026, March). Sextet. Wikipedia."
+
+##### Ten64 Decimal Serialization Algorithm
+
+##### Ten64 Integer Serialization Algorithm
+
+Adligo Project, "Ten64IntegerSerialization," Adligo Concrete Algorithms, https://adligo.github.io/papers.adligo.com/algorithms/concrete/Ten64IntegerSerialization.html (accessed March 2026).
 
 ##### URI RFC3986
 
@@ -491,5 +653,7 @@ Boucenna, A., "Origin of the numerals," June 2006, arXiv:math/0606699, <https://
 
 Katz, B., "Carbon Dating Reveals the History of Zero Is Older Than Previously Thought," Smithsonian Magazine, September 2017, <a href="https://www.smithsonianmag.com/smart-news/dating-ancient-indian-text-gives-new-timeline-history-zero-180964896/" target="_blank" >https://www.smithsonianmag.com/smart-news/dating-ancient-indian-text-gives-new-timeline-history-zero-180964896/</a>
 
+##### IETF Language and Style Guide
 
+Internet Engineering Task Force (IETF), "Language and Style," IETF Author Resources, https://authors.ietf.org/language-and-style (accessed March 2026).
 
