@@ -1,11 +1,11 @@
-# ten64.adligo.org
+# Text Encoded Base 64 Numbers (Ten64)
 
 ### Abstract
 
 Ten64 is a [positional numeral system](#positional-number-systems-wikipedia) for representing numeric values with an alphabet of 64 characters [(aka. radix/base 64)](#radix-wikipedia).  However, unlike most [positional number systems](#positional-number-systems-wikipedia), the characters are written in ascending and NOT descending order (aka [big-endian](#endian-wikipedia)).
 The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka. bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), Ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western Integers (aka Arabic, Vedic)](#modern-western-numeral-system), interpreting the [composite big-endian binary](#endian-wikipedia) as a one or more [Modern Western Integers](#modern-western-numeral-system).
 
-The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be [optimized](#performance) for use with numbers commonly used in identifiers, such as [DIDs](#decentralized-identifiers-dids), [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid), dates, time(stamp)s, coodinates, and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
+The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be [optimized](#performance) for use with numbers commonly used in identifiers, such as [DIDs](#decentralized-identifiers-dids), [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid), dates, [time](#time)[(stamp)s](#timestamps), [coodinates](#points), and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
 
 ## Authors
 
