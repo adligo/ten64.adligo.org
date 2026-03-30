@@ -2,9 +2,10 @@
 
 ### Abstract
 
-Ten64 is a number serialization format similar to hexadecimal.  The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western Integers (aka Arabic, Vedic)](#modern-western-numeral-system) , interpreting the big-endian binary as a one or more  [Modern Western Integers](#modern-western-numeral-system).
+Ten64 is a [positional numeral system](#positional-number-systems-wikipedia) for representing numeric values with an alphabet of 64 characters [(aka. radix/base 64)](#radix-wikipedia).  However, unlike most [positional number systems](#positional-number-systems-wikipedia), the characters are written in ascending and NOT descending order (aka [big-endian](#endian-wikipedia)).
+The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka. bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), Ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western Integers (aka Arabic, Vedic)](#modern-western-numeral-system), interpreting the [composite big-endian binary](#endian-wikipedia) as a one or more [Modern Western Integers](#modern-western-numeral-system).
 
-The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, such as [DIDs](#decentralized-identifiers-dids), [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid), dates, time(stamp)s, coodinates, and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
+The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be [optimized](#performance) for use with numbers commonly used in identifiers, such as [DIDs](#decentralized-identifiers-dids), [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid), dates, time(stamp)s, coodinates, and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
 
 ## Authors
 
@@ -55,7 +56,7 @@ In Ten64, we are targeting human-readable characters in the alphabet but do NOT 
 
 ##### What is Human-Readable?
 
-Our intended meaning of the term human-readable in Ten64 is that a human will be able to distinguish the characters from each other.  We believe the best way of explaining this is with an example where one human would literally read the characters to another human over an audio-only telephone call.  For example, the word AdLigo is spelled out using a spelled-out phonetic alphabet.
+Our intended meaning of the term human-readable in Ten64 is that a human will be able to distinguish the characters from each other.  We believe the best way of explaining this is with an example where one human would literally read the characters to another human over an audio-only telephone call.  For example, the word Adligo is spelled out using a spelled-out phonetic alphabet.
 
 ```
 Capital A, as in Apple.
@@ -75,12 +76,11 @@ Our intended meaning of the term human-decipherable in Ten64 is that most humans
 - [The Ten64 Integer Serialization Algorithm](#ten64-integer-serialization-algorithm)
 - [The Ten64 Decimal Serialization Algorithm](#ten64-decimal-serialization-algorithm)
 
-Although for some humans who are developers or software architects, this point might seem insignificant.  For the vast majority of the population, it is significant.
+Although this is decipherable for some humans who are developers or software architects, this point might seem insignificant.  For the vast majority of the population, it is significant.  The point is that software tools will generally be used to decipher Ten64.
 
 ## Special Characters Introduction
 
-Ten64 does NOT use the [Base64](#base64-rfc-4648) alphabet but a alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and'_' along with some additional special characters most notably '#','.',',' and ';', and '-'.  It is designed to be human and machine readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they are NOT mathematical symbols, so theoretically this system could also be used embed numbers into programming languages in the future.
-It will use a big ending binary system as follows;
+Ten64 does NOT use the [Base64](#base64-rfc-4648) alphabet but a alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and '_' along with some additional special characters most notably '#','.',',' and ';', and '-'.  It is designed to be human and machine-readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they human-readable. Theoretically, this system could also be used embed numbers into programming languages in the future.  However, usage MAY require the explicit starting character pound'#', and explicit termination semicolon character ';'.  It will use a big ending binary system as follows;
 
 ## Special Characters Details
 ```
@@ -88,7 +88,7 @@ It will use a big ending binary system as follows;
 .   The Decimal or Number Space Separator
 ,   The Separator for Number Lists
 ;   Optional explicit end of #Ten64 sequence.
--   The negative indicator
+-   The negative indicator, and human-readable seperator
     Whitespace Characters: including Line Feeds, Tabs,
        Spaces, Return Sequences, etc. MAY be included
        and MUST cause end of interpretation of the
@@ -96,6 +96,7 @@ It will use a big ending binary system as follows;
     Other Non Alphabet Characters: MAY be included
        and MUST cause end of interpretation of the
        Ten64 sequence.
+
 ```
 
 ## Ten64 Alphabet Mappings;
@@ -437,6 +438,12 @@ In some ways, this issue appears to be fixed in part by more modern RFC's includ
 
 - [HTTP Structured Fields RFC 9651](#http-structured-fields-rfc-9651) Which does NOT target text but [HTTP or really UIRs RFC 3986](#uri-rfc3986) and puts a tight limitation on decimal numbers, only allowing three digits, which isn't compatible with [Bitcoin](#bitcoin) and other large decimal number formats.
 
+The culmination of all of these points result in ubiquitious usage of string wrappers for numbers in tools like JSON, which forces the various parsers to get it right all the time;
+
+```
+{ "myJSONDecimalNumber": "12.3" }
+```
+
 # Citations
 
 ##### ASCII-7
@@ -510,6 +517,9 @@ https://tc39.es/ecma262/
 "ECMAScript 2025 Language Specification",
 Ecma International, June 2025.
 
+##### Endian Wikipedia
+   Wikipedia contributors. (2024). Endianness. In Wikipedia, The Free Encyclopedia. Retrieved March 30, 2026, from https://en.wikipedia.org/wiki/Endianness
+
 ##### Extensible JSON Classification Notation (EJCN)
 
 https://github.com/adligo/ejcn.adligo.org
@@ -570,12 +580,20 @@ Nottingham, M. and P. Kamp, "Structured Field Values for HTTP", RFC 9651, DOI 10
 IANA, "Private Enterprise Numbers (PEN)", March 2026,
 <https://www.iana.org/assignments/enterprise-numbers>.
 
+##### Information Theory Elements Cover Thomas 2006
+
+Cover, T. M., & Thomas, J. A. (2006). Elements of Information Theory (2nd ed.). Wiley-Interscience. https://doi.org/10.1002/047174882X
+
 ##### JSON RFC 8259
 Bray, T., "The JSON Data Interchange Format," RFC 8259, STD 90, December 2017, <https://www.rfc-editor.org/info/rfc8259>.
 
 ##### Math Asymptotic Processor Performance Wikipedia
 
 Wikipedia contributors, "Computational complexity of mathematical operations," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations (accessed October 2023).
+
+##### Mathematical Theory of Communication Shannon 1948
+
+Shannon, C. E. (1948). A Mathematical Theory of Communication. Bell System Technical Journal, 27(3), 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x
 
 ##### Number Conversion Calculator
 
@@ -616,6 +634,18 @@ OASIS. "OData Version 4.01. Part 1: Protocol." Edited by Michael Pizzo, Ralf Han
 Musa, A., "Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?", Mubi North Education Authority, Adamawa State – Nigeria, p. 46.
 https://www.academia.edu/9099310/Origin_of_Modern_Mathematical_Numeral_0_1_2_3_4_5_6_7_8_9_the_Hindu_Indian_Brahmagubta_The_Islamo_Arabic_or_the_West
 
+##### Positional Number Systems Wikipedia
+
+Wikipedia contributors. (2024). Numeral system: Positional systems in detail. In Wikipedia, The Free Encyclopedia. Retrieved March 30, 2026, from https://en.wikipedia.org/wiki/Numeral_system#Positional_systems_in_detail
+
+##### Radix 10 vs 60 Research Gate
+
+ResearchGate. (2014, May). Why we use base-10 almost everywhere than base-60 which was first invented method? [Online Discussion Group]. https://www.researchgate.net/post/Why-we-use-base-10-almost-everywhere-than-base-60-which-was-first-invented-method
+
+##### Radix Wikipedia
+
+Wikipedia contributors. (2024). Radix. In Wikipedia, The Free Encyclopedia. Retrieved March 30, 2026, from https://en.wikipedia.org/wiki/Radix
+
 ##### Ryū
 
 Adams, U. (2018). "Ryū: fast float-to-string conversion." Proceedings of the 39th ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI), 270–282. https://doi.org/10.1145/3192366.3192369
@@ -625,6 +655,8 @@ Adams, U. (2018). "Ryū: fast float-to-string conversion." Proceedings of the 39
 https://en.wikipedia.org/wiki/Units_of_information "Wikipedia Contributors. (2026, March). Sextet. Wikipedia."
 
 ##### Ten64 Decimal Serialization Algorithm
+
+Adligo Project, "Ten64DecimalSerialization," Adligo Concrete Algorithms, https://adligo.github.io/papers.adligo.com/algorithms/concrete/Ten64DecimalSerialization.html (accessed March 2026).
 
 ##### Ten64 Integer Serialization Algorithm
 

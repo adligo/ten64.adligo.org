@@ -98,7 +98,7 @@
       <name>Special Characters Introduction</name>
 
       <t>It does NOT use the <xref target="RFC4648">Base64</xref> alphabet but a 
-      binary alphabet similar to hexadecimal 0-9,a-z,A-Z, '@' and'_' 
+      binary alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and '_' 
       along with some additional special characters most notably '#','.' 
       and ';', and '-'.  It is designed to be human and machine 
       readable but is really designed to optimized the reading and writing 
@@ -173,7 +173,7 @@
           <tr><td>i</td><td>18</td><td>010010</td></tr>
           <tr><td>j</td><td>19</td><td>110010</td></tr>
           <tr><td>k</td><td>20</td><td>001010</td></tr>
-          <tr><td>l</td><td>21</td><td>101010</td></tr>
+          <tr><td>$</td><td>21</td><td>101010</td></tr>
           <tr><td>m</td><td>22</td><td>011010</td></tr>
           <tr><td>n</td><td>23</td><td>111010</td></tr>
           <tr><td>o</td><td>24</td><td>000110</td></tr>
@@ -196,13 +196,13 @@
           <tr><td>F</td><td>41</td><td>100101</td></tr>
           <tr><td>G</td><td>42</td><td>010101</td></tr>
           <tr><td>H</td><td>43</td><td>110101</td></tr>
-          <tr><td>I</td><td>44</td><td>001101</td></tr>
+          <tr><td>+</td><td>44</td><td>001101</td></tr>
           <tr><td>J</td><td>45</td><td>101101</td></tr>
           <tr><td>K</td><td>46</td><td>011101</td></tr>
           <tr><td>L</td><td>47</td><td>111101</td></tr>
           <tr><td>M</td><td>48</td><td>000011</td></tr>
           <tr><td>N</td><td>49</td><td>100011</td></tr>
-          <tr><td>O</td><td>50</td><td>010011</td></tr>
+          <tr><td>!</td><td>50</td><td>010011</td></tr>
           <tr><td>P</td><td>51</td><td>110011</td></tr>
           <tr><td>Q</td><td>52</td><td>001011</td></tr>
           <tr><td>R</td><td>53</td><td>101011</td></tr>
@@ -483,6 +483,18 @@
         <refcontent>GitHub Repository</refcontent>
       </reference>
 
+      <reference anchor="Endian-Wikipedia" target="https://en.wikipedia.org/wiki/Endianness">
+        <front>
+          <title>Endianness</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2024" month="March"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+        <seriesInfo name="URL" value="https://en.wikipedia.org/wiki/Endianness"/>
+      </reference>
+
       <reference anchor="Floating-Point" target="https://ieeexplore.ieee.org/document/8766229">
         <front>
           <title>IEEE Standard for Floating-Point Arithmetic</title>
@@ -593,6 +605,22 @@
         <seriesInfo name="IEEE" value="754-2019"/>
       </reference>
       
+      <reference anchor="Information-Theory-Elements-Cover-Thomas-2006" target="https://doi.org/10.1002/047174882X">
+        <front>
+          <title>Elements of Information Theory</title>
+          <author initials="T. M." surname="Cover" fullname="Thomas M. Cover">
+            <organization>Stanford University</organization>
+          </author>
+          <author initials="J. A." surname="Thomas" fullname="Joy A. Thomas">
+            <organization>Stratify, Inc.</organization>
+          </author>
+          <date year="2006" month="July"/>
+        </front>
+        <seriesInfo name="DOI" value="10.1002/047174882X"/>
+        <seriesInfo name="Publisher" value="Wiley-Interscience"/>
+        <seriesInfo name="Edition" value="2nd"/>
+      </reference>
+
       <reference anchor="JavaScript-Wikipedia" target="https://en.wikipedia.org/wiki/JavaScript">
         <front>
           <title>JavaScript</title>
@@ -615,6 +643,18 @@
         <refcontent>Wikipedia, The Free Encyclopedia</refcontent>
       </reference>
 
+      <reference anchor="Mathematical-Theory-of-Communication-Shannon-1948" target="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x">
+        <front>
+          <title>A Mathematical Theory of Communication</title>
+          <author initials="C. E." surname="Shannon" fullname="Claude E. Shannon">
+            <organization>Bell System Technical Journal</organization>
+          </author>
+          <date year="1948" month="July"/>
+        </front>
+        <seriesInfo name="Bell System Technical Journal" value="Vol. 27, pp. 379–423, 623–656"/>
+        <seriesInfo name="DOI" value="10.1002/j.1538-7305.1948.tb01338.x"/>
+      </reference>
+      
       <reference anchor="Musa-Numerals" target="https://www.academia.edu/9099310/Origin_of_Modern_Mathematical_Numeral_0_1_2_3_4_5_6_7_8_9_the_Hindu_Indian_Brahmagubta_The_Islamo_Arabic_or_the_West">
         <front>
           <title>Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?</title>
@@ -689,7 +729,30 @@
         </front>
         <seriesInfo name="OASIS Standard" value="OData-v4.01-Part1" />
       </reference>
-      
+
+      <reference anchor="Radix-10-vs-60-Research-Gate" target="https://www.researchgate.net/post/Why-we-use-base-10-almost-everywhere-than-base-60-which-was-first-invented-method">
+        <front>
+          <title>Why we use base-10 almost everywhere than base-60 which was first invented method?</title>
+          <author>
+            <organization>ResearchGate Community</organization>
+          </author>
+          <date year="2014" month="May"/>
+        </front>
+        <seriesInfo name="URL" value="https://www.researchgate.net/post/Why-we-use-base-10-almost-everywhere-than-base-60-which-was-first-invented-method"/>
+      </reference>
+
+      <reference anchor="Radix-Wikipedia" target="https://en.wikipedia.org/wiki/Radix">
+        <front>
+          <title>Radix</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2024" month="March"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+        <seriesInfo name="URL" value="https://en.wikipedia.org/wiki/Radix"/>
+      </reference>
+
       <reference anchor="RFC20" target="https://www.rfc-editor.org/info/rfc20">
         <front>
           <title>ASCII format for Network Interchange</title>
@@ -763,6 +826,31 @@
         <seriesInfo name="Proceedings of the 39th ACM SIGPLAN Conference on Programming Language Design and Implementation" value="PLDI 2018, pp. 270-282"/>
       </reference>
 
+      <reference anchor="Positional-Number-Systems-Wikipedia" target="https://en.wikipedia.org/wiki/Numeral_system#Positional_systems_in_detail">
+        <front>
+          <title>Numeral system: Positional systems in detail</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          <date year="2024" month="March"/>
+        </front>
+        <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+      
+      <reference anchor="Ten64-Decimal-Serialization-Algorithm" target="https://adligo.github.io/papers.adligo.com/algorithms/concrete/Ten64DecimalSerialization.html">
+        <front>
+          <title>Ten64DecimalSerialization: A Concrete Algorithm for 64-bit Decimal Representation</title>
+          <author>
+            <organization>Adligo</organization>
+          </author>
+          <date year="2024"/>
+          <abstract>
+            <t>A algorithm for the deterministic serialization and deserialization of signed integers of various types into a string format suitable for high-performance computing and data transmission.</t>
+          </abstract>
+        </front>
+        <refcontent>Adligo Algorithm Specification Series</refcontent>
+      </reference>
+      
       <reference anchor="Ten64-Integer-Serialization-Algorithm" target="https://adligo.github.io/papers.adligo.com/algorithms/concrete/Ten64IntegerSerialization.html">
         <front>
           <title>Ten64IntegerSerialization: A Concrete Algorithm for 64-bit Integer Representation</title>
@@ -771,7 +859,7 @@
           </author>
           <date year="2024"/>
           <abstract>
-            <t>A specification for the deterministic serialization and deserialization of 64-bit signed integers into a string format suitable for high-performance computing and data transmission.</t>
+            <t>A algorithm for the deterministic serialization and de-serialization of various Decimal numbers into a string format suitable for high-performance computing and data transmission.</t>
           </abstract>
         </front>
         <refcontent>Adligo Algorithm Specification Series</refcontent>
