@@ -609,6 +609,16 @@
         <refcontent>IANA Registry</refcontent>
       </reference>
 
+      <reference anchor="IEEE" target="https://www.ieee.org">
+        <front>
+          <title>Institute of Electrical and Electronics Engineers (IEEE)</title>
+          <author>
+            <organization>IEEE</organization>
+          </author>
+          <date/>
+        </front>
+      </reference>
+
       <reference anchor="IEEE754" 
                  target="https://ieeexplore.ieee.org/document/8766229">
         <front>
@@ -618,7 +628,17 @@
         </front>
         <seriesInfo name="IEEE" value="754-2019"/>
       </reference>
-      
+
+      <reference anchor="IETF" target="https://www.ietf.org">
+        <front>
+          <title>Internet Engineering Task Force (IETF)</title>
+          <author>
+            <organization>IETF</organization>
+          </author>
+          <date/>
+        </front>
+      </reference>
+
       <reference anchor="Information-Theory-Elements-Cover-Thomas-2006" target="https://doi.org/10.1002/047174882X">
         <front>
           <title>Elements of Information Theory</title>

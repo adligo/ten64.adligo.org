@@ -307,7 +307,7 @@ did:ten64:abc123
 
 ### JSON Compatibility
 
-[JSON Strings](#json-rfc-8259) are fully compatible with Ten64, as they use the backslash character '\' for escaping characters.
+[JSON Strings](#json-rfc-8259) are fully compatible with Ten64, as they use the backslash character '\\' for escaping characters.
 
 ### Terminal-Shell Compatibility
 
@@ -333,7 +333,7 @@ The Ten64 character sequences may have additional corresponding meta-data inform
 
 Although the definitions of all these schema types are out of the scope of this document, we supply the following interpretation conventions.
 
-## Interpretation as integers, decimals, and lists of integers.
+## The Default Interpretation as Integers, Decimals, and Lists of Lists of Integers.
 
 The following sequences explode as follows;
 
@@ -368,6 +368,8 @@ Datetimes add the additional timezone, (military time) hour and minute to the da
   ```
     #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
   ```
+
+Note j is 19, in military time -12 = 7 PM.
 
 ## List Interpretations
 
@@ -413,8 +415,9 @@ Time will use the time segments from the [Datetime](#datetimes), [MiliTimestpan]
     # The Date Time
     #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
     # vs just the time part
-    #216jR;  expands to CST 7:53 PM
+    #6jR;  expands to CST 7:53 PM
   ```
+Note j is 19, in military time -12 = 7 PM.
 
 ## Modern Western Numeral System
 
@@ -451,15 +454,16 @@ To improve human readability, we replaced these characters with their respective
 
 2026-03-28 Replaced the % sign with the + sign to make [URI (URL)](#uri-rfc3986) escaping easier.  Replaced the question mark with the colon to make [URI (URL)](#uri-rfc3986) escaping easier, and then later on replaced it with the exclamation point to make this Ten64 more compatible with [DIDs](#decentralized-identifiers-dids).
 
-Although Ten64 can encode and decode numbers of any size and precision, they are often not human-decipherable.  During the creation of this text, there was much discussion about JSON RFCs [4627](#json-rfc-4627), [7158](#json-rfc-7158), [7159](#json-rfc-7159), [8259](#json-rfc-8259), [JavaScript](#javascript-wikipedia) and [ECMA Script](#ecma-262) Numbers.  We believe that a separate document SHOULD be created to address the serialization/de-serialization (aka encoding/decoding) which uses text representing the [Modern Western Numeral System](#modern-western-numeral-system) specifically.
+Although Ten64 can encode and decode numbers of any size and precision, they are often not human-decipherable.  During the creation of this text, there was much discussion about JSON RFCs [4627](#json-rfc-4627), [7158](#json-rfc-7158), [7159](#json-rfc-7159), [8259](#json-rfc-8259), [JavaScript](#javascript-wikipedia) and [ECMA Script](#ecma-262) Numbers.  Scott believes that a separate document SHOULD be created to address the serialization/de-serialization (aka encoding/decoding) which uses text representing the [Modern Western Numeral System](#modern-western-numeral-system) specifically.  Scott suggests something like the following;
 
 ```
+12 → int, long or ECMA BigInt, Language specifies.
 12.78 → Java BigDecimal style numbers
 f12.78 → 32 bit IEEE 754 single floating point decimal numbers
 d12.78 → 64 bit IEEE 754 double floating point decimal numbers
 ```
 
-Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, It has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the J in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Nubmers](#floating-point-ieee-754-2019).  These challenges and issues are not traceable to a single standard, but instead are often the result of the interaction between three standards bodies the [IEEE](#ieee), [IETF](#ietf) and [ECMA International](#ecma-262).
+Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, It has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the J in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Nubmers](#floating-point-ieee-754-2019).  These challenges and issues are not traceable to a single standard, but instead are often the result of the interaction between three standards or more bodies the [IEEE](#ieee), [IETF](#ietf) and [ECMA International](#ecma-262).
 
 As a side note, the [ECMA Script 262 website](https://tc39.es/ecma262) chews up enough resources (processor/RAM I didn't benchmark it?) that it slows down and crashes browsers on my computer with 64 GB of RAM.  However, for the brave people who want to click on these direct links;
 
@@ -477,6 +481,8 @@ The culmination of all of these points result in ubiquitious usage of string wra
 ```
 { "myJSONDecimalNumber": "12.3" }
 ```
+
+This essentially defeats the purpose of having a number type in [JSON](#json-rfc-8259).
 
 In addition, printing floating point numbers has been challenging historically.  Which has led to the [Ryū](#ryū) algorithm, which greatly reduced the time cost (asympotic complexity) of printing floating point numbers in various JVM environments.
 
@@ -623,6 +629,14 @@ Nottingham, M. and P. Kamp, "Structured Field Values for HTTP", RFC 9651, DOI 10
 
 IANA, "Private Enterprise Numbers (PEN)", March 2026,
 <https://www.iana.org/assignments/enterprise-numbers>.
+
+##### IEEE
+
+IEEE. "Institute of Electrical and Electronics Engineers." Accessed March 30, 2026. https://www.ieee.org.
+
+##### IETF
+
+IETF. "Internet Engineering Task Force." Accessed March 30, 2026. https://www.ietf.org.
 
 ##### Information Theory Elements Cover Thomas 2006
 
