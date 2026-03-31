@@ -474,11 +474,25 @@
 
       <reference anchor="EJCN-Repo" target="https://github.com/adligo/ejcn.adligo.org">
         <front>
-          <title>ejcn.adligo.org: Extensible JSON Class Notation</title>
+          <title>ejcn.adligo.org: Extensible JSON Classification Notation</title>
           <author>
             <organization>Adligo</organization>
           </author>
-          <date year="2024" month="October"/>
+          <date year="2026" month="March"/>
+        </front>
+        <refcontent>GitHub Repository</refcontent>
+      </reference>
+
+      <reference anchor="EJCN-Schema-Repo" target="https://github.com/adligo/ejcn_schemas.adligo.org">
+        <front>
+          <title>EJCN (Extensible JSON Classification Notation) Schemas</title>
+          <author>
+            <organization>Adligo</organization>
+          </author>
+          <date year="2026"/>
+          <abstract>
+            <t> The EJCN schema system.</t>
+          </abstract>
         </front>
         <refcontent>GitHub Repository</refcontent>
       </reference>
@@ -630,6 +644,83 @@
           <date year="2026" month="March" day="29"/>
         </front>
         <seriesInfo name="Wikipedia, The Free Encyclopedia" value="Online"/>
+      </reference>
+
+      <reference anchor="JSON-RFC-4627" target="https://www.rfc-editor.org/info/rfc4627">
+        <front>
+          <title>The application/json Media Type for JavaScript Object Notation (JSON)</title>
+          <author fullname="D. Crockford" initials="D." surname="Crockford">
+            <organization/>
+          </author>
+          <date month="July" year="2006"/>
+          <abstract>
+            <t>JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It was derived from the ECMAScript Programming Language Standard. JSON defines a small set of formatting rules for the portable representation of structured data.</t>
+          </abstract>
+        </front>
+        <seriesInfo name="RFC" value="4627"/>
+        <seriesInfo name="DOI" value="10.17487/RFC4627"/>
+      </reference>
+
+      <reference anchor="JSON-RFC-7158" target="https://www.rfc-editor.org/info/rfc7158">
+        <front>
+          <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
+          <author fullname="T. Bray" initials="T." role="editor" surname="Bray">
+            <organization/>
+          </author>
+          <date month="March" year="2013"/>
+          <abstract>
+            <t>JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It was derived from the ECMAScript Programming Language Standard. JSON defines a small set of formatting rules for the portable representation of structured data. This document removes inconsistencies with other specifications of JSON, repairs specification errors, and offers experience-based interoperability guidance.</t>
+          </abstract>
+        </front>
+        <seriesInfo name="RFC" value="7158"/>
+        <seriesInfo name="DOI" value="10.17487/RFC7158"/>
+      </reference>
+
+      <reference anchor="JSON-RFC-7159" target="https://www.rfc-editor.org/info/rfc7159">
+        <front>
+          <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
+          <author fullname="T. Bray" initials="T." role="editor" surname="Bray">
+            <organization/>
+          </author>
+          <date month="March" year="2014"/>
+          <abstract>
+            <t>JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It was derived from the ECMAScript Programming Language Standard. JSON defines a small set of formatting rules for the portable representation of structured data. This document removes inconsistencies with other specifications of JSON, repairs specification errors, and offers experience-based interoperability guidance.</t>
+          </abstract>
+        </front>
+        <seriesInfo name="RFC" value="7159"/>
+        <seriesInfo name="DOI" value="10.17487/RFC7159"/>
+      </reference>
+
+      <reference anchor="JSON-RFC-8259" target="https://www.rfc-editor.org/info/rfc8259">
+        <front>
+          <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
+          <author fullname="T. Bray" initials="T." role="editor" surname="Bray">
+            <organization/>
+          </author>
+          <date month="December" year="2017"/>
+          <abstract>
+            <t>JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It was derived from the ECMAScript Programming Language Standard. JSON defines a small set of formatting rules for the portable representation of structured data. This document removes inconsistencies with other specifications of JSON, repairs specification errors, and offers experience-based interoperability guidance.</t>
+          </abstract>
+        </front>
+        <seriesInfo name="RFC" value="8259"/>
+        <seriesInfo name="STD" value="90"/>
+        <seriesInfo name="DOI" value="10.17487/RFC8259"/>
+      </reference>
+
+      <reference anchor="JSON-Schemas" target="https://json-schema.org/draft/2020-12/json-schema-core.html">
+        <front>
+          <title>JSON Schema: A Media Type for Describing JSON Data Structures</title>
+          <author fullname="H. Andrews" initials="H." surname="Andrews">
+            <organization/>
+          </author>
+          <author fullname="A. Wright" initials="A." surname="Wright">
+            <organization/>
+          </author>
+          <date month="December" year="2020"/>
+          <abstract>
+            <t>JSON Schema defines the media type "application/schema+json", a JSON-based format for describing the structure of JSON data. JSON Schema asserts what a JSON document must look like, what shapes it can take, and what values are valid.</t>
+          </abstract>
+        </front>
       </reference>
 
       <reference anchor="MathAsympoticProcessorPerformanceWikipedia" target="https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations">
@@ -954,6 +1045,19 @@
           <date year="2026" month="March"/>
         </front>
         <seriesInfo name="Wikipedia" value="Sextet"/>
+      </reference>
+
+      <reference anchor="W3C.REC-xmlschema11-2-20120405" target="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">
+        <front>
+          <title>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</title>
+          <author fullname="David Peterson" initials="D." surname="Peterson"/>
+          <author fullname="Shudi (Sandy) Gao" initials="S." surname="Gao"/>
+          <author fullname="Ashok Malhotra" initials="A." surname="Malhotra"/>
+          <author fullname="C. M. Sperberg-McQueen" initials="C." surname="Sperberg-McQueen"/>
+          <author fullname="Henry S. Thompson" initials="H." surname="Thompson"/>
+          <date day="5" month="April" year="2012"/>
+        </front>
+        <seriesInfo name="W3C Recommendation" value="REC-xmlschema11-2-20120405"/>
       </reference>
     </references>
     

@@ -2,10 +2,10 @@
 
 ### Abstract
 
-Ten64 is a [positional numeral system](#positional-number-systems-wikipedia) for representing numeric values with an alphabet of 64 characters [(aka. radix/base 64)](#radix-wikipedia).  However, unlike most [positional number systems](#positional-number-systems-wikipedia), the characters are written in ascending and NOT descending order (aka [big-endian](#endian-wikipedia)).
-The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka. bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), Ten64 can be used to create binary strings of arbitrary length.  However, it is often used to encode one or more [Modern Western Integers (aka Arabic, Vedic)](#modern-western-numeral-system), interpreting the [composite big-endian binary](#endian-wikipedia) as a one or more [Modern Western Integers](#modern-western-numeral-system).
+Ten64 is a [positional numeral system](#positional-number-systems-wikipedia) for representing numeric values with an alphabet of 64 characters [(aka. radix/base 64)](#radix-wikipedia).  However, unlike most [positional number systems](#positional-number-systems-wikipedia), the characters are written in ascending (aka. [big-endian](#endian-wikipedia)) and NOT descending order.
+The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka. bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), Ten64 can be used to create binary strings of arbitrary length.  Ten64 can encode one or more [Modern Western Numbers (aka Arabic, Vedic)](#modern-western-numeral-system), interpreting the characters respective [composite big-endian binary](#endian-wikipedia) as a one or more [Modern Western Numbers](#modern-western-numeral-system).
 
-The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be [optimized](#performance) for use with numbers commonly used in identifiers, such as [DIDs](#decentralized-identifiers-dids), [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid), dates, [time](#time)[(stamp)s](#timestamps), [coodinates](#points), and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
+The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be [optimized](#performance) for use with numbers commonly used in identifiers, such as [DIDs](#decentralized-identifiers-dids), [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid), [dates](#dates), [time](#time)[(stamp)s](#timestamps), [points](#points), and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).  Finally, Ten64 provides a disk-based number encoding system for huge numbers and number streams.
 
 ## Authors
 
@@ -36,23 +36,17 @@ This Github project will contain the Java implementation.  A Typescript implemen
 
 This section is non-normative.
 
-As computer systems scale in both volume and streaming throughput, standard JavaScript Object Notation [JSON](#json-rfc-8259) often introduce precision issues. This is particularly prevalent due to double-precision [floating-point](#floating-point) constraints.  Although double floating point precision is specified in the [JSON RFC](#json-rfc-8259). Parsers have interpreted this differently, most notably [Jackson](#fasterxml-jackson) and [Gson](#gson).
-In addition, streaming formats like [base64](#base64-rfc-4648) are often fairly verbose to map binary data to octets.  This incurs a large cost when one bit is encoded as four bytes.  To solve these and related issues, Ten64 is introduced.
-
 Alternative notations and bases have historically been explored to
 improve human-machine interfaces, ranging from early discussions on
 [binary notations](#CACM-Binary) to modern concepts like
-[Hexadecimal](#hexadecimal), and [Bioctal](#bioctal)
-. Ten64 builds on this history by utilizing a
-64-character binary alphabet composed of standard [ASCII-7](#ascii-7) /
-[UTF-8 characters](#utf-8). By
-avoiding standard mathematical symbols, Ten64 allows exact numbers to
-be embedded directly into programming environments without compiler
-confusion.</t>
+[Hexadecimal](#hexadecimal), and [Bioctal](#bioctal). Ten64 builds on this history by using a 64-character alphabet composed of standard [ASCII-7](#ascii-7) /
+[UTF-8 characters](#utf-8).
+
+In addition to providing a solid manor to represent numbers using characters and their respective binary representations, Ten64 Extends these representations with interpretation conventions.  These interpretation conventions will likely be specified by some sort of schema system like  [EJCN (Extensible JSON Classification Notation) Schemas](#ejcn-extensible-json-classification-notation-schemas), [JSON Schemas](#json-schemas) or [XML Schemas](#xml-schemas).
 
 ## Human-Readable Verses Human-Decipherable
 
-In Ten64, we are targeting human-readable characters in the alphabet but do NOT intend to be human-decipherable.
+In Ten64, we are targeting human-readable characters in the alphabet but do NOT intend to be human-decipherable.  Our definition of these terms MAY be specific to this paper.
 
 ##### What is Human-Readable?
 
@@ -80,11 +74,12 @@ Although this is decipherable for some humans who are developers or software arc
 
 ## Special Characters Introduction
 
-Ten64 does NOT use the [Base64](#base64-rfc-4648) alphabet but a alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and '_' along with some additional special characters most notably '#','.',',' and ';', and '-'.  It is designed to be human and machine-readable but is really designed to optimized the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they human-readable. Theoretically, this system could also be used embed numbers into programming languages in the future.  However, usage MAY require the explicit starting character pound'#', and explicit termination semicolon character ';'.  It will use a big ending binary system as follows;
+Ten64 does NOT use the [Base64 RFC 4648](#base64-rfc-4648) alphabet but a alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and '_' along with some additional special characters most notably '#','.',',' and ';', '-', and the UNIX Line Feed 10 (0x0A in [hexadecimal](#hexadecimal)).  It is designed to be human and machine-readable but is really designed to [optimized](#performance) the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they human-readable. Theoretically, this system could also be used embed numbers into programming languages in the future.  However, usage MAY require the explicit starting character pound '#', and explicit termination semicolon character ';'.  It will use a big ending binary system as follows;
 
-## Special Characters Details
+## Special Characters and Sequences Details
 ```
 #   Optional explicit beginning of #Ten64 binary section, use depending on context.
+#.. The optional explicit begining of a multiple line Ten64 sequence.
 .   The Decimal or Number Space Separator
 ,   The Separator for Number Lists
 ;   Optional explicit end of #Ten64 sequence.
@@ -93,6 +88,11 @@ Ten64 does NOT use the [Base64](#base64-rfc-4648) alphabet but a alphabet simila
        Spaces, Return Sequences, etc. MAY be included
        and MUST cause end of interpretation of the
        Ten64 sequence.
+UNIX Line Feeds:
+    UNIX line feeds 10 / hex 0x0A
+    MAY be used to continue a number sequence when the number
+    sequence starts with '#..'.
+
     Other Non Alphabet Characters: MAY be included
        and MUST cause end of interpretation of the
        Ten64 sequence.
@@ -169,7 +169,9 @@ Ten64 does NOT use the [Base64](#base64-rfc-4648) alphabet but a alphabet simila
 
 # Use-Cases
 
-The primary Use-Case is simply an upgrade of [hexadecimal](#hexadecimal), where Ten64 provides a more succinct/compressed string of characters.  In addition, we target the encoding of numbers (n in the Text Encoded Numbers title).  Generally, we are also targeting identifiers of all kinds, attempting to make them as short as possible to improve human readability.  Finally, we target human-readable compressed identifiers shortening [UUID's](#uuid-rfc9562) as follows;
+##### Shortened Identifiers
+
+The primary Use-Case is simply an upgrade of [hexadecimal](#hexadecimal), where Ten64 provides a more succinct/compressed string of characters.  In addition, we target the encoding of numbers (n in the <b>Text Encoded Base 64 Numbers</b> title).  Generally, we are also targeting identifiers of all kinds, attempting to make them as short as possible to improve human readability.  Finally, we target human-readable compressed identifiers shortening [UUID's](#uuid-rfc9562) as follows;
 
 ```
 # 36 character UUID
@@ -182,100 +184,36 @@ The primary Use-Case is simply an upgrade of [hexadecimal](#hexadecimal), where 
 0
 ```
 
+##### Huge Numbers and the 10-6-4 Convention
+
+Ten64 is designed to be used to encode huge numbers, and is also [optimized](#performance) for this use-case.  The 10-6-4 convention suggests huge strings of numbers SHOULD be segmented into segments of ten characters, six characters, and then four characters.  In addition, these huge strings may be separated by the Unix line feed.  This also creates a convention of at MOST 92 characters per line SHOULD be used, it is an effort to improve human readability.
+
+```
+#..
+0123456789-abcdef-ghij-k$mnopqrst-uvwyxz-ABCD-EFGH+JKLMN-!PQRST-UVWY-XZ@_012345-6789ab-cdef
+ghijk$mnop-qrstuv-wyxz-ABCDEFGH+J-KLMN!P-QRST-UVWYXZ@012-345678-9abc-defghijk$m-nopqrs-tuvw
+yxzABCDEFG-H+JKLM;
+#..
+0123456789-abcdef-ghij-k$mnopqrst-uvwyxz-ABCD-EFGH+JKLMN-!PQRST-UVWY-XZ@_012345-6789ab-cdef
+ghijk$mnop-qrstuv-wyxz-ABCDEFGH+J-KLMN!P-QRST-UVWY.XZ@012-345678-9abc-defghijk$m-nopqrs-tuv
+wyxzABCDEF-GH+JKL-M;
+```
+
+The above code illustrates a huge integer number and a huge decimal number. These kinds of Ten64 character sequences MAY be included as strings or as template literals in many programming languages.  In addition, these huge numbers may be streamed from disk or over the network.
+
 # Binary
 
-Ten64 is a system to create [BitSlotMaps#1.3.6.1.4.1.33097.1.1.3](#bitslotmaps-13614133097113) (aka, BinaryStrings, BitVectors, BitSets, etc).  Typically, these are turned into integer or decimal numbers in memory.  Ten64 MAY also be used to represent arbitrary [octet arrays](#octet).  Note, conversion to [octet arrays](#octet) is NOT the primary [Use-Case](#use-case) of Ten64, and that round tripping between [octet arrays](#octet) MAY introduce issues.
+Ten64 is also a system to create [BitSlotMaps#1.3.6.1.4.1.33097.1.1.3](#bitslotmaps-13614133097113) (aka, BinaryStrings, BitVectors, BitSets, etc).  Numbers are read into memory using the [Ten64 integer serialization algorithm](#ten64-integer-serialization-algorithm).  Then the binary integer numbers can be reinterpreted per the user's wishes.
 
-## Binary big ending sequences MAY be interpreted as integers
+Ten64 MAY also be used to represent arbitrary [octet arrays](#octet).  Note, conversion to [octet arrays](#octet) is NOT the primary [Use-Case](#use-case) of Ten64, and that round tripping between [octet arrays](#octet) MAY introduce issues.
 
-  The following sequences explode as follows;
-
-  ```
-  #0.1;   expands to a list of integers 0, 1 which MAY also be interpreted as the decimal 0.1 depending on the context.
-  #0.1.2; expands to a segmented number / list of integers 0, 1, 2.
-  #01.11; expands the a list of integers 64, 65 which MAY also be interpreted as the decimal 64.65 depending on the context.
-  #-1.8;  expands to a list of integers -1, 8 and MAY also be interpreted as a decimal -1.8 depending on the context.
-  #-1.-9 expands to a list of integers -1, -9
-  ```
-
-## Ten64 to Octet (Byte) Array Conversion
+## Ten64 to Octet Array Conversion
 
 When converting Ten64 binary to an array of [octets](#octet), all missing bits MUST be filled with zeros.  This is to ensure that the binary consists of complete [octets](#octet).
 
 ## Ten64 from Octet (Byte) Array Conversion
 
 When converting arrays of octets to the Ten64 alphabet, all '0' characters from the Ten64 alphabet at the right MUST be omitted.
-
-## Segmented Numbers
-
-  There are several Use-Cases for segmented numbers, including Dates, Datetimes, MiliTimestamps, NanoTimestamps, [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), ThreeDPoints and more.
-
-## BigDecimals
-
-  Big Decimals (i.e. Java or Javascript type) can be easily represented with Ten64, which encodes the EXACT number of Decimal Places.  This provides and advantage over [JSON](#json-rfc-8259) which uses [IETF Double Precision Floating Point](#floating-point) numbers, which can cause precision issues in transit.
-
-## Dates
-
-  Dates can be greatly condensed using the Segmented Number base class.  Dates should be standardized as the year ten64 followed by a dot, and one ten64 character for the month and one ten64 character for the day.  For example;
-
- ```
-   #Vv.21;  expands to 2023-02-01
- ```
-
-## Datetimes
-
-  Datetimes add the additional timezone, (military time) hour and minute to the date.  The timezone, (military time) hour and minute each only take one ten64 character and can be encoded as follows;
-
-  ```
-    #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
-  ```
-
-## Lists
-
-  Ten64 supports lists of number separated by commas, each number MAY include whitespace characters on either side of the number;
-
-  ```
-    #1,2,3,4;  expands to a number list of 1,2,3,4
-    #1.2.3,4.5.6,7.8.9;  expands to a list of 3d points
-  ```
-
-## MiliTimestamp
-
-  MiliTimestamps add a single ten64 character for seconds and separate milliseconds with an additional dot.
-
-  ```
-    #Vv.216jR1.2; expands to 2023-02-01 CST 7:53:01.2
-    or with milliseconds expanded PM 2023-02-01 CST 7:53:01.002 PM
-  ```
-
-## NanoTimestamp
-
-NanoTimestamps add an additional dot, as the MiliSeconds can be multiple characters (with values 0-1000), and then multiple ten64 characters representing the additional (0-1,000,000,000) nanoseconds that are NOT tracked as milliseconds.
-
-```
-    #Vv.216jR1.2.7;  expands to 2023-02-01 CST 7:53:01.2.7 PM
-    or with nanoseconds expanded 2023-02-01 CST 7:53:01.002000007 PM
-```
-
-## Points
-
-Ten64 can encode 2d, 3d, and Nd points as segmented numbers.
-
-```
-# A 3d decimal point
-#-1.7,-5.2,-7.9;
-```
-
-## Time
-
-Time will use the time segments from the [Datetime](#datetimes), [MiliTimestpan](#militimestamp), and [NanoTimestamp](#nanotimestamp).
-
-  ```
-    # The Date Time
-    #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
-    # vs just the time part
-    #216jR;  expands to CST 7:53 PM
-  ```
 
 # Related Technologies
 
@@ -299,29 +237,6 @@ However, When converting decimal numbers using [Ten64 Decimal Serialization#1.3.
 
 - Serialization from [Modern Western Decimal Numbers](#modern-western-decimal-numbers) [O(c log c)](#ten64-decimal-serialization-algorithm)
 - De-Serialization to [Modern Western Decimal Numbers](#modern-western-decimal-numbers) [O(cd²) - O(M(cd))(#ten64-decimal-serialization-algorithm)
-
-## Modern Western Numeral System
-
-Arabic, Ghubari, and Vedic as well as many other numeral systems were considered for use in this RFC.  We finally settled down on modern the name <b>The Modern Western Numeral System</b>.  It appears that numeral systems have influenced each other over the ages, and we will likely continue carbon dating each glyph 0-9 for some time, as we have recently carbon dated the glyph '0'.  In addition, even if we do find an older carbon date of a particular glyph, It could take a considerable amount of time to determine if that carbon dating references a different culture than the main culture which recorded the glyph.
-
-- [Origin of the Numerals](#origin-of-modern-mathematical-numeral)
-- [Carbon Dating Reveals the History of Zero Is Older Than Previously Thought](#carbon-dating-zero)
-```
-Before we go on to analytically review the
-Hindu-Indian Brahmagubta and Islamo-Arabic
-Ghubari origin of the modern mathematical
-numeral system which is now regarded as the
-Western Numeral System.
-```
-- [Origin of Modern Mathematical Numeral pg 46](#origin-of-modern-mathematical-numeral)
-
-### Modern Western Integers
-
-Modern Western Integers are simply integers composed using the Modern Western Numerical System. <b>Modern Western Integers</b> MAY be positive, negative, or zero.
-
-### Modern Western Decimal Numbers
-
-Modern Western Decimal Numbers Are simply numbers using the Modern Western Numeral System, which contain a decimal point.
 
 # Compatibility
 
@@ -390,10 +305,6 @@ did:ten64:abc123
 
 [EJCN (Extensible JSON Classification Notation)](#extensible-json-classification-notation-ejcn) uses Ten64 in a downstream manner, so it is fully compatible with Ten64.
 
-##### Grisu3
-
-Loitsch, F. (2010). "Printing floating-point numbers quickly and accurately with integers." ACM SIGPLAN Notices, 45(6), 233–243. https://doi.org/10.1145/1806651.1806623
-
 ### JSON Compatibility
 
 [JSON Strings](#json-rfc-8259) are fully compatible with Ten64, as they use the backslash character '\' for escaping characters.
@@ -411,6 +322,123 @@ Various shells (i.e. Bash) will likely have some compatibility issues due to the
 
 Ten64 SHOULD be generally compatible with most text files and programming syntax.  We have intentionally avoided commonly used characters like brackets, braces and parentheses '[',']','{','}','(',')'.  In addition, we have avoided common escape characters '%','&', etc.
 
+# Interpretation Conventions
+
+The Ten64 character sequences may have additional corresponding meta-data information from various schema sources like;
+
+- [EJCN (Extensible JSON Classification Notation )](#ejcn-extensible-json-classification-notation)
+- [EJCN (Extensible JSON Classification Notation ) Schemas](#ejcn-extensible-json-classification-notation-schemas)
+- [JSON Schemas](#json-schemas)
+- [XML Schemas](#xml-schemas)
+
+Although the definitions of all these schema types are out of the scope of this document, we supply the following interpretation conventions.
+
+## Interpretation as integers, decimals, and lists of integers.
+
+The following sequences explode as follows;
+
+  ```
+  #0.1;   expands to a list of integers 0, 1 which MAY also be interpreted as the decimal 0.1 depending on the context.
+  #0.1.2; expands to a segmented number / list of integers 0, 1, 2.
+  #01.11; expands the a list of integers 64, 65 which MAY also be interpreted as the decimal 64.65 depending on the context.
+  #-1.8;  expands to a list of integers -1, 8 and MAY also be interpreted as a decimal -1.8 depending on the context.
+  #-1.-9 expands to a list of integers -1, -9
+  ```
+
+## Segmented Number Interpretations Summary
+
+There are several interpretation Use-Cases for segmented numbers, including Dates, Datetimes, MiliTimestamps, NanoTimestamps, [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), Points and more.
+
+## BigDecimal Interpretations
+
+Big Decimals (i.e. Java or Javascript type) can be easily represented with Ten64, which encodes the EXACT number of Decimal Places.  This provides and advantage over [JSON](#json-rfc-8259) which uses [IETF Double Precision Floating Point](#floating-point) numbers, which can cause precision issues in transit.
+
+## Date Interpretations
+
+Dates can be greatly condensed using the Segmented Number base class.  Dates should be standardized as the year ten64 followed by a dot, and one ten64 character for the month and one ten64 character for the day.  For example;
+
+ ```
+   #Vv.21;  expands to 2023-02-01
+ ```
+
+## Datetime Interpretations
+
+Datetimes add the additional timezone, (military time) hour and minute to the date.  The timezone, (military time) hour and minute each only take one ten64 character and can be encoded as follows;
+
+  ```
+    #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
+  ```
+
+## List Interpretations
+
+Ten64 supports lists of number separated by commas, each number MAY include whitespace characters on either side of the number;
+
+  ```
+    #1,2,3,4;  expands to a number list of 1,2,3,4
+    #1.2.3,4.5.6,7.8.9;  expands to a list of 3d points
+  ```
+
+## MiliTimestamp Interpretations
+
+MiliTimestamps add a single ten64 character for seconds and separate milliseconds with an additional dot.
+
+  ```
+    #Vv.216jR1.2; expands to 2023-02-01 CST 7:53:01.2
+    or with milliseconds expanded PM 2023-02-01 CST 7:53:01.002 PM
+  ```
+
+## NanoTimestamp Interpretations
+
+NanoTimestamps add an additional dot, as the MiliSeconds can be multiple characters (with values 0-1000), and then multiple ten64 characters representing the additional (0-1,000,000,000) nanoseconds that are NOT tracked as milliseconds.
+
+```
+    #Vv.216jR1.2.7;  expands to 2023-02-01 CST 7:53:01.2.7 PM
+    or with nanoseconds expanded 2023-02-01 CST 7:53:01.002000007 PM
+```
+
+## Point Interpretations
+
+Ten64 can encode 2d, 3d, and Nd points as segmented numbers.
+
+```
+# A 3d decimal point
+#-1.7,-5.2,-7.9;
+```
+
+## Time Interpretations
+
+Time will use the time segments from the [Datetime](#datetimes), [MiliTimestpan](#militimestamp), and [NanoTimestamp](#nanotimestamp).
+
+  ```
+    # The Date Time
+    #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
+    # vs just the time part
+    #216jR;  expands to CST 7:53 PM
+  ```
+
+## Modern Western Numeral System
+
+Arabic, Ghubari, and Vedic as well as many other numeral systems were considered for use in this RFC.  We finally settled down on modern the name <b>The Modern Western Numeral System</b>.  It appears that numeral systems have influenced each other over the ages, and we will likely continue carbon dating each glyph 0-9 for some time, as we have recently carbon dated the glyph '0'.  In addition, even if we do find an older carbon date of a particular glyph, It could take a considerable amount of time to determine if that carbon dating references a different culture than the main culture which recorded the glyph.
+
+- [Origin of the Numerals](#origin-of-modern-mathematical-numeral)
+- [Carbon Dating Reveals the History of Zero Is Older Than Previously Thought](#carbon-dating-zero)
+```
+Before we go on to analytically review the
+Hindu-Indian Brahmagubta and Islamo-Arabic
+Ghubari origin of the modern mathematical
+numeral system which is now regarded as the
+Western Numeral System.
+```
+- [Origin of Modern Mathematical Numeral pg 46](#origin-of-modern-mathematical-numeral)
+
+### Modern Western Integers
+
+Modern Western Integers are simply integers composed using the Modern Western Numerical System. <b>Modern Western Integers</b> MAY be positive, negative, or zero.
+
+### Modern Western Decimal Numbers
+
+Modern Western Decimal Numbers Are simply numbers using the Modern Western Numeral System, which contain a decimal point.
+
 # Commentary
 
 To improve human readability, we replaced these characters with their respective characters. The following chart shows the history of this.
@@ -423,9 +451,15 @@ To improve human readability, we replaced these characters with their respective
 
 2026-03-28 Replaced the % sign with the + sign to make [URI (URL)](#uri-rfc3986) escaping easier.  Replaced the question mark with the colon to make [URI (URL)](#uri-rfc3986) escaping easier, and then later on replaced it with the exclamation point to make this Ten64 more compatible with [DIDs](#decentralized-identifiers-dids).
 
-Although Ten64 can encode and decode numbers of any size and precision, they are often not human-decipherable.  During the creation of this text, there was much discussion about [JSON](#json-rfc-8259), [JavaScript](#javascript-wikipedia) and [ECMA Script](#ecma-262) Numbers.  We believe that a separate document should be created to address the serialization/de-serialization (aka encoding/decoding) which uses the [Modern Western Numeral System](#modern-western-numeral-system) specifically.
+Although Ten64 can encode and decode numbers of any size and precision, they are often not human-decipherable.  During the creation of this text, there was much discussion about JSON RFCs [4627](#json-rfc-4627), [7158](#json-rfc-7158), [7159](#json-rfc-7159), [8259](#json-rfc-8259), [JavaScript](#javascript-wikipedia) and [ECMA Script](#ecma-262) Numbers.  We believe that a separate document SHOULD be created to address the serialization/de-serialization (aka encoding/decoding) which uses text representing the [Modern Western Numeral System](#modern-western-numeral-system) specifically.
 
-Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, It has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the J in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Nubmers](#floating-point-ieee-754-2019).
+```
+12.78 → Java BigDecimal style numbers
+f12.78 → 32 bit IEEE 754 single floating point decimal numbers
+d12.78 → 64 bit IEEE 754 double floating point decimal numbers
+```
+
+Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, It has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the J in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Nubmers](#floating-point-ieee-754-2019).  These challenges and issues are not traceable to a single standard, but instead are often the result of the interaction between three standards bodies the [IEEE](#ieee), [IETF](#ietf) and [ECMA International](#ecma-262).
 
 As a side note, the [ECMA Script 262 website](https://tc39.es/ecma262) chews up enough resources (processor/RAM I didn't benchmark it?) that it slows down and crashes browsers on my computer with 64 GB of RAM.  However, for the brave people who want to click on these direct links;
 
@@ -443,6 +477,8 @@ The culmination of all of these points result in ubiquitious usage of string wra
 ```
 { "myJSONDecimalNumber": "12.3" }
 ```
+
+In addition, printing floating point numbers has been challenging historically.  Which has led to the [Ryū](#ryū) algorithm, which greatly reduced the time cost (asympotic complexity) of printing floating point numbers in various JVM environments.
 
 # Citations
 
@@ -517,14 +553,19 @@ https://tc39.es/ecma262/
 "ECMAScript 2025 Language Specification",
 Ecma International, June 2025.
 
+##### EJCN (Extensible JSON Classification Notation)
+
+https://github.com/adligo/ejcn.adligo.org
+"ejcn.adligo.org: Extensible JSON Classification Notation",
+Adligo, October 2024.
+
+##### EJCN (Extensible JSON Classification Notation) Schemas
+
+"Extensible JSON Classification Notation Schemas", GitHub Repository, 2024, <https://github.com/adligo/ejcn_schemas.adligo.org>.
+
 ##### Endian Wikipedia
    Wikipedia contributors. (2024). Endianness. In Wikipedia, The Free Encyclopedia. Retrieved March 30, 2026, from https://en.wikipedia.org/wiki/Endianness
 
-##### Extensible JSON Classification Notation (EJCN)
-
-https://github.com/adligo/ejcn.adligo.org
-    "ejcn.adligo.org: Extensible JSON Classification Notation",
-    Adligo, October 2024.
 
 ##### FasterXML Jackson
 
@@ -567,6 +608,9 @@ Google, "Gson: A Java serialization/deserialization library to convert Java Obje
 
 Wikipedia contributors. "JavaScript." Wikipedia, The Free Encyclopedia. [https://en.wikipedia.org/wiki/JavaScript](https://en.wikipedia.org/wiki/JavaScript). Accessed 29 March 2026.
 
+##### JSON Schemas
+Wright, A., Andrews, H., and Hutton, J., "JSON Schema: A Media Type for Describing JSON Data Structures", IETF Draft, November 2017, <https://json-schema.org/draft-07/json-schema-core.html>.
+
 ##### Hexadecimal
 
 https://en.wikipedia.org/wiki/Hexadecimal "Wikipedia Contributors. (2026, March). Hexadecimal. Wikipedia."
@@ -584,7 +628,20 @@ IANA, "Private Enterprise Numbers (PEN)", March 2026,
 
 Cover, T. M., & Thomas, J. A. (2006). Elements of Information Theory (2nd ed.). Wiley-Interscience. https://doi.org/10.1002/047174882X
 
+##### JSON RFC 4627
+
+Citation: Crockford, D., "The application/json Media Type for JavaScript Object Notation (JSON)", RFC 4627, DOI 10.17487/RFC4627, July 2006, <https://www.rfc-editor.org/info/rfc4627>.
+
+##### JSON RFC 7158
+
+Full Citation: Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 7158, DOI 10.17487/RFC7158, March 2013, <https://www.rfc-editor.org/info/rfc7158>.
+
+##### JSON RFC 7159
+
+Full Citation: Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March 2014, <https://www.rfc-editor.org/info/rfc7159>.
+
 ##### JSON RFC 8259
+
 Bray, T., "The JSON Data Interchange Format," RFC 8259, STD 90, December 2017, <https://www.rfc-editor.org/info/rfc8259>.
 
 ##### Math Asymptotic Processor Performance Wikipedia
@@ -691,3 +748,6 @@ Katz, B., "Carbon Dating Reveals the History of Zero Is Older Than Previously Th
 
 Internet Engineering Task Force (IETF), "Language and Style," IETF Author Resources, https://authors.ietf.org/language-and-style (accessed March 2026).
 
+##### XML Schemas
+
+Peterson, D., Gao, S., Malhotra, A., Sperberg-McQueen, C. M., and Thompson, H. S., Eds., "W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes", W3C Recommendation, 5 April 2012, <https://www.w3.org/TR/xmlschema11-2/>.
