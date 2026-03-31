@@ -2,7 +2,7 @@
 
 ### Abstract
 
-Ten64 is a [positional numeral system](#positional-number-systems-wikipedia) for representing numeric values with an alphabet of 64 characters [(aka. radix/base 64)](#radix-wikipedia).  However, unlike most [positional number systems](#positional-number-systems-wikipedia), the characters are written in ascending (aka. [big-endian](#endian-wikipedia)) and NOT descending order.
+Ten64 is a [positional numeral system](#positional-number-systems-wikipedia) for representing numeric values with an alphabet of 64 characters (aka. [radix/base 64](#radix-wikipedia)).  However, unlike most [positional number systems](#positional-number-systems-wikipedia), the characters are written in ascending (aka. [big-endian](#endian-wikipedia), [network-order](#network-order-ibm)) and NOT descending order.
 The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka. bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), Ten64 can be used to create binary strings of arbitrary length.  Ten64 can encode one or more [Modern Western Numbers (aka Arabic, Vedic)](#modern-western-numeral-system), interpreting the characters respective [composite big-endian binary](#endian-wikipedia) as a one or more [Modern Western Numbers](#modern-western-numeral-system).
 
 The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be [optimized](#performance) for use with numbers commonly used in identifiers, such as [DIDs](#decentralized-identifiers-dids), [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid-rfc9562), [dates](#date-interpretations), [time](#time-interpretations)[(stamp)s](#militimestamp-interpretations), [points](#point-interpretations), and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).  Finally, Ten64 provides a disk-based number encoding system for huge numbers and number streams.
@@ -451,7 +451,7 @@ To improve human readability, we replaced these characters with their respective
 
 2026-03-28 Replaced the % sign with the + sign to make [URI (URL)](#uri-rfc3986) escaping easier.  Replaced the question mark with the colon to make [URI (URL)](#uri-rfc3986) escaping easier, and then later on replaced it with the exclamation point to make this Ten64 more compatible with [DIDs](#decentralized-identifiers-dids).
 
-Although Ten64 can encode and decode numbers of any size and precision, they are often not human-decipherable.  During the creation of this text, there was much discussion about JSON RFCs [4627](#json-rfc-4627), [7158](#json-rfc-7158), [7159](#json-rfc-7159), [8259](#json-rfc-8259), [JavaScript](#javascript-wikipedia) and [ECMA Script](#ecma-262) Numbers.  Scott believes that a separate document SHOULD be created to address the serialization/de-serialization (aka encoding/decoding) which uses text representing the [Modern Western Numeral System](#modern-western-numeral-system) specifically.  Scott suggests something like the following;
+Although Ten64 can encode and decode numbers of any size and precision, they are often not human-decipherable.  During the creation of this text, there was much discussion about JSON RFCs [4627](#json-rfc-4627), [7158](#json-rfc-7158), [7159](#json-rfc-7159), [8259](#json-rfc-8259), [JavaScript](#javascript-wikipedia) and [ECMA Script](#ecma-262) Numbers.  S Morgan believes that a separate document SHOULD be created to address the serialization/de-serialization (aka encoding/decoding) which uses text representing the [Modern Western Numeral System](#modern-western-numeral-system) specifically.  S Morgan suggests something like the following;
 
 ```
 12 → int, long or ECMA BigInt, Language specifies.
@@ -460,7 +460,7 @@ f12.78 → 32 bit IEEE 754 single floating point decimal numbers
 d12.78 → 64 bit IEEE 754 double floating point decimal numbers
 ```
 
-Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, It has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the J in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Nubmers](#floating-point-ieee-754-2019).  These challenges and issues are not traceable to a single standard, but instead are often the result of the interaction between three standards or more bodies the [IEEE](#ieee), [IETF](#ietf) and [ECMA International](#ecma-262).
+Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, It has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the J in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Nubmers](#floating-point-ieee-754-2019).  These challenges and issues are not traceable to a single standard, but instead are often the result of the interaction between at least three standards bodies the [IEEE](#ieee), [IETF](#ietf), [](#jcp) and [ECMA International](#ecma-262).
 
 As a side note, the [ECMA Script 262 website](https://tc39.es/ecma262) chews up enough resources (processor/RAM I didn't benchmark it?) that it slows down and crashes browsers on my computer with 64 GB of RAM.  However, for the brave people who want to click on these direct links;
 
@@ -471,7 +471,7 @@ As a side note, the [ECMA Script 262 website](https://tc39.es/ecma262) chews up 
 In some ways, this issue appears to be fixed in part by more modern RFC's including the following;
 - [CBOR RFC 8949](#cbor-rfc-8949) Which simply uses a binary format to transfer the [floating-point numbers](#floating-point-ieee-754-2019).
 
-- [HTTP Structured Fields RFC 9651](#http-structured-fields-rfc-9651) Which does NOT target text but [HTTP or really UIRs RFC 3986](#uri-rfc3986) and puts a tight limitation on decimal numbers, only allowing three digits, which isn't compatible with [Bitcoin](#bitcoin) and other large decimal number formats.
+- [HTTP Structured Fields RFC 9651](#http-structured-fields-rfc-9651) which does NOT target text but [HTTP or really UIRs RFC 3986](#uri-rfc3986) and puts a tight limitation on decimal numbers, only allowing three decimal digits, which isn't compatible with [Bitcoin](#bitcoin) and other wider decimal number formats.
 
 The culmination of all of these points result in ubiquitious usage of string wrappers for numbers in tools like JSON, which forces the various parsers to get it right all the time;
 
@@ -481,13 +481,73 @@ The culmination of all of these points result in ubiquitious usage of string wra
 
 This essentially defeats the purpose of having a number type in [JSON](#json-rfc-8259).
 
-In addition, printing floating point numbers has been challenging historically.  Which has led to the [Ryū](#ryū) algorithm, which greatly reduced the time cost (asympotic complexity) of printing floating point numbers in various JVM environments.
+In addition, printing floating point numbers has been challenging historically.  Which has led to the [Ryū](#ryū) algorithm, which greatly reduced the time cost (asympotic complexity) of printing floating point numbers in various JVM environments.  [Ryū](#ryū) itself improved on the previous [How to Print Floating-Point Numbers Accurately](#floating-point-printing) paper by Guy L. Steele Jr. and Jon L White, and was eventually adopted by the [](#jcp). Casual readers are encouraged to watch the [Ryū video](#ryū-video).  Then ask themselves the philosophical question: What do you want to see from the following pseudo-code?
+
+```
+var f : ieee754Float = f0.3
+print(f)
+```
+
+Some people would prefer <b>Option A '0.3'</b> while others (i.e. S Morgan) would prefer <b>Option B '0.300048828125'</b>.  S Morgan thinks <b>Option B</b> is simpler, likely faster to print and also a more accurate representation of what is actually stored in RAM without any rounding.
+
+In addition, since the Java BigDecimal style isn't actually a standard from any of these standards bodies, except for maybe the [JCP](#jcp).  This means we don't actually have a solid standard for serializing money (i.e. USD, YEN, BTC, etc).  Finally, after reading all of this and the citations to ANSI Math [X3.274-1996](#ansi-x3274-1996) - [X3.274-1996 AM 1-2000 section 74](#ansi-x3274-1996am-1-2000-section-74) in the [Java 23 BigDecimal source code](), (S Morgan) started to ponder: is all of this just too complex?
+
+S Morgan:
+
+From more of a [philosophical category theory](#category-theory-b-milewski-youtube) perspective Are we actually usually doing [discrete mathematics](#discrete-mathematics-o-levin-2024) and have just added decimal places to help us read the [natural numbers](#natural-numbers-wikipedia)?  For example, USD currency serialization and mathematical operations are actually using a natural number of cents.  Perhaps we should just run with that and do much of our math with [BigIntegers](#bigint-java) , [BigInts](#ecma-262), and then reformat the string representation with a decimal point.  This would likely give most intuitive users who are just learning programming, math or both for the first time a much lower barrier to entry when performing most elementary to high school math, programming and serialization.
+
+ A new <b>BigNumber</b> convention could be created on top of this idea leveraging the [ISO/IEC 10967 integer datatype section 5.1](#math-international-standard).
+
+```
+var b : BigNumber = 12.57
+println(b)
+println(b.hasDecimalPoint())
+var i : BigNumber = -∞
+println(b)
+var c = BigNumber = 0.3
+println(c)
+println(c.toFloat())
+// should output the following text
+12.57
+true
+-∞
+0.3
+0.300048828125
+```
+
+Then this new <b>BigNumber</b> type could be used as the basis for further text-encoding number work of the [Modern Western Numeral System](#modern-western-numeral-system).  Finally, an open question.  What should we do with repeating numbers (aka. connected overlines) (i.e. 0.&#x0305;0&#x0305;1&#x0305;2&#x0305;3&#x0305;4&#x0305;5&#x0305;6&#x0305;7&#x0305;8&#x0305;9 or 1/7 = 0.&#x0305;1&#x0305;4&#x0305;2&#x0305;8&#x0305;5&#x0305;7 ), another new <b>BigFraction</b> type perhaps?
+
+```
+# Github Markdown for Connected Overlines
+0.&#x0305;0&#x0305;1&#x0305;2&#x0305;3&#x0305;4&#x0305;5&#x0305;6&#x0305;7&#x0305;8&#x0305;9
+1/7 = 0.&#x0305;1&#x0305;4&#x0305;2&#x0305;8&#x0305;5&#x0305;7
+```
 
 # Citations
 
 ##### ASCII-7
 
 https://www.ansi.org/ "American Standards Association. (1963). American Standard Code for Information Interchange (ASA X3.4-1963)."
+
+##### ANSI
+
+American National Standards Institute, "American National Standards Institute - ANSI Home," [Online]. Available: [https://www.ansi.org/](https://www.ansi.org/).
+
+##### ANSI X3.274 IBM
+
+IBM Corporation, "Decimal Arithmetic - Appendix A -- The X3.274 subset," in *Decimal Arithmetic Specification, version 1.70*, Apr. 7, 2009. [Online]. Available: [https://speleotrove.com/decimal/dax3274.html](https://speleotrove.com/decimal/dax3274.html).
+
+##### ANSI X3.274-1996
+
+Information Technology – Programming Language REXX*, ANSI INCITS 274-1996/AMD1-2000 (R2001), InterNational Committee for Information Technology Standards, Washington, DC, 2000. [Online]. Available: [https://webstore.ansi.org/standards/incits/ansiincits2741996amd12000r2001](https://webstore.ansi.org/standards/incits/ansiincits2741996amd12000r2001).
+
+Note: The authors did not actually read this citation because of the price tag.  It was cited because of the proxy citation in the [Java BigDecimal](#bigdecimal-java) source code.
+
+##### ANSI X3.274-1996 AM 1-2000 (section 7.4)
+
+Information Technology – Programming Language REXX, ANSI INCITS 274-1996/AMD1-2000 (R2001), InterNational Committee for Information Technology Standards, Washington, DC, 2000. [Online]. Available: [https://webstore.ansi.org/standards/incits/ansiincits2741996amd12000r2001](https://webstore.ansi.org/standards/incits/ansiincits2741996amd12000r2001).
+
+Note: The authors did not actually read this citation because of the price tag.  It was cited because of the proxy citation in the [Java BigDecimal](#bigdecimal-java) source code.
 
 ##### Asymptotic Cost of Multiplication
 
@@ -525,6 +585,10 @@ https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/math/BigDecima
 
 https://en.wikipedia.org/wiki/Bioctal "Community. (n.d.). Bioctal: Hexadecimal 2.0. Wikipedia."
 
+##### Discrete Mathematics O Levin 2024
+
+Levin, O. (2024). *Discrete mathematics: An open introduction* (4th ed.). Open Textbook Library. Retrieved from [https://discrete.openmathbooks.org/pdfs/dmoi4.pdf](https://discrete.openmathbooks.org/pdfs/dmoi4.pdf)
+
 ##### BitSlotMaps 1.3.6.1.4.1.33097.1.1.3
 
 https://adligo.github.io/papers.adligo.com/data_structures/BitSlotMaps.html "Morgan, S. (2025). BitSlotMaps. Adligo Papers."
@@ -535,6 +599,10 @@ Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*. [https://
 ##### CACM-Binary
 
 https://doi.org/10.1145/364096.364107 "ACM. (1968). Letters to the editor: On binary notation. Communications of the ACM."
+
+##### Category Theory B Milewski Youtube
+
+B. Milewski, "Category Theory 1.1: Motivation and Philosophy," YouTube, Aug. 25, 2016. [Online]. Available: [https://www.youtube.com/watch?v=I8LbkfSSR58](https://www.youtube.com/watch?v=I8LbkfSSR58).
 
 ##### CBOR RFC 8949
 
@@ -639,6 +707,10 @@ IETF. "Internet Engineering Task Force." Accessed March 30, 2026. https://www.ie
 
 Cover, T. M., & Thomas, J. A. (2006). Elements of Information Theory (2nd ed.). Wiley-Interscience. https://doi.org/10.1002/047174882X
 
+##### JCP
+
+Java Community Process (Oracle), "The Java Community Process(SM) Program - Home," [Online]. Available: [https://www.jcp.org/en/home/index](https://www.jcp.org/en/home/index).
+
 ##### JSON RFC 4627
 
 Citation: Crockford, D., "The application/json Media Type for JavaScript Object Notation (JSON)", RFC 4627, DOI 10.17487/RFC4627, July 2006, <https://www.rfc-editor.org/info/rfc4627>.
@@ -655,13 +727,29 @@ Full Citation: Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interc
 
 Bray, T., "The JSON Data Interchange Format," RFC 8259, STD 90, December 2017, <https://www.rfc-editor.org/info/rfc8259>.
 
+##### Language-Independent Arithmetic (LIA)
+
+
 ##### Math Asymptotic Processor Performance Wikipedia
 
 Wikipedia contributors, "Computational complexity of mathematical operations," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations (accessed October 2023).
 
+##### Math International Standard
+
+*Information technology — Language independent arithmetic — Part 1: Integer and floating point arithmetic*, ISO/IEC 10967-1:2012, Jul. 2012.
+
 ##### Mathematical Theory of Communication Shannon 1948
 
 Shannon, C. E. (1948). A Mathematical Theory of Communication. Bell System Technical Journal, 27(3), 379–423. https://doi.org/10.1002/j.1538-7305.1948.tb01338.x
+
+##### Natural Numbers Wikipedia
+
+Wikipedia contributors, "Natural number," *Wikipedia, The Free Encyclopedia*, [Online]. Available: [https://en.wikipedia.org/wiki/Natural_number](https://en.wikipedia.org/wiki/Natural_number).
+
+
+##### Network Order IBM
+
+IBM, "Network byte order and host byte order," *IBM Documentation*, [Online]. Available: [https://www.ibm.com/docs/ja/zvm/7.2.0?topic=domains-network-byte-order-host-byte-order](https://www.ibm.com/docs/ja/zvm/7.2.0?topic=domains-network-byte-order-host-byte-order).
 
 ##### Number Conversion Calculator
 
@@ -717,6 +805,10 @@ Wikipedia contributors. (2024). Radix. In Wikipedia, The Free Encyclopedia. Retr
 ##### Ryū
 
 Adams, U. (2018). "Ryū: fast float-to-string conversion." Proceedings of the 39th ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI), 270–282. https://doi.org/10.1145/3192366.3192369
+
+##### Ryū Video
+
+U. Adams, "Ryū: Fast Float-to-String Conversion," YouTube, 2018. [Online]. Available: [https://www.youtube.com/watch?v=kw-U6smcLzk&t=457s](https://www.youtube.com/watch?v=kw-U6smcLzk&t=457s).
 
 ##### Sextet
 

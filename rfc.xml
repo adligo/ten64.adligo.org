@@ -2,7 +2,7 @@
 <rfc version="3" ipr="trust200902" docName="draft-morgan-ten64-00" 
      submissionType="IETF" category="info" xml:lang="en">
   <front>
-    <title abbrev="Ten64">Text Encoded Numbers as Base 64 (Ten64)</title>
+    <title abbrev="Ten64">Text Encoded Base 64 Numbers (Ten64)</title>
     
     <author initials="S." surname="Morgan" fullname="Scott Morgan">
       <organization>Adligo Inc.</organization>
@@ -24,7 +24,8 @@
         64 characters <xref target="radix-wikipedia" format="none" sectionFormat="bare">(aka. radix/base 64)</xref>.
         However, unlike most <xref target="positional-number-systems-wikipedia" format="none" sectionFormat="bare">
         positional number systems</xref>, the characters are written in ascending
-        (aka. <xref target="endian-wikipedia" format="none" sectionFormat="bare">big-endian</xref>) and NOT descending
+        (aka. <xref target="endian-wikipedia" format="none" sectionFormat="bare">big-endian</xref>,
+        <xref target="network-order-ibm" format="none" sectionFormat="bare">network-order</xref>) and NOT descending
         order. The main differences are the use of <xref target="sextet" format="none" sectionFormat="bare">sextets
         (six bits)</xref> instead of <xref target="octet" format="none" sectionFormat="bare">octets (aka. bytes)
         </xref>. Similar to <xref target="hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref>, Ten64
@@ -978,19 +979,48 @@ UNIX Line Feeds:
   
     <references>
       <name>Normative References</name>
-      
-      <reference anchor="bitslotmaps" 
-           target="https://adligo.github.io/papers.adligo.com/data_structures/BitSlotMaps.html">
+
+      <reference anchor="ansi" target="https://www.ansi.org/">
         <front>
-          <title>BitSlotMaps</title>
-          <author initials="S." surname="Morgan" fullname="Scott Morgan">
-            <organization>Adligo Inc</organization>
+          <title>American National Standards Institute - ANSI Home</title>
+          <author>
+            <organization>American National Standards Institute (ANSI)</organization>
           </author>
-          <date year="2025" month="November" day="25"/>
         </front>
-        <seriesInfo name="Adligo Papers" value="1.3.6.1.4.1.33097.1.1.3"/>
       </reference>
 
+      <reference anchor="ansi-x3274-ibm" target="https://speleotrove.com/decimal/dax3274.html">
+        <front>
+          <title>Decimal Arithmetic Specification, version 1.70 - Appendix A: The X3.274 subset</title>
+          <author>
+            <organization>IBM Corporation</organization>
+          </author>
+          <date day="7" month="April" year="2009"/>
+        </front>
+        <seriesInfo name="Website" value="speleotrove.com/decimal"/>
+      </reference>
+      
+      <reference anchor="ansi-x3274-1996" target="https://webstore.ansi.org/standards/incits/ansiincits2741996amd12000r2001">
+        <front>
+          <title>Information Technology - Programming Language REXX</title>
+          <author>
+            <organization>InterNational Committee for Information Technology Standards (INCITS)</organization>
+          </author>
+          <date year="2000"/>
+        </front>
+        <seriesInfo name="ANSI" value="INCITS 274-1996/AMD1-2000 (R2001)"/>
+      </reference>
+
+      <reference anchor="ansi-x3274-1996-am-1-2000-section-7.4" target="https://webstore.ansi.org/standards/incits/ansiincits2741996amd12000r2001">
+        <front>
+          <title>Information Technology - Programming Language REXX</title>
+          <author>
+            <organization>InterNational Committee for Information Technology Standards (INCITS)</organization>
+          </author>
+          <date year="2000"/>
+        </front>
+        <seriesInfo name="ANSI" value="INCITS 274-1996/AMD1-2000 (R2001)"/>
+      </reference>
 
       <reference anchor="ASCII-7" 
                  target="https://www.ansi.org/">
@@ -1003,7 +1033,7 @@ UNIX Line Feeds:
         </front>
         <seriesInfo name="ASA" value="X3.4-1963"/>
       </reference>
-
+      
       <reference anchor="base58" target="https://datatracker.ietf.org/doc/html/draft-msporny-base58-03">
         <front>
           <title>The Base58 Encoding Scheme</title>
@@ -1038,6 +1068,18 @@ UNIX Line Feeds:
         </front>
       </reference>
 
+      <reference anchor="bitslotmaps" 
+           target="https://adligo.github.io/papers.adligo.com/data_structures/BitSlotMaps.html">
+        <front>
+          <title>BitSlotMaps</title>
+          <author initials="S." surname="Morgan" fullname="Scott Morgan">
+            <organization>Adligo Inc</organization>
+          </author>
+          <date year="2025" month="November" day="25"/>
+        </front>
+        <seriesInfo name="Adligo Papers" value="1.3.6.1.4.1.33097.1.1.3"/>
+      </reference>
+      
       <reference anchor="carbon-dating-zero" target="https://www.smithsonianmag.com/smart-news/dating-ancient-indian-text-gives-new-timeline-history-zero-180964896/">
         <front>
           <title>Carbon Dating Reveals the History of Zero Is Older Than Previously Thought</title>
@@ -1047,6 +1089,16 @@ UNIX Line Feeds:
           <date year="2017" month="September" day="14"/>
         </front>
         <seriesInfo name="Smithsonian Magazine" value="Smart News"/>
+      </reference>
+
+      <reference anchor="category-theory-b-milewski-youtube" target="https://www.youtube.com/watch?v=I8LbkfSSR58">
+        <front>
+          <title>Category Theory 1.1: Motivation and Philosophy</title>
+          <author fullname="Bartosz Milewski">
+          </author>
+          <date day="25" month="August" year="2016"/>
+        </front>
+        <seriesInfo name="Video" value="YouTube"/>
       </reference>
 
       <reference anchor="CBOR-RFC-8949" target="https://www.rfc-editor.org/info/rfc8949">
@@ -1089,6 +1141,17 @@ UNIX Line Feeds:
           <date day="19" month="July" year="2022" />
         </front>
         <seriesInfo name="W3C Recommendation" value="REC-did-core-20220719" />
+      </reference>
+
+      <reference anchor="discrete-mathematics-o-levin-2024" target="https://discrete.openmathbooks.org/pdfs/dmoi4.pdf">
+        <front>
+          <title>Discrete Mathematics: An Open Introduction, 4th Edition</title>
+          <author fullname="Oscar Levin" initials="O." surname="Levin">
+            <organization>University of Northern Colorado</organization>
+          </author>
+          <date year="2024"/>
+        </front>
+        <seriesInfo name="Format" value="PDF"/>
       </reference>
 
       <reference anchor="doid-repo" target="https://github.com/adligo/doid.adligo.org">
@@ -1309,6 +1372,15 @@ UNIX Line Feeds:
         <seriesInfo name="Wikipedia, The Free Encyclopedia" value="Online"/>
       </reference>
 
+      <reference anchor="jcp" target="https://www.jcp.org/en/home/index">
+        <front>
+          <title>The Java Community Process(SM) Program - Home</title>
+          <author>
+            <organization>Java Community Process (Oracle Corporation)</organization>
+          </author>
+          </front>
+      </reference>
+
       <reference anchor="JSON-RFC-4627" target="https://www.rfc-editor.org/info/rfc4627">
         <front>
           <title>The application/json Media Type for JavaScript Object Notation (JSON)</title>
@@ -1397,6 +1469,17 @@ UNIX Line Feeds:
         <refcontent>Wikipedia, The Free Encyclopedia</refcontent>
       </reference>
 
+      <reference anchor="ISO-IEC-10967-1" target="https://www.iso.org/standard/51317.html">
+        <front>
+          <title>Information technology -- Language independent arithmetic -- Part 1: Integer and floating point arithmetic</title>
+          <author>
+            <organization>International Organization for Standardization (ISO) / International Electrotechnical Commission (IEC)</organization>
+          </author>
+          <date day="15" month="July" year="2012"/>
+        </front>
+        <seriesInfo name="ISO/IEC" value="10967-1:2012"/>
+      </reference>
+
       <reference anchor="Mathematical-Theory-of-Communication-Shannon-1948" target="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x">
         <front>
           <title>A Mathematical Theory of Communication</title>
@@ -1408,7 +1491,26 @@ UNIX Line Feeds:
         <seriesInfo name="Bell System Technical Journal" value="Vol. 27, pp. 379–423, 623–656"/>
         <seriesInfo name="DOI" value="10.1002/j.1538-7305.1948.tb01338.x"/>
       </reference>
-      
+
+      <reference anchor="natural-numbers-wikipedia" target="https://en.wikipedia.org/wiki/Natural_number">
+        <front>
+          <title>Natural number</title>
+          <author>
+            <organization>Wikipedia contributors</organization>
+          </author>
+          </front>
+        <seriesInfo name="Website" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+      <reference anchor="network-order-ibm" target="https://www.ibm.com/docs/ja/zvm/7.2.0?topic=domains-network-byte-order-host-byte-order">
+        <front>
+          <title>Network byte order and host byte order</title>
+          <author>
+            <organization>IBM</organization>
+          </author>
+          </front>
+      </reference>
+
       <reference anchor="origin-of-modern-mathematical-numeral" target="https://www.academia.edu/9099310/Origin_of_Modern_Mathematical_Numeral_0_1_2_3_4_5_6_7_8_9_the_Hindu_Indian_Brahmagubta_The_Islamo_Arabic_or_the_West">
         <front>
           <title>Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?</title>
@@ -1581,7 +1683,7 @@ UNIX Line Feeds:
         <seriesInfo name="RFC" value="8259"/>
       </reference>
 
-      <reference anchor="Ryu" target="https://doi.org/10.1145/3192366.3192369">
+      <reference anchor="ryū" target="https://doi.org/10.1145/3192366.3192369">
         <front>
           <title>Ryū: fast float-to-string conversion</title>
           <author initials="U." surname="Adams" fullname="Ulf Adams"/>
@@ -1590,6 +1692,15 @@ UNIX Line Feeds:
         <seriesInfo name="Proceedings of the 39th ACM SIGPLAN Conference on Programming Language Design and Implementation" value="PLDI 2018, pp. 270-282"/>
       </reference>
 
+      <reference anchor="ryū-video" target="https://www.youtube.com/watch?v=kw-U6smcLzk&amp;t=457s">
+        <front>
+          <title>Ryū: Fast Float-to-String Conversion (PLDI 2018)</title>
+          <author fullname="Ulf Adams">
+            </author>
+          <date year="2018"/>
+        </front>
+        <seriesInfo name="Video" value="YouTube"/>
+      </reference>
 
       <reference anchor="octet" 
                  target="https://en.wikipedia.org/wiki/Octet_(computing)">
