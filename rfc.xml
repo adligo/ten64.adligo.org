@@ -18,28 +18,47 @@
     <workgroup>Internet Engineering Task Force</workgroup>
 
     <abstract>
-      <t>Ten64 is a number serialization format similar to 
-      <xref target="Wikipedia.Hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref>.  The main differences are the use 
-      of <xref target="Wikipedia.Sextet" format="none" sectionFormat="bare">sextets</xref> instead of  
-      <xref target="Wikipedia.Octet" format="none" sectionFormat="bare">octets</xref>.  Similar to  
-      <xref target="Wikipedia.Hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref>, ten64 can be used to create binary 
-      strings of arbitrary length.  However, it is often used 
-      to encode one or more  
-      <xref target="modern_western_integers" format="none" sectionFormat="bare">Modern Western Integers</xref>, interpreting the 
-      big-endian binary as a one or more <xref target="modern_western_integers" format="none" sectionFormat="bare">Modern Western Integers</xref>.</t>
+      <t>
+        Ten64 is a <xref target="positional-number-systems-wikipedia" format="none" sectionFormat="bare">positional
+        numeral system</xref> for representing numeric values with an alphabet of
+        64 characters <xref target="radix-wikipedia" format="none" sectionFormat="bare">(aka. radix/base 64)</xref>.
+        However, unlike most <xref target="positional-number-systems-wikipedia" format="none" sectionFormat="bare">
+        positional number systems</xref>, the characters are written in ascending
+        (aka. <xref target="endian-wikipedia" format="none" sectionFormat="bare">big-endian</xref>) and NOT descending
+        order. The main differences are the use of <xref target="sextet" format="none" sectionFormat="bare">sextets
+        (six bits)</xref> instead of <xref target="octet" format="none" sectionFormat="bare">octets (aka. bytes)
+        </xref>. Similar to <xref target="hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref>, Ten64
+        can be used to create binary strings of arbitrary length. Ten64 can encode
+        one or more <xref target="modern-western-numeral-system" format="none" sectionFormat="bare">Modern Western
+        Numbers (aka Arabic, Vedic)</xref>, interpreting the characters respective
+        <xref target="endian-wikipedia" format="none" sectionFormat="bare">composite big-endian binary</xref> as a
+        one or more <xref target="modern-western-numeral-system"  format="none" sectionFormat="bare">Modern Western
+        Numbers</xref>.
+      </t>
       
-      <t>The motivation for Ten64 is to encode numbers in a compact and human-readable format 
-      similar to <xref target="Base58" format="none" sectionFormat="bare">Base58</xref>.  
-      However, Ten64 is designed to be optimized for use with numbers commonly used in identifiers, 
-      such as <xref target="Decentralized-Identifiers-DIDs" format="none" sectionFormat="bare">DIDs</xref>, 
-      <xref target="DOID-Repo" format="none" sectionFormat="bare">DOIDs</xref>, 
-      <xref target="IANA-OIDs" format="none" sectionFormat="bare">IANA OIDs</xref>, 
-      <xref target="UUID-RFC9562" format="none" sectionFormat="bare">UUIDs</xref>, dates, 
-      time(stamp)s, coodinates, and more.  Unlike 
-      <xref target="Base58" format="none" sectionFormat="bare">Base58</xref>, and more 
-      like <xref target="Wikipedia.Hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref> 
-      Ten64 aligns the <xref target="modern_western_integers" format="none" sectionFormat="bare">Modern Western Numerals</xref>
-      with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).</t>
+      <t>
+        The motivation for Ten64 is to encode numbers in a compact and
+        human-readable format similar to <xref target="base58" format="none"
+        sectionFormat="bare">Base58</xref>. However, Ten64 is designed to be
+        <xref target="performance" format="none" sectionFormat="bare">optimized
+        </xref> for use with numbers commonly used in identifiers, such as
+        <xref target="decentralized-identifiers-dids" format="none"
+        sectionFormat="bare">DIDs</xref>, <xref target="doid-repo" format="none"
+        sectionFormat="bare">DOIDs</xref>, <xref target="iana-oids" format="none"
+        sectionFormat="bare">IANA OIDs</xref>, <xref target="uuid-rfc-9562" format="none"
+        sectionFormat="bare">UUIDs</xref>, <xref target="date-interpretations" format="none"
+        sectionFormat="bare">dates</xref>, <xref target="time-interpretations" format="none"
+        sectionFormat="bare">time</xref><xref target="militimestamp-interpretations" format="none"
+        sectionFormat="bare">(stamp)s</xref>, <xref target="point-interpretations" format="none"
+        sectionFormat="bare">points</xref>, and more. Unlike <xref target="base58"
+        format="none" sectionFormat="bare">Base58</xref>, and more like <xref
+        target="hexadecimal" format="none" sectionFormat="bare">hexadecimal
+        </xref> Ten64 aligns the <xref target="modern-western-numeral-system"
+        format="none" sectionFormat="bare">Modern Western Numerals</xref> with
+        the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).
+        Finally, Ten64 provides a disk-based number encoding system for huge
+        numbers and number streams.
+      </t>
     </abstract>
   </front>
   
@@ -64,14 +83,14 @@
       In addition, streaming formats like 
       <xref target="RFC4648" >Base64</xref>
       are often fairly verbose to 
-      map binary data to <xref target="Wikipedia.Octet" format="none" sectionFormat="bare" >octets</xref>.  This incurs 
+      map binary data to <xref target="octet" format="none" sectionFormat="bare" >octets</xref>.  This incurs 
       a large cost when one bit is encoded as four bytes.  To solve these and 
       related issues, Ten64 is introduced.</t>
 
       <t>Alternative notations and bases have historically been explored to 
       improve human-machine interfaces, ranging from early discussions on 
       <xref target="CACM-Binary" format="none" sectionFormat="bare">binary notations</xref> to modern concepts like 
-      <xref target="Wikipedia.Hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref>
+      <xref target="hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref>
       , and <xref target="Bioctal" format="none" sectionFormat="bare">bioctal</xref>. 
       Ten64 builds on this history by utilizing a
       64-character binary alphabet composed of standard 
@@ -139,7 +158,7 @@
       <t>The primary Ten64 alphabet acts as a big-endian binary system. 
       Unlike the encodings defined in <xref target="RFC4648"/>, each valid 
       character maps to a specific 6-bit binary chunk and an 
-      <xref target="modern_western_integers" format="none" sectionFormat="bare">Modern Western Integer</xref>
+      <xref target="modern-western-integers" format="none" sectionFormat="bare">Modern Western Integer</xref>
       numeral  value (0-63).</t>
       
       <table align="center">
@@ -220,6 +239,297 @@
       </table>
     </section>
 
+    <section anchor="performance" title="Performance">
+      <t>
+        In addition, to significantly reducing the number of characters required
+        for encoding, which saves on disk space in files and on the number of
+        bytes transferred over sockets. Ten64 SHOULD be implemented using a more
+        optimal algorithm to serialize and deserialize the data than <xref
+        target="modern-western-numeral-system" format="none"
+        sectionFormat="bare">Modern Base-10 Numeral System</xref> serialization
+        uses.
+      </t>
+    
+      <t>
+        To create integers from the Ten64 alphabet, algorithms SHOULD use case
+        (aka switch) statements to convert the Ten64 alphabet into little-endian
+        binary (used in the majority of in memory number systems). Then the
+        algorithms should shift the bits and use the binary and (i.e. &amp;)
+        operator to aggregate the number into integers. This <xref
+        target="Ten64-Integer-Serialization-Algorithm" format="none"
+        sectionFormat="bare">Ten64 Integer
+        Serialization#1.3.6.1.4.1.33097.0.2.4</xref> Algorithm will complete
+        with a big O(s) time cost.
+      </t>
+    
+      <t>
+        Comparison with other algorithms which use various serialization and
+        deserialization forms to and from the modern western numerical system is
+        generally much slower.
+      </t>
+    
+      <ul>
+        <li>
+          <xref target="number-conversion-calculator" format="none"
+          sectionFormat="bare">Number Conversion Calculator</xref>
+        </li>
+        <li>
+          <xref target="Number-Conversion-Instructables" format="none"
+          sectionFormat="bare">Number Conversion at Instructables</xref>
+        </li>
+        <li>
+          <xref target="Number-Conversion-Khan-Academy" format="none"
+          sectionFormat="bare">Number Conversion at Khan Academy</xref>
+        </li>
+        <li>
+          <xref target="Number-Conversion-Lumen" format="none"
+          sectionFormat="bare">Number Conversion at Lumen</xref>
+        </li>
+        <li>
+          <xref target="Number-Conversion-WikiHow" format="none"
+          sectionFormat="bare">Number Conversion at WikiHow</xref>
+        </li>
+      </ul>
+    
+      <t>
+        However, When converting decimal numbers using <xref
+        target="Ten64-Decimal-Serialization-Algorithm" format="none"
+        sectionFormat="bare">Ten64 Decimal
+        Serialization#1.3.6.1.4.1.33097.0.2.5</xref>, division is required.
+        This incurs the following time cost depending on the division algorithm
+        used.
+      </t>
+    
+      <ul>
+        <li>
+          Serialization from <xref target="modern-western-decimal-numbers"
+          format="none" sectionFormat="bare">Modern Western Decimal
+          Numbers</xref> <xref target="Ten64-Decimal-Serialization-Algorithm"
+          format="none" sectionFormat="bare">O(c log c)</xref>
+        </li>
+        <li>
+          De-Serialization to <xref target="modern-western-decimal-numbers"
+          format="none" sectionFormat="bare">Modern Western Decimal
+          Numbers</xref> <xref target="Ten64-Decimal-Serialization-Algorithm"
+          format="none" sectionFormat="bare">O(cd²) - O(M(cd))</xref>
+        </li>
+      </ul>
+    </section>
+
+    <section anchor="compatibility" title="Compatibility">
+      <t>
+        When drafting Ten64, we went through great lengths to attempt to make it
+        as compatible as possible with the largest number of usage environments.
+        However, it is impossible to have pristine compatibility with such a large
+        variety of usage environments. In short, we recommend using Reserved
+        Expansion from <xref target="URI-Templates-RFC6570" section="3.2.3"
+        format="none" sectionFormat="bare">URI Template Variable Values</xref>
+        with Ten64, ommitting the '#' and ';'.
+      </t>
+    
+      <section anchor="uri-and-uri-template-compatibility"
+               title="URI and URI Template Compatibility">
+        <t>
+          The following Ten64 alphabet characters MAY have issues with
+          <xref target="URI-RFC3986" format="none" sectionFormat="bare">URIs
+          </xref> and <xref target="URI-Templates-RFC6570" format="none"
+          sectionFormat="bare">URI Templates</xref>. The following section is
+          in order of usage in Ten64.
+        </t>
+      </section>
+    
+      <section anchor="leading-special-characters"
+               title="Leading Special Characters">
+        <section anchor="uri-pound-symbol" title="URI Pound Symbol '#'">
+          <t>
+            The pound symbol is a protected character by the <xref
+            target="URI-RFC3986" section="3.2" format="none" sectionFormat="bare">
+            URIs RFC3986 section 3.2</xref>. When using Ten64 inside of URIs
+            (aka URLs), the pound symbol MUST be either omitted or escaped with a
+            percent sign '%23'. Additionally, no major conflicts are foreseen with
+            <xref target="URI-Templates-RFC6570" format="none"
+            sectionFormat="bare">URI Templates</xref>.
+          </t>
+        </section>
+    
+        <section anchor="uri-minus-symbol" title="URI Minus Symbol '-'">
+          <t>
+            The minus symbol is an unreserved character by the <xref
+            target="URI-RFC3986" section="2.3" format="none" sectionFormat="bare">
+            URIs RFC3986 section 2.3</xref>. No special treatment of this
+            character is required for <xref target="URI-RFC3986" format="none"
+            sectionFormat="bare">URIs</xref>. However, <xref
+            target="URI-Templates-RFC6570" section="2.3" format="none"
+            sectionFormat="bare">URI Template Variable Names</xref> will require
+            encoding as '%2D'.
+          </t>
+        </section>
+      </section>
+    
+      <section anchor="alphabet-characters" title="Alphabet Characters">
+        <section anchor="uri-dollar-sign-symbol" title="URI Dollar Sign Symbol '$'">
+          <t>
+            The dollar sign symbol is a sub-delim character by the <xref
+            target="URI-RFC3986" section="3.4" format="none" sectionFormat="bare">
+            URIs RFC3986 section 3.4</xref>. It is explicitly permitted in the
+            <xref target="URI-RFC3986" section="3.4" format="none"
+            sectionFormat="bare">query component of a URI</xref>. Although NOT
+            required by Ten64, some languages MAY require URL encode the dollar
+            symbol. In particular, Bash, PowerShell, PHP, Perl, and Ruby where it
+            is used to trigger variable expansion.
+          </t>
+          <t>
+            Simple String Expansion in <xref target="URI-Templates-RFC6570"
+            section="3.2.2" format="none" sectionFormat="bare">URI Template
+            Variable Values</xref> MUST encode the dollar sign '$' as '%24'.
+            However, Reserved Expansion in <xref target="URI-Templates-RFC6570"
+            section="3.2.3" format="none" sectionFormat="bare">URI Template
+            Variable Values</xref> MUST NOT encode the dollar sign '$'.
+          </t>
+        </section>
+    
+        <section anchor="uri-plus-symbol" title="URI Plus Symbol '+'">
+          <t>
+            The plus symbol is a sub-delim character by the <xref
+            target="URI-RFC3986" section="3.4" format="none" sectionFormat="bare">
+            URIs RFC3986 section 3.4</xref>. It is explicitly permitted in the
+            <xref target="URI-RFC3986" section="3.4" format="none"
+            sectionFormat="bare">query component of a URI</xref>. However, many
+            languages and libraries (PHP, Python's urllib, Java Servlets)
+            automatically decode this as a space, so it MAY need to be escaped as
+            '%2B'.
+          </t>
+          <t>
+            Simple String Expansion in <xref target="URI-Templates-RFC6570"
+            section="3.2.2" format="none" sectionFormat="bare">URI Template
+            Variable Values</xref> MUST encode the plus symbol as '%2B'.
+            However, Reserved Expansion in <xref target="URI-Templates-RFC6570"
+            section="3.2.3" format="none" sectionFormat="bare">URI Template
+            Variable Values</xref> MUST NOT encode the dollar sign '+'.
+          </t>
+        </section>
+    
+        <section anchor="uri-exclamation-mark" title="URI Exclamation Mark '!'">
+          <t>
+            The exclamation mark is a sub-delim character by the <xref
+            target="URI-RFC3986" section="2.2" format="none" sectionFormat="bare">
+            URIs RFC3986 section 2.2</xref>. It is explicitly permitted in the
+            <xref target="URI-RFC3986" section="3.4" format="none"
+            sectionFormat="bare">query component of a URI</xref>. However, many
+            languages and libraries (Express.js, Ruby on Rails, and Django)
+            automatically decode this as a space, so it MAY need to be escaped as
+            '%21'.
+          </t>
+          <t>
+            Simple String Expansion in <xref target="URI-Templates-RFC6570"
+            section="3.2.2" format="none" sectionFormat="bare">URI Template
+            Variable Values</xref> MUST encode the exclamation mark '!' as '%21'.
+            However, Reserved Expansion in <xref target="URI-Templates-RFC6570"
+            section="3.2.3" format="none" sectionFormat="bare">URI Template
+            Variable Values</xref> MUST NOT encode the exclamation mark '!'.
+          </t>
+        </section>
+      </section>
+    
+      <section anchor="internal-and-trailing-special-characters"
+               title="Internal and Trailing Special Characters">
+        <section anchor="uri-period" title="URI Period '.'">
+          <t>
+            The period is unreserved in <xref target="URI-RFC3986" format="none"
+            sectionFormat="bare">URIs RFC3986</xref>. However, it is often used
+            for relative paths, We do NOT anticipate any compatibility issues.
+          </t>
+        </section>
+    
+        <section anchor="uri-semicolon" title="URI Semicolon ';'">
+          <t>
+            The semicolon symbol is a sub-delim character by the <xref
+            target="URI-RFC3986" section="3.4" format="none" sectionFormat="bare">
+            URIs RFC3986 section 3.4</xref>. It is explicitly permitted in the
+            <xref target="URI-RFC3986" section="3.4" format="none"
+            sectionFormat="bare">query component of a URI</xref>. There may be
+            legacy issues with Python and Java servlets, which have NOT received
+            security patches. The semicolon MAY be omitted or encoded as '%3B'.
+          </t>
+          <t>
+            Simple String Expansion in <xref target="URI-Templates-RFC6570"
+            section="3.2.2" format="none" sectionFormat="bare">URI Template
+            Variable Values</xref> MUST encode the seimcolon symbol ';' as '%3B'.
+            However, Reserved Expansion in <xref target="URI-Templates-RFC6570"
+            section="3.2.3" format="none" sectionFormat="bare">URI Template
+            Variable Values</xref> MUST NOT encode the semicolon ';'.
+          </t>
+        </section>
+      </section>
+    
+      <section anchor="did-compatibility" title="DID Compatibility">
+        <t>
+          We removed the use of the colon ':' and replaced it with an exclamation
+          point '!', specifically to increase compatibility with the <xref
+          target="decentralized-identifiers-dids" format="none"
+          sectionFormat="bare">DID specification</xref>. However depending on
+          usage, Ten64 MAY still require URI encoding for use with <xref
+          target="decentralized-identifiers-dids" format="none"
+          sectionFormat="bare">DIDs</xref>.
+        </t>
+        <sourcecode type="uri">
+    did:ten64:abc123
+        </sourcecode>
+      </section>
+    
+      <section anchor="doid-compatibility" title="DOID Compatibility">
+        <t>
+          <xref target="doid-repo" format="none" sectionFormat="bare">DOID</xref>
+          uses Ten64 in a downstream manner, so it is fully compatible with Ten64.
+        </t>
+      </section>
+    
+      <section anchor="ejcn-compatibility" title="EJCN Compatibility">
+        <t>
+          <xref target="ejcn-extensible-json-classification-notation" format="none" sectionFormat="bare">EJCN
+          (Extensible JSON Classification Notation)</xref> uses Ten64 in a
+          downstream manner, so it is fully compatible with Ten64.
+        </t>
+      </section>
+    
+      <section anchor="json-compatibility" title="JSON Compatibility">
+        <t>
+          <xref target="json-rfc-8259" format="none" sectionFormat="bare">JSON
+          Strings</xref> are fully compatible with Ten64, as they use the
+          backslash character '\' for escaping characters.
+        </t>
+      </section>
+    
+      <section anchor="terminal-shell-compatibility"
+               title="Terminal-Shell Compatibility">
+        <t>
+          Various shells (i.e. Bash) will likely have some compatibility issues
+          due to the dollar sign character '$' use when referenceing
+          ENVIRONMENT_VARIABLES and function parameters. This can be overcome by
+          escaping the dollar sign character '$' with a backslash '\$', or by
+          wrapping the text in single quotes.
+        </t>
+      </section>
+    
+      <section anchor="xml-compatibility" title="XML Compatibility">
+        <t>
+          <xref target="xml-compatibility" format="none" sectionFormat="bare">XML
+          Strings</xref> are fully compatible with Ten64, as they use the are
+          distinct from the big five XML characters '&lt;', '&gt;', '&amp;',
+          '&quot;', and '&apos;'.
+        </t>
+      </section>
+    
+      <section anchor="other-textual-compatibility"
+               title="Other Textual Compatibility">
+        <t>
+          Ten64 SHOULD be generally compatible with most text files and
+          programming syntax. We have intentionally avoided commonly used
+          characters like brackets, braces and parentheses '[',']','{','}','(',')'.
+          In addition, we have avoided common escape characters '%','&amp;', etc.
+        </t>
+      </section>
+    </section>
     <section anchor="binary" title="Binary">
       <section anchor="binary_sequences" title="Binary big ending sequences MAY be interpreted as integers">
         <t>
@@ -239,9 +549,9 @@
   
       <section anchor="ten64_to_octet" title="Ten64 to Octet (Byte) Array Conversion">
         <t>
-          When converting Ten64 binary to an array of <xref target="Wikipedia.Octet" format="none" sectionFormat="bare">octets</xref>, 
+          When converting Ten64 binary to an array of <xref target="octet" format="none" sectionFormat="bare">octets</xref>, 
           all missing bits <bcp14>MUST</bcp14> be filled with zeros. This is to ensure 
-          that the binary consists of complete <xref target="Wikipedia.Octet" format="none" sectionFormat="bare">octets</xref>.
+          that the binary consists of complete <xref target="octet" format="none" sectionFormat="bare">octets</xref>.
         </t>
       </section>
   
@@ -297,57 +607,221 @@
         (e.g., "#1.2.3,4.5.6;" expands to a list of 3D points).</t>
       </section>
     </section>
+
+    <section anchor="interpretation-conventions" 
+             title="Interpretation Conventions">
+      <t>
+        The Ten64 character sequences may have additional corresponding meta-data
+        information from various schema sources like;
+      </t>
     
-
-    <section anchor="modern_western_numeral_system">
-      <name>Modern Western Numeral System</name>
+      <ul>
+        <li>
+          <xref target="ejcn-extensible-json-classification-notation" format="none" 
+          sectionFormat="bare">EJCN (Extensible JSON Classification Notation)
+          </xref>
+        </li>
+        <li>
+          <xref target="ejcn-extensible-json-classification-notation-schemas" 
+          format="none" sectionFormat="bare">EJCN (Extensible JSON Classification 
+          Notation) Schemas</xref>
+        </li>
+        <li>
+          <xref target="json-schemas" format="none" sectionFormat="bare">JSON 
+          Schemas</xref>
+        </li>
+        <li>
+          <xref target="xml-schemas" format="none" sectionFormat="bare">XML 
+          Schemas</xref>
+        </li>
+      </ul>
+    
       <t>
-        Arabic, Ghubari, and Vedic as well as many other numeral systems 
-        were considered for use in this RFC. I finally settled down on 
-        the name <bcp14>The Modern Western Numeral System</bcp14>. It 
-        appears that numeral systems have influenced each other over the 
-        ages, and we will likely continue carbon dating each glyph 0-9 
-        for some time, as we have recently carbon dated the glyph '0'. 
-        In addition, even if we do find an older carbon date of a 
-        particular glyph, it could take a considerable amount of time 
-        to determine if that carbon dating references a different culture 
-        than the main culture which recorded the glyph.
+        Although the definitions of all these schema types are out of the scope
+        of this document, we supply the following interpretation conventions.
       </t>
-
-      <t>
-        — <xref target="OriginOfTheNumerals" format="none" sectionFormat="bare">Origin of the Numerals</xref>
-      </t>
-      <t>
-        — <xref target="Smithsonian-Zero" format="none" sectionFormat="bare">Carbon Dating Reveals the History of Zero Is Older Than Previously Thought</xref>
-      </t>
-
-      <blockquote>
+    
+      <section anchor="default-interpretation" 
+               title="The Default Interpretation as Integers, Decimals, and Lists of Lists of Integers">
         <t>
-          Before we go on to analytically review the Hindu-Indian 
-          Brahmagubta and Islamo-Arabic Ghubari origin of the modern 
-          mathematical numeral system which is now regarded as the 
-          Western Numeral System.
+          The following sequences explode as follows;
         </t>
-      </blockquote>
+        <sourcecode>
+    #0.1;   expands to a list of integers 0, 1 which MAY also be
+            interpreted as the decimal 0.1 depending on the context.
+    #0.1.2; expands to a segmented number / list of integers 0, 1, 2.
+    #01.11; expands the a list of integers 64, 65 which MAY also be
+            interpreted as the decimal 64.65 depending on the context.
+    #-1.8;  expands to a list of integers -1, 8 and MAY also be
+            interpreted as a decimal -1.8 depending on the context.
+    #-1.-9  expands to a list of integers -1, -9
+        </sourcecode>
+      </section>
     
-      <t>
-        — <xref target="Musa-Numerals" format="none" sectionFormat="bare">Origin of Modern Matematical Numerals, pg 46</xref>
-      </t>
-      
-      <section anchor="modern_western_integers">
-        <name>Modern Western Integers</name>
-        
-        <t>Modern Western integers are simply integers composed using the 
-        Modern Western Numerical System. Modern Western Integers MAY be positive, negative, or zero.
+      <section anchor="segmented-number-interpretations-summary" 
+               title="Segmented Number Interpretations Summary">
+        <t>
+          There are several interpretation Use-Cases for segmented numbers,
+          including Dates, Datetimes, MiliTimestamps, NanoTimestamps, <xref 
+          target="doid-repo" format="none" sectionFormat="bare">DOIDs</xref>, 
+          <xref target="iana-oids" format="none" sectionFormat="bare">IANA 
+          OIDs</xref>, Points and more.
         </t>
       </section>
-      
-      <section anchor="modern_western_decimal_numbers">
-        <name>Modern Western Decimal Numbers</name>
-        
-        <t>Modern Western Decimal Numbers Are simply numbers using the 
-        Modern Western Numeral System, which contain a decimal point. 
-        Modern Western Decimal Numbers MAY be positive, negative, or zero.
+    
+      <section anchor="bigdecimal-interpretations" 
+               title="BigDecimal Interpretations">
+        <t>
+          Big Decimals (i.e. Java or Javascript type) can be easily represented
+          with Ten64, which encodes the EXACT number of Decimal Places. This
+          provides and advantage over <xref target="json-rfc-8259" format="none" 
+          sectionFormat="bare">JSON</xref> which uses <xref target="floating-point" 
+          format="none" sectionFormat="bare">IETF Double Precision Floating Point
+          </xref> numbers, which can cause precision issues in transit.
+        </t>
+      </section>
+    
+      <section anchor="date-interpretations" title="Date Interpretations">
+        <t>
+          Dates can be greatly condensed using the Segmented Number base class.
+          Dates should be standardized as the year ten64 followed by a dot, and
+          one ten64 character for the month and one ten64 character for the day.
+          For example;
+        </t>
+        <sourcecode>
+    #Vv.21;  expands to 2023-02-01
+        </sourcecode>
+      </section>
+    
+      <section anchor="datetime-interpretations" title="Datetime Interpretations">
+        <t>
+          Datetimes add the additional timezone, (military time) hour and minute
+          to the date. The timezone, (military time) hour and minute each only
+          take one ten64 character and can be encoded as follows;
+        </t>
+        <sourcecode>
+    #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
+        </sourcecode>
+        <t>
+          Note j is 19, in military time -12 = 7 PM.
+        </t>
+      </section>
+    
+      <section anchor="list-interpretations" title="List Interpretations">
+        <t>
+          Ten64 supports lists of number separated by commas, each number MAY
+          include whitespace characters on either side of the number;
+        </t>
+        <sourcecode>
+    #1,2,3,4;  expands to a number list of 1,2,3,4
+    #1.2.3,4.5.6,7.8.9;  expands to a list of 3d points
+        </sourcecode>
+      </section>
+    
+      <section anchor="militimestamp-interpretations" 
+               title="MiliTimestamp Interpretations">
+        <t>
+          MiliTimestamps add a single ten64 character for seconds and separate
+          milliseconds with an additional dot.
+        </t>
+        <sourcecode>
+    #Vv.216jR1.2; expands to 2023-02-01 CST 7:53:01.2
+    or with milliseconds expanded PM 2023-02-01 CST 7:53:01.002 PM
+        </sourcecode>
+      </section>
+    
+      <section anchor="nanotimestamp-interpretations" 
+               title="NanoTimestamp Interpretations">
+        <t>
+          NanoTimestamps add an additional dot, as the MiliSeconds can be
+          multiple characters (with values 0-1000), and then multiple ten64
+          characters representing the additional (0-1,000,000,000) nanoseconds
+          that are NOT tracked as milliseconds.
+        </t>
+        <sourcecode>
+    #Vv.216jR1.2.7;  expands to 2023-02-01 CST 7:53:01.2.7 PM
+    or with nanoseconds expanded 2023-02-01 CST 7:53:01.002000007 PM
+        </sourcecode>
+      </section>
+    
+      <section anchor="point-interpretations" title="Point Interpretations">
+        <t>
+          Ten64 can encode 2d, 3d, and Nd points as segmented numbers.
+        </t>
+        <sourcecode>
+    # A 3d decimal point
+    #-1.7,-5.2,-7.9;
+        </sourcecode>
+      </section>
+    
+      <section anchor="time-interpretations" title="Time Interpretations">
+        <t>
+          Time will use the time segments from the <xref target="datetime-interpretations" 
+          format="none" sectionFormat="bare">Datetime</xref>, <xref 
+          target="militimestamp-interpretations" format="none" sectionFormat="bare">MiliTimestpan
+          </xref>, and <xref target="nanotimestamp-interpretations" format="none" 
+          sectionFormat="bare">NanoTimestamp</xref>.
+        </t>
+        <sourcecode>
+    # The Date Time
+    #Vv.216jR;  expands to 2023-02-01 CST 7:53 PM
+    # vs just the time part
+    #6jR;  expands to CST 7:53 PM
+        </sourcecode>
+        <t>
+          Note j is 19, in military time -12 = 7 PM.
+        </t>
+      </section>
+    </section>
+
+    <section anchor="modern-western-numeral-system" 
+             title="Modern Western Numeral System">
+      <t>
+        Arabic, Ghubari, and Vedic as well as many other numeral systems were
+        considered for use in this RFC. We finally settled down on modern the
+        name <strong>The Modern Western Numeral System</strong>. It appears that
+        numeral systems have influenced each other over the ages, and we will
+        likely continue carbon dating each glyph 0-9 for some time, as we have
+        recently carbon dated the glyph '0'. In addition, even if we do find an
+        older carbon date of a particular glyph, It could take a considerable
+        amount of time to determine if that carbon dating references a different
+        culture than the main culture which recorded the glyph.
+      </t>
+      <ul>
+        <li>
+          <xref target="origin-of-modern-mathematical-numeral">Origin of the
+          Numerals</xref>
+        </li>
+        <li>
+          <xref target="carbon-dating-zero">Carbon Dating Reveals the History of
+          Zero Is Older Than Previously Thought</xref>
+        </li>
+      </ul>
+      <blockquote>
+        Before we go on to analytically review the Hindu-Indian Brahmagubta and
+        Islamo-Arabic Ghubari origin of the modern mathematical numeral system
+        which is now regarded as the Western Numeral System.
+      </blockquote>
+      <ul>
+        <li>
+          <xref target="origin-of-modern-mathematical-numeral">Origin of Modern
+          Mathematical Numeral pg 46</xref>
+        </li>
+      </ul>
+    
+      <section anchor="modern-western-integers" title="Modern Western Integers">
+        <t>
+          Modern Western Integers are simply integers composed using the Modern
+          Western Numerical System. <strong>Modern Western Integers</strong> MAY
+          be positive, negative, or zero.
+        </t>
+      </section>
+    
+      <section anchor="modern-western-decimal-numbers" 
+               title="Modern Western Decimal Numbers">
+        <t>
+          Modern Western Decimal Numbers Are simply numbers using the Modern
+          Western Numeral System, which contain a decimal point.
         </t>
       </section>
     </section>
@@ -395,7 +869,7 @@
         <seriesInfo name="ASA" value="X3.4-1963"/>
       </reference>
 
-      <reference anchor="Base58" target="https://datatracker.ietf.org/doc/html/draft-msporny-base58-03">
+      <reference anchor="base58" target="https://datatracker.ietf.org/doc/html/draft-msporny-base58-03">
         <front>
           <title>The Base58 Encoding Scheme</title>
           <author initials="M." surname="Sporny" fullname="Manu Sporny">
@@ -418,7 +892,18 @@
           <date year="2008" month="October"/>
         </front>
       </reference>
-      
+
+      <reference anchor="carbon-dating-zero" target="https://www.smithsonianmag.com/smart-news/dating-ancient-indian-text-gives-new-timeline-history-zero-180964896/">
+        <front>
+          <title>Carbon Dating Reveals the History of Zero Is Older Than Previously Thought</title>
+          <author initials="B." surname="Katz">
+            <organization>Smithsonian Magazine</organization>
+          </author>
+          <date year="2017" month="September" day="14"/>
+        </front>
+        <seriesInfo name="Smithsonian Magazine" value="Smart News"/>
+      </reference>
+
       <reference anchor="CBOR-RFC-8949" target="https://www.rfc-editor.org/info/rfc8949">
         <front>
           <title>Concise Binary Object Representation (CBOR)</title>
@@ -438,7 +923,7 @@
         <seriesInfo name="DOI" value="10.17487/RFC8949"/>
       </reference>
       
-      <reference anchor="Decentralized-Identifiers-DIDs" target="https://www.w3.org/TR/2022/REC-did-core-20220719/">
+      <reference anchor="decentralized-identifiers-dids" target="https://www.w3.org/TR/2022/REC-did-core-20220719/">
         <front>
           <title>Decentralized Identifiers (DIDs) v1.0</title>
           <author fullname="Manu Sporny" initials="M." surname="Sporny">
@@ -461,7 +946,7 @@
         <seriesInfo name="W3C Recommendation" value="REC-did-core-20220719" />
       </reference>
 
-      <reference anchor="DOID-Repo" target="https://github.com/adligo/doid.adligo.org">
+      <reference anchor="doid-repo" target="https://github.com/adligo/doid.adligo.org">
         <front>
           <title>doid.adligo.org: Domain Oracle Identifiers</title>
           <author>
@@ -472,7 +957,7 @@
         <refcontent>GitHub Repository</refcontent>
       </reference>
 
-      <reference anchor="EJCN-Repo" target="https://github.com/adligo/ejcn.adligo.org">
+      <reference anchor="ejcn-extensible-json-classification-notation" target="https://github.com/adligo/ejcn.adligo.org">
         <front>
           <title>ejcn.adligo.org: Extensible JSON Classification Notation</title>
           <author>
@@ -483,7 +968,7 @@
         <refcontent>GitHub Repository</refcontent>
       </reference>
 
-      <reference anchor="EJCN-Schema-Repo" target="https://github.com/adligo/ejcn_schemas.adligo.org">
+      <reference anchor="ejcn-extensible-json-classification-notation-schemas" target="https://github.com/adligo/ejcn_schemas.adligo.org">
         <front>
           <title>EJCN (Extensible JSON Classification Notation) Schemas</title>
           <author>
@@ -497,7 +982,7 @@
         <refcontent>GitHub Repository</refcontent>
       </reference>
 
-      <reference anchor="Endian-Wikipedia" target="https://en.wikipedia.org/wiki/Endianness">
+      <reference anchor="endian-wikipedia" target="https://en.wikipedia.org/wiki/Endianness">
         <front>
           <title>Endianness</title>
           <author>
@@ -509,7 +994,7 @@
         <seriesInfo name="URL" value="https://en.wikipedia.org/wiki/Endianness"/>
       </reference>
 
-      <reference anchor="Floating-Point" target="https://ieeexplore.ieee.org/document/8766229">
+      <reference anchor="floating-point" target="https://ieeexplore.ieee.org/document/8766229">
         <front>
           <title>IEEE Standard for Floating-Point Arithmetic</title>
           <author>
@@ -598,7 +1083,20 @@
         <seriesInfo name="DOI" value="10.17487/RFC9651"/>
       </reference>
 
-      <reference anchor="IANA-OIDs" target="https://www.iana.org/assignments/enterprise-numbers">
+
+      <reference anchor="hexadecimal"
+                 target="https://en.wikipedia.org/wiki/Hexadecimal">
+        <front>
+          <title>Hexadecimal</title>
+          <author>
+            <organization>Wikipedia Contributors</organization>
+          </author>
+          <date year="2026" month="March"/>
+        </front>
+        <seriesInfo name="Wikipedia" value="Hexadecimal"/>
+      </reference>
+      
+      <reference anchor="iana-oids" target="https://www.iana.org/assignments/enterprise-numbers">
         <front>
           <title>Private Enterprise Numbers (PEN)</title>
           <author>
@@ -711,7 +1209,7 @@
         <seriesInfo name="DOI" value="10.17487/RFC7159"/>
       </reference>
 
-      <reference anchor="JSON-RFC-8259" target="https://www.rfc-editor.org/info/rfc8259">
+      <reference anchor="json-rfc-8259" target="https://www.rfc-editor.org/info/rfc8259">
         <front>
           <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
           <author fullname="T. Bray" initials="T." role="editor" surname="Bray">
@@ -727,7 +1225,7 @@
         <seriesInfo name="DOI" value="10.17487/RFC8259"/>
       </reference>
 
-      <reference anchor="JSON-Schemas" target="https://json-schema.org/draft/2020-12/json-schema-core.html">
+      <reference anchor="json-schemas" target="https://json-schema.org/draft/2020-12/json-schema-core.html">
         <front>
           <title>JSON Schema: A Media Type for Describing JSON Data Structures</title>
           <author fullname="H. Andrews" initials="H." surname="Andrews">
@@ -766,7 +1264,7 @@
         <seriesInfo name="DOI" value="10.1002/j.1538-7305.1948.tb01338.x"/>
       </reference>
       
-      <reference anchor="Musa-Numerals" target="https://www.academia.edu/9099310/Origin_of_Modern_Mathematical_Numeral_0_1_2_3_4_5_6_7_8_9_the_Hindu_Indian_Brahmagubta_The_Islamo_Arabic_or_the_West">
+      <reference anchor="origin-of-modern-mathematical-numeral" target="https://www.academia.edu/9099310/Origin_of_Modern_Mathematical_Numeral_0_1_2_3_4_5_6_7_8_9_the_Hindu_Indian_Brahmagubta_The_Islamo_Arabic_or_the_West">
         <front>
           <title>Origin of Modern Mathematical Numeral – 0, 1, 2, 3, 4, 5, 6, 7, 8, 9: the Hindu-Indian-Brahmagubta, The Islamo-Arabic or the West?</title>
           <author initials="A." surname="Musa" fullname="Auwalu Musa">
@@ -776,7 +1274,17 @@
         </front>
         <seriesInfo name="Page" value="46"/>
       </reference>
-      
+
+      <reference anchor="number-conversion-calculator" target="https://www.rapidtables.com/convert/number/decimal-to-binary.html?x=756">
+        <front>
+          <title>Decimal to Binary Converter: 756</title>
+          <author>
+            <organization>RapidTables</organization>
+          </author>
+          <date year="2026"/>
+        </front>
+      </reference>
+
       <reference anchor="Number-Conversion-Instructables" target="https://www.instructables.com/How-to-Convert-From-Decimal-to-Binary/">
         <front>
           <title>How to Convert From Decimal to Binary</title>
@@ -852,7 +1360,7 @@
         <seriesInfo name="URL" value="https://www.researchgate.net/post/Why-we-use-base-10-almost-everywhere-than-base-60-which-was-first-invented-method"/>
       </reference>
 
-      <reference anchor="Radix-Wikipedia" target="https://en.wikipedia.org/wiki/Radix">
+      <reference anchor="radix-wikipedia" target="https://en.wikipedia.org/wiki/Radix">
         <front>
           <title>Radix</title>
           <author>
@@ -937,7 +1445,20 @@
         <seriesInfo name="Proceedings of the 39th ACM SIGPLAN Conference on Programming Language Design and Implementation" value="PLDI 2018, pp. 270-282"/>
       </reference>
 
-      <reference anchor="Positional-Number-Systems-Wikipedia" target="https://en.wikipedia.org/wiki/Numeral_system#Positional_systems_in_detail">
+
+      <reference anchor="octet" 
+                 target="https://en.wikipedia.org/wiki/Octet_(computing)">
+        <front>
+          <title>Octet</title>
+          <author>
+            <organization>Wikipedia Contributors</organization>
+          </author>
+          <date year="2026" month="March"/>
+        </front>
+        <seriesInfo name="Wikipedia" value="Octet"/>
+      </reference>
+      
+      <reference anchor="positional-number-systems-wikipedia" target="https://en.wikipedia.org/wiki/Numeral_system#Positional_systems_in_detail">
         <front>
           <title>Numeral system: Positional systems in detail</title>
           <author>
@@ -946,6 +1467,19 @@
           <date year="2024" month="March"/>
         </front>
         <seriesInfo name="Encyclopedia" value="Wikipedia, The Free Encyclopedia"/>
+      </reference>
+
+
+      <reference anchor="sextet" 
+                 target="https://en.wikipedia.org/wiki/Units_of_information#sextet">
+        <front>
+          <title>Sextet</title>
+          <author>
+            <organization>Wikipedia Contributors</organization>
+          </author>
+          <date year="2026" month="March"/>
+        </front>
+        <seriesInfo name="Wikipedia" value="Sextet"/>
       </reference>
       
       <reference anchor="Ten64-Decimal-Serialization-Algorithm" target="https://adligo.github.io/papers.adligo.com/algorithms/concrete/Ten64DecimalSerialization.html">
@@ -1016,7 +1550,7 @@
         <seriesInfo name="DOI" value="10.17487/RFC6570"/>
       </reference>
       
-      <reference anchor="UUID-RFC9562" target="https://www.rfc-editor.org/info/rfc9562">
+      <reference anchor="uuid-rfc-9562" target="https://www.rfc-editor.org/info/rfc9562">
         <front>
           <title>Universally Unique IDentifiers (UUIDs)</title>
           <author fullname="K. Davis" initials="K." surname="Davis"/>
@@ -1031,43 +1565,7 @@
         <seriesInfo name="DOI" value="10.17487/RFC9562"/>
       </reference>
 
-      <reference anchor="Wikipedia.Hexadecimal"
-                 target="https://en.wikipedia.org/wiki/Hexadecimal">
-        <front>
-          <title>Hexadecimal</title>
-          <author>
-            <organization>Wikipedia Contributors</organization>
-          </author>
-          <date year="2026" month="March"/>
-        </front>
-        <seriesInfo name="Wikipedia" value="Hexadecimal"/>
-      </reference>
-
-      <reference anchor="Wikipedia.Octet" 
-                 target="https://en.wikipedia.org/wiki/Octet_(computing)">
-        <front>
-          <title>Octet</title>
-          <author>
-            <organization>Wikipedia Contributors</organization>
-          </author>
-          <date year="2026" month="March"/>
-        </front>
-        <seriesInfo name="Wikipedia" value="Octet"/>
-      </reference>
-
-      <reference anchor="Wikipedia.Sextet" 
-                 target="https://en.wikipedia.org/wiki/Units_of_information#sextet">
-        <front>
-          <title>Sextet</title>
-          <author>
-            <organization>Wikipedia Contributors</organization>
-          </author>
-          <date year="2026" month="March"/>
-        </front>
-        <seriesInfo name="Wikipedia" value="Sextet"/>
-      </reference>
-
-      <reference anchor="W3C.REC-xmlschema11-2-20120405" target="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">
+      <reference anchor="xml-schemas" target="https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">
         <front>
           <title>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</title>
           <author fullname="David Peterson" initials="D." surname="Peterson"/>
