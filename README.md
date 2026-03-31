@@ -79,10 +79,10 @@ Ten64 does NOT use the [Base64 RFC 4648](#base64-rfc-4648) alphabet but an alpha
 ## Special Characters and Sequences Details
 ```
 #   Optional explicit beginning of #Ten64 binary section, use depending on context.
-#.. The optional explicit begining of a multiple line Ten64 sequence.
-.   The Decimal or Number Space Separator
+#.. The optional explicit beginning of a multiple line Ten64 sequence.
+.   The Decimal, List or Number Space Separator
 ,   The Separator for Number Lists
-;   Optional explicit end of #Ten64 sequence.
+;   Optional explicit end of #Ten64 separator.
 -   The negative indicator, and human-readable seperator
     Whitespace Characters: including Line Feeds, Tabs,
        Spaces, Return Sequences, etc. MAY be included
@@ -217,13 +217,13 @@ When converting arrays of octets to the Ten64 alphabet, all '0' characters from 
 
 # Related Technologies
 
-There are a ton of libraries in various languages, for example [Java's BigInt](#bigint-java) influenced the [ECMA Script BigInt](#ecma-262).  In addition, this [ECMA Script](#ecma-262) [BigDecimal](#bigdecimal-npm) implementation is based on [Java's BigDecimal](#bigdecimal-java).  We do NOT expect Ten64 to gain wide adoption over the [Modern Western Numeral System](#modern-western-numeral-system), since the [Modern Western Numeral System](#modern-western-numeral-system) is taught in early elementary schools and used all the way through advanced mathematics classes.
+There are a ton of libraries in various languages, for example [Java's BigInteger](#bigint-java) influenced the [ECMA Script BigInt](#ecma-262).  In addition, this [ECMA Script](#ecma-262) [BigDecimal](#bigdecimal-npm) implementation is based on [Java's BigDecimal](#bigdecimal-java).  We do NOT expect Ten64 to gain wide adoption over the [Modern Western Numeral System](#modern-western-numeral-system), since the [Modern Western Numeral System](#modern-western-numeral-system) is taught in early elementary schools and used all the way through advanced mathematics classes.
 
 # Performance
 
 Ten64 significantly reduces the number of characters required for encoding, which saves on disk space in files and on the number of bytes transferred over sockets.  Ten64 SHOULD be implemented using a more optimal algorithm to serialize and de-serialize the data than [Modern Base-10 Numeral System](#modern-western-numeral-system) serialization uses.
 
-To create integers from the Ten64 alphabet, algorithms SHOULD use switch statements to convert the Ten64 alphabet into little-endian binary (used in the majority of in memory number systems).  Then the algorithms should shift the bits and use the binary and (i.e. &) operator to aggregate the number into integers.  This [Ten64 Integer Serialization#1.3.6.1.4.1.33097.0.2.4](#ten64-integer-serialization-algorithm) Algorithm will complete with a big O(s) time cost.
+To create integers from the Ten64 alphabet, algorithms SHOULD use switch statements to convert the Ten64 alphabet into little-endian binary (used in the majority of in memory number systems).  Then the algorithms should shift the bits and use the binary and (i.e. &) operator to aggregate the number into integers.  This [Ten64 Integer Serialization#1.3.6.1.4.1.33097.0.2.4](#ten64-integer-serialization-algorithm) Algorithm will complete with a big O(s) serialization and O(c) de-serialization time cost.  Note; s and c represent the [sextets](#sextet) and characters in the previous sentence, respectively.
 
 Comparison with other algorithms which use various serialization and de-serialization forms to and from the [modern western numerical system](#modern-western-numeral-system) is generally much slower.
 
@@ -259,13 +259,13 @@ The minus symbol is an unreserved character by the [URIs RFC3986 section 2.3](ht
 
 The dollar sign symbol is a sub-delim character by the [URIs RFC3986 section 3.4](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).  It is explicitly permitted in the [query component of a URI](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).  Although NOT required by Ten64, some languages MAY require URL encode the dollar symbol.  In particular, Bash, PowerShell, PHP, Perl, and Ruby where it is used to trigger variable expansion.
 
-Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the dollar sign '$' as '%24'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the dollar sign '$'.
+Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the dollar sign '\$' as '%24'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the dollar sign '$'.
 
 ##### URI Plus Symbol '+'
 
 The plus symbol is a sub-delim character by the [URIs RFC3986 section 3.4](https://www.rfc-editor.org/rfc/rfc3986#section-3.4). It is explicitly permitted in the [query component of a URI](https://www.rfc-editor.org/rfc/rfc3986#section-3.4).  However, many languages and libraries (PHP, Python's urllib, Java Servlets) automatically decode this as a space, so it MAY need to be escaped as '%2B'.
 
-Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the plus symbol as '%2B'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the dollar sign '+'.
+Simple String Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.2) MUST encode the plus symbol as '%2B'.  However, Reserved Expansion in [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) MUST NOT encode the plus symbol '+'.
 
 ##### URI Exclamation Mark '!'
 
@@ -437,9 +437,11 @@ Modern Western Integers are simply integers composed using the Modern Western Nu
 
 ### Modern Western Decimal Numbers
 
-Modern Western Decimal Numbers Are simply numbers using the Modern Western Numeral System, which contain a decimal point.
+Modern Western Decimal Numbers are simply numbers using the Modern Western Numeral System, which contain a decimal point.
 
 # Commentary
+
+This section is non-normative.
 
 To improve human readability, we replaced these characters with their respective characters. The following chart shows the history of this.
 
@@ -449,18 +451,18 @@ To improve human readability, we replaced these characters with their respective
 50: upper case 'O' → '?' → ':' → '!'
 ```
 
-2026-03-28 Replaced the % sign with the + sign to make [URI (URL)](#uri-rfc3986) escaping easier.  Replaced the question mark with the colon to make [URI (URL)](#uri-rfc3986) escaping easier, and then later on replaced it with the exclamation point to make this Ten64 more compatible with [DIDs](#decentralized-identifiers-dids).
+2026-03-28 Replaced the % sign with the + sign to make [URI (URL)](#uri-rfc3986) escaping easier.  Replaced the question mark with the colon to make [URI (URL)](#uri-rfc3986) escaping easier, and then later on replaced it with the exclamation point to make  Ten64 more compatible with [DIDs](#decentralized-identifiers-dids).
 
-Although Ten64 can encode and decode numbers of any size and precision, they are often not human-decipherable.  During the creation of this text, there was much discussion about JSON RFCs [4627](#json-rfc-4627), [7158](#json-rfc-7158), [7159](#json-rfc-7159), [8259](#json-rfc-8259), [JavaScript](#javascript-wikipedia) and [ECMA Script](#ecma-262) Numbers.  S Morgan believes that a separate document SHOULD be created to address the serialization/de-serialization (aka encoding/decoding) which uses text representing the [Modern Western Numeral System](#modern-western-numeral-system) specifically.  S Morgan suggests something like the following;
+Although Ten64 can encode and decode numbers of any size and precision, they are often not human-decipherable.  During the creation of this text, there was much discussion about JSON RFCs [4627](#json-rfc-4627), [7158](#json-rfc-7158), [7159](#json-rfc-7159), [8259](#json-rfc-8259), [JavaScript](#javascript-wikipedia) and [ECMA Script](#ecma-262) Numbers.  S Morgan believes that a separate document should be created to address the serialization/de-serialization (aka encoding/decoding) which uses text representing the [Modern Western Numeral System](#modern-western-numeral-system) specifically.  He also suggests something like the following;
 
 ```
 12 → int, long or ECMA BigInt, Language specifies.
-12.78 → Java BigDecimal style numbers
-f12.78 → 32 bit IEEE 754 single floating point decimal numbers
-d12.78 → 64 bit IEEE 754 double floating point decimal numbers
+12.78 → Java BigDecimal style numbers or a new BigNumber type
+f12.78 → 32 bit IEEE 754 / Java single floating point decimal numbers
+d12.78 → 64 bit IEEE 754 / Java double floating point decimal numbers
 ```
 
-Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, It has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the J in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Nubmers](#floating-point-ieee-754-2019).  These challenges and issues are not traceable to a single standard, but instead are often the result of the interaction between at least three standards bodies the [IEEE](#ieee), [IETF](#ietf), [](#jcp) and [ECMA International](#ecma-262).
+Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, it has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the J in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Numbers](#floating-point-ieee-754-2019).  These challenges and issues are not traceable to a single standard, but instead the result of the interaction between at least three standards bodies the [IEEE](#ieee), [IETF](#ietf) and [ECMA International](#ecma-262), and the history of [JavaScript](#javascript-wikipedia) and [Netscape](#netscape).
 
 As a side note, the [ECMA Script 262 website](https://tc39.es/ecma262) chews up enough resources (processor/RAM I didn't benchmark it?) that it slows down and crashes browsers on my computer with 64 GB of RAM.  However, for the brave people who want to click on these direct links;
 
@@ -468,60 +470,71 @@ As a side note, the [ECMA Script 262 website](https://tc39.es/ecma262) chews up 
 - [ECMA Script 262 Section 6.1.6.1 Language Types Number Type](https://tc39.es/ecma262/#sec-ecmascript-language-types-number-type)
 - [ECMA Script 262 Section 21 Numbers and Dates](https://tc39.es/ecma262/#sec-numbers-and-dates)
 
-In some ways, this issue appears to be fixed in part by more modern RFC's including the following;
-- [CBOR RFC 8949](#cbor-rfc-8949) Which simply uses a binary format to transfer the [floating-point numbers](#floating-point-ieee-754-2019).
+In some ways, these serialization issues appear to be fixed in part by more modern RFC's including the following;
+- [CBOR RFC 8949](#cbor-rfc-8949) which simply uses a binary format to transfer the [floating-point numbers](#floating-point-ieee-754-2019).
 
-- [HTTP Structured Fields RFC 9651](#http-structured-fields-rfc-9651) which does NOT target text but [HTTP or really UIRs RFC 3986](#uri-rfc3986) and puts a tight limitation on decimal numbers, only allowing three decimal digits, which isn't compatible with [Bitcoin](#bitcoin) and other wider decimal number formats.
+- [HTTP Structured Fields RFC 9651](#http-structured-fields-rfc-9651) which does not target text but [HTTP or really UIRs RFC 3986](#uri-rfc3986) and puts a tight limitation on decimal numbers, only allowing three decimal digits, which isn't compatible with [Bitcoin](#bitcoin) and other wider decimal number formats.
 
-The culmination of all of these points result in ubiquitious usage of string wrappers for numbers in tools like JSON, which forces the various parsers to get it right all the time;
+The culmination of these points result in ubiquitous usage of string wrappers for numbers in tools like JSON, which forces the various parsers to get it right all the time;
 
 ```
 { "myJSONDecimalNumber": "12.3" }
 ```
 
-This essentially defeats the purpose of having a number type in [JSON](#json-rfc-8259).
+This essentially defeats the purpose of having a (decimal) number type in [JSON](#json-rfc-8259).
 
-In addition, printing floating point numbers has been challenging historically.  Which has led to the [Ryū](#ryū) algorithm, which greatly reduced the time cost (asympotic complexity) of printing floating point numbers in various JVM environments.  [Ryū](#ryū) itself improved on the previous [How to Print Floating-Point Numbers Accurately](#floating-point-printing) paper by Guy L. Steele Jr. and Jon L White, and was eventually adopted by the [](#jcp). Casual readers are encouraged to watch the [Ryū video](#ryū-video).  Then ask themselves the philosophical question: What do you want to see from the following pseudo-code?
+In addition, printing floating point numbers has been challenging historically.  Which has led to the [Ryū](#ryū) algorithm, which greatly reduced the time cost (asymptotic complexity) of printing floating point numbers in various JVM environments.  [Ryū](#ryū) itself improved on the previous [How to Print Floating-Point Numbers Accurately paper by Guy L. Steele Jr. and Jon L White](#floating-point-printing), and was eventually adopted by the [JCP](#jcp). Casual readers are encouraged to watch the [Ryū video](#ryū-video).  Then ask themselves the philosophical question: What do you want to see from the following pseudo-code?
 
 ```
 var f : ieee754Float = f0.3
 print(f)
 ```
 
-Some people would prefer <b>Option A '0.3'</b> while others (i.e. S Morgan) would prefer <b>Option B '0.300048828125'</b>.  S Morgan thinks <b>Option B</b> is simpler, likely faster to print and also a more accurate representation of what is actually stored in RAM without any rounding.
+Some people would prefer <b>Option A '0.3'</b> while others (i.e. S Morgan) would prefer <b>Option B '0.300048828125'</b>.  S Morgan thinks <b>Option B</b> is simpler, likely much faster to print and also provides a more accurate representation of what is actually stored in RAM without any rounding.
 
-In addition, since the Java BigDecimal style isn't actually a standard from any of these standards bodies, except for maybe the [JCP](#jcp).  This means we don't actually have a solid standard for serializing money (i.e. USD, YEN, BTC, etc).  Finally, after reading all of this and the citations to ANSI Math [X3.274-1996](#ansi-x3274-1996) - [X3.274-1996 AM 1-2000 section 74](#ansi-x3274-1996am-1-2000-section-74) in the [Java 23 BigDecimal source code](), (S Morgan) started to ponder: is all of this just too complex?
+In addition, since the [Java BigDecimal](#bigdecimal-java) style isn't actually a standard from any of these standards bodies, except for maybe the [JCP](#jcp).  This means we don't actually have a solid standard for serializing money (i.e. USD, YEN, BTC, etc).  Finally, after reading all of this and the citations to ANSI Math [X3.274-1996](#ansi-x3274-1996) - [X3.274-1996 AM 1-2000 section 74](#ansi-x3274-1996am-1-2000-section-74) in the [Java 23 BigDecimal source code](#bigdecimal-java), (S Morgan) started to ponder: Is all of this mantissa stuff just too complex?
 
 S Morgan:
 
-From more of a [philosophical category theory](#category-theory-b-milewski-youtube) perspective Are we actually usually doing [discrete mathematics](#discrete-mathematics-o-levin-2024) and have just added decimal places to help us read the [natural numbers](#natural-numbers-wikipedia)?  For example, USD currency serialization and mathematical operations are actually using a natural number of cents.  Perhaps we should just run with that and do much of our math with [BigIntegers](#bigint-java) , [BigInts](#ecma-262), and then reformat the string representation with a decimal point.  This would likely give most intuitive users who are just learning programming, math or both for the first time a much lower barrier to entry when performing most elementary to high school math, programming and serialization.
+From more of a [philosophical Category Theory](#category-theory-b-milewski-youtube) perspective;
+Are we actually usually doing [discrete mathematics](#discrete-mathematics-o-levin-2024) and have just added decimal places to help us read the [natural numbers](#natural-numbers-wikipedia)?
 
- A new <b>BigNumber</b> convention could be created on top of this idea leveraging the [ISO/IEC 10967 integer datatype section 5.1](#math-international-standard).
+For example, USD currency serialization and mathematical operations are actually using a [natural number](#natural-numbers-wikipedia) of cents.  Perhaps we should just run with that and do much of our math with [BigIntegers](#bigint-java) , [BigInts](#ecma-262), and then reformat the string representation with a decimal point.  This would likely give most intuitive users who are just learning programming, math or both for the first time a much lower barrier to entry when performing most elementary to high school math, programming and serialization.
+
+ A new <b>BigNumber</b> convention could be created on top of this idea leveraging the [ISO/IEC 10967 integer datatype section 5.1 / International Math Standard.](#math-international-standard).
 
 ```
 var b : BigNumber = 12.57
 println(b)
+println(b.toDiscreteString())
 println(b.hasDecimalPoint())
 var i : BigNumber = -∞
-println(b)
+println(i)
+println(i.hasDecimalPoint())
 var c = BigNumber = 0.3
 println(c)
 println(c.toFloat())
 // should output the following text
 12.57
+1257
 true
 -∞
+false
 0.3
 0.300048828125
 ```
 
-Then this new <b>BigNumber</b> type could be used as the basis for further text-encoding number work of the [Modern Western Numeral System](#modern-western-numeral-system).  Finally, an open question.  What should we do with repeating numbers (aka. connected overlines) (i.e. 0.&#x0305;0&#x0305;1&#x0305;2&#x0305;3&#x0305;4&#x0305;5&#x0305;6&#x0305;7&#x0305;8&#x0305;9 or 1/7 = 0.&#x0305;1&#x0305;4&#x0305;2&#x0305;8&#x0305;5&#x0305;7 ), another new <b>BigFraction</b> type perhaps?
+Then this new <b>BigNumber</b> type could potentially be used as the basis for further text-encoding number work with the [Modern Western Numeral System](#modern-western-numeral-system).
+
+Finally, an open question.  What should we do with repeating numbers (aka. connected overlines) (i.e. 0.&#x0305;0&#x0305;1&#x0305;2&#x0305;3&#x0305;4&#x0305;5&#x0305;6&#x0305;7&#x0305;8&#x0305;9 or 1/7 = 0.&#x0305;1&#x0305;4&#x0305;2&#x0305;8&#x0305;5&#x0305;7 ), another new <b>BigFraction</b> type perhaps?
 
 ```
 # Github Markdown for Connected Overlines
 0.&#x0305;0&#x0305;1&#x0305;2&#x0305;3&#x0305;4&#x0305;5&#x0305;6&#x0305;7&#x0305;8&#x0305;9
 1/7 = 0.&#x0305;1&#x0305;4&#x0305;2&#x0305;8&#x0305;5&#x0305;7
 ```
+
+Finally, note that most of the citations were generated by Gemini. Feel free to reach out if you would like to correct, modify or add anything to this paper.
 
 # Citations
 
@@ -746,6 +759,13 @@ Shannon, C. E. (1948). A Mathematical Theory of Communication. Bell System Techn
 
 Wikipedia contributors, "Natural number," *Wikipedia, The Free Encyclopedia*, [Online]. Available: [https://en.wikipedia.org/wiki/Natural_number](https://en.wikipedia.org/wiki/Natural_number).
 
+##### Netscape
+
+Wikipedia contributors, "Netscape," *Wikipedia, The Free Encyclopedia*, [Online]. Available: [https://en.wikipedia.org/wiki/Netscape](https://en.wikipedia.org/wiki/Netscape).
+
+G. Pignol, "Netscape's Rise and Fall: A Browser Wars History," *Medium*, Dec. 3, 2025. [Online]. Available: [https://medium.com/@gp2030/netscapes-rise-and-fall-a-browser-wars-history-8546e3b52092](https://medium.com/@gp2030/netscapes-rise-and-fall-a-browser-wars-history-8546e3b52092).
+
+Wilson, B. (n.d.). *Browser history: Netscape*. Index DOT Html/Css. Retrieved March 31, 2026, from [http://www.blooberry.com/indexdot/history/netscape.htm](http://www.blooberry.com/indexdot/history/netscape.htm)
 
 ##### Network Order IBM
 
