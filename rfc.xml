@@ -70,35 +70,31 @@
       
       <t>This section is non-normative.</t>
       
-      <t>As computer systems scale in both volume and streaming throughput, 
-      standard 
-      <xref target="RFC8259" format="none" sectionFormat="bare" >JavaScript Object Notation (JSON)</xref> 
-      often introduce precision issues. This is particularly prevalent due to 
-      <xref target="IEEE754" format="none" sectionFormat="bare" >double-precision floating-point</xref> 
-      constraints.  Although double floating point precision is specified in the 
-      <xref target="RFC8259" format="none" sectionFormat="bare" > JSON RFC</xref>, 
-      parsers have interpreted this differently, most notably 
-      <xref target="Jackson-GitHub" format="none" sectionFormat="bare" >Jackson</xref> and 
-      <xref target="Gson-GitHub" format="none" sectionFormat="bare" >GSON</xref>.
-      In addition, streaming formats like 
-      <xref target="RFC4648" >Base64</xref>
-      are often fairly verbose to 
-      map binary data to <xref target="octet" format="none" sectionFormat="bare" >octets</xref>.  This incurs 
-      a large cost when one bit is encoded as four bytes.  To solve these and 
-      related issues, Ten64 is introduced.</t>
+      <t>
+        Alternative notations and bases have historically been explored to
+        improve human-machine interfaces, ranging from early discussions on
+        <xref target="CACM-Binary" format="none" sectionFormat="bare">binary
+        notations</xref> to modern concepts like <xref target="hexadecimal"
+        format="none" sectionFormat="bare">Hexadecimal</xref>, and <xref
+        target="bioctal" format="none" sectionFormat="bare">Bioctal</xref>.
+        Ten64 builds on this history by using a 64-character alphabet composed
+        of standard <xref target="ASCII-7" format="none" sectionFormat="bare">
+        ASCII-7</xref> / <xref target="UTF-8" format="none"
+        sectionFormat="bare">UTF-8 characters</xref>.
+      </t>
 
-      <t>Alternative notations and bases have historically been explored to 
-      improve human-machine interfaces, ranging from early discussions on 
-      <xref target="CACM-Binary" format="none" sectionFormat="bare">binary notations</xref> to modern concepts like 
-      <xref target="hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref>
-      , and <xref target="Bioctal" format="none" sectionFormat="bare">bioctal</xref>. 
-      Ten64 builds on this history by utilizing a
-      64-character binary alphabet composed of standard 
-      <xref target="ASCII-7" format="none" sectionFormat="bare">ASCII-7</xref> / 
-      <xref target="RFC3629" >UTF-8 characters</xref>. By
-      avoiding standard mathematical symbols, Ten64 allows exact numbers to
-      be embedded directly into programming environments without compiler
-      confusion.</t>
+      <t>
+        In addition to providing a solid manor to represent numbers using
+        characters and their respective binary representations, Ten64 extends
+        these representations with interpretation conventions. These
+        interpretation conventions will likely be specified by some sort of
+        schema system like <xref
+        target="ejcn-extensible-json-classification-notation-schemas"
+        format="none" sectionFormat="bare">EJCN (Extensible JSON Classification
+        Notation) Schemas</xref>, <xref target="json-schemas" format="none"
+        sectionFormat="bare">JSON Schemas</xref> or <xref target="xml-schemas"
+        format="none" sectionFormat="bare">XML Schemas</xref>.
+      </t>
 
       <section anchor="requirements">
         <name>Requirements Language</name>
@@ -113,54 +109,117 @@
       </section>
     </section>
 
+    <section anchor="human-readable-verses-human-decipherable" 
+             title="Human-Readable Verses Human-Decipherable">
+      <t>
+        In Ten64, we are targeting human-readable characters in the alphabet
+        but do NOT intend to be human-decipherable. Our definition of these
+        terms MAY be specific to this paper.
+      </t>
+    
+      <section anchor="what-is-human-readable" title="What is Human-Readable?">
+        <t>
+          Our intended meaning of the term human-readable in Ten64 is that a
+          human will be able to distinguish the characters from each other. We
+          believe the best way of explaining this is with an example where one
+          human would literally read the characters to another human over an
+          audio-only telephone call. For example, the word Adligo is spelled
+          out using a spelled-out phonetic alphabet.
+        </t>
+        <sourcecode>
+    Capital A, as in Apple.
+    Small d, as in dog.
+    Small l, as in lake.
+    Small i, as in indigo.
+    Small g, as in golf.
+    Small o as in otter.
+        </sourcecode>
+        <t>
+          This is clearly human-readable.
+        </t>
+      </section>
+    
+      <section anchor="what-is-human-decipherable" 
+               title="What is Human-Decipherable?">
+        <t>
+          Our intended meaning of the term human-decipherable in Ten64 is that
+          most humans would be able to decipher the character stream. Ten64
+          does NOT target human-decipherability. We consider
+          human-decipherability to be out of scope and may target another ID/
+          RFC for this work. Ten64 targets computer-decipherability and will
+          rely on computer algorithms to translate Ten64 into in-memory integer
+          and decimal numbers. In particular;
+        </t>
+        <ul>
+          <li>
+            <xref target="ten64-integer-serialization-algorithm" format="none" 
+            sectionFormat="bare">The Ten64 Integer Serialization Algorithm</xref>
+          </li>
+          <li>
+            <xref target="ten64-decimal-serialization-algorithm" format="none" 
+            sectionFormat="bare">The Ten64 Decimal Serialization Algorithm</xref>
+          </li>
+        </ul>
+        <t>
+          Although this is decipherable for some humans who are developers or
+          software architects, this point might seem insignificant. For the vast
+          majority of the population, it is significant. The point is that
+          software tools will generally be used to decipher Ten64.
+        </t>
+      </section>
+    </section>
+
     <section anchor="special-chars-intro">
       <name>Special Characters Introduction</name>
 
-      <t>It does NOT use the <xref target="RFC4648">Base64</xref> alphabet but a 
-      binary alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and '_' 
-      along with some additional special characters most notably '#','.' 
-      and ';', and '-'.  It is designed to be human and machine 
-      readable but is really designed to optimized the reading and writing 
-      of numbers for streaming and storage computer systems.  The @ and _ 
-      symbol and other alphabet symbols were chosen because they are NOT 
-      mathematical symbols, so theoretically this system could also be 
-      used embed numbers into programming languages in the future.
-      It will use a big ending binary system as follows;</t>
+      <t>
+        Ten64 does NOT use the <xref target="base64-rfc-4648" format="none"
+        sectionFormat="bare">Base64 RFC 4648</xref> alphabet but a alphabet
+        more in line with <xref target="hexadecimal" format="none"
+        sectionFormat="bare">hexadecimal</xref> 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and '_' along
+        with some additional special characters most notably '#','.',',' and
+        ';', '-', and the UNIX Line Feed 10 (0x0A in <xref target="hexadecimal"
+        format="none" sectionFormat="bare">hexadecimal</xref>). It is designed
+        to be human and machine-readable but is really designed to <xref
+        target="performance" format="none" sectionFormat="bare">optimized</xref>
+        the reading and writing of numbers for streaming and storage computer
+        systems. The $,+,!, @ and _ symbols were chosen
+        because they human-readable. Theoretically, this system could also be
+        used embed numbers into programming languages in the future. However,
+        usage MAY require the explicit starting character pound '#', and
+        explicit termination semicolon character ';'. It will use a big ending
+        binary system as follows;
+      </t>
     </section>
     
     <section anchor="special-chars">
-      <name>Special Characters Details</name>
+      <name>Special Characters and Sequence Details</name>
+        <sourcecode>
+#   Optional explicit beginning of #Ten64 binary section, use depending
+    on context.
+#.. The optional explicit begining of a multiple line Ten64 sequence.
+.   The Decimal or Number Space Separator
+,   The Separator for Number Lists
+;   Optional explicit end of #Ten64 sequence.
+-   The negative indicator, and human-readable seperator
+    Whitespace Characters: including Line Feeds, Tabs,
+       Spaces, Return Sequences, etc. MAY be included
+       and MUST cause end of interpretation of the
+       Ten64 sequence.
+UNIX Line Feeds:
+    UNIX line feeds 10 / hex 0x0A
+    MAY be used to continue a number sequence when the number
+    sequence starts with '#..'.
 
-      <t>Beyond the primary alphabet, Ten64 relies on the following explicit  
-      characters to organize binary streams and chunks.</t>
-      <dl>
-        <dt>#</dt>
-        <dd>OPTIONAL explicit beginning of a Ten64 alphabet section, use depending on context.</dd>
-        <dt>.</dt>
-        <dd>The Decimal or Number Space Separator.</dd>
-        <dt>,</dt>
-        <dd>The Separator for Number Lists.</dd>
-        <dt>;</dt>
-        <dd>OPTIONAL explicit end of a Ten64 sequence.</dd>
-        <dt>-</dt>
-        <dd>The negative indicator.</dd>
-        <dt>Whitespace</dt>
-        <dd>Any whitespace characters (Line Feeds, Tabs, Spaces, Return 
-        Sequences) MAY be included and MUST cause end of interpretation of the Ten64 sequence.</dd>
-        <dt>Other Non Alphabet Characters:</dt>
-        <dd>MAY be included and MUST cause end of interpretation of the
-       Ten64 sequence.</dd>
-      </dl>
+    Other Non Alphabet Characters: MAY be included
+       and MUST cause end of interpretation of the
+       Ten64 sequence.
+      </sourcecode>
     </section>
 
     <section anchor="alphabet">
-      <name>The Ten64 Alphabet</name>
-      <t>The primary Ten64 alphabet acts as a big-endian binary system. 
-      Unlike the encodings defined in <xref target="RFC4648"/>, each valid 
-      character maps to a specific 6-bit binary chunk and an 
-      <xref target="modern-western-integers" format="none" sectionFormat="bare">Modern Western Integer</xref>
-      numeral  value (0-63).</t>
-      
+      <name>The Ten64 Alphabet Mappings</name>
+
       <table align="center">
         <name>Ten64 Alphabet Mappings</name>
         <thead>
@@ -239,24 +298,142 @@
       </table>
     </section>
 
+    <section anchor="use-cases" title="Use-Cases">
+      <section anchor="shortened-identifiers" title="Shortened Identifiers">
+        <t>
+          The primary Use-Case is simply an upgrade of <xref
+          target="hexadecimal" format="none" sectionFormat="bare">hexadecimal
+          </xref>, where Ten64 provides a more succinct/compressed string of
+          characters. In addition, we target the encoding of numbers (n in the
+          <strong>Text Encoded Base 64 Numbers</strong> title). Generally, we are
+          also targeting identifiers of all kinds, attempting to make them as
+          short as possible to improve human readability. Finally, we target
+          human-readable compressed identifiers shortening <xref
+          target="uuid-rfc-9562" format="none" sectionFormat="bare">UUID's</xref>
+          as follows;
+        </t>
+        <sourcecode>
+    # 36 character UUID
+    00000000-0000-0000-0000-000000000000
+    # to 27 characers
+    000000.000.000.000.00000000
+    # or 22 characters 128/6
+    0000000000000000000000
+    # or single or short sequences characters for small numbers
+    0
+        </sourcecode>
+      </section>
+    
+      <section anchor="huge-numbers-and-the-10-6-4-convention" 
+               title="Huge Numbers and the 10-6-4 Convention">
+        <t>
+          Ten64 is designed to be used to encode huge numbers, and is also
+          <xref target="performance" format="none" sectionFormat="bare">optimized
+          </xref> for this use-case. The 10-6-4 convention suggests huge strings
+          of numbers SHOULD be segmented into segments of ten characters, six
+          characters, and then four characters. In addition, these huge strings
+          MAY be separated by the Unix line feed. This also creates a convention
+          of at MOST 92 characters per line SHOULD be used, it is an effort to
+          improve human readability.
+        </t>
+        <sourcecode>
+    #..
+    0123456789-abcdef-ghij-k$mnopqrst-uvwyxz-ABCD-EFGH+JKLMN-!PQRST-UVWY-XZ@_012345-6789ab-cdef
+    ghijk$mnop-qrstuv-wyxz-ABCDEFGH+J-KLMN!P-QRST-UVWYXZ@012-345678-9abc-defghijk$m-nopqrs-tuvw
+    yxzABCDEFG-H+JKLM;
+    #..
+    0123456789-abcdef-ghij-k$mnopqrst-uvwyxz-ABCD-EFGH+JKLMN-!PQRST-UVWY-XZ@_012345-6789ab-cdef
+    ghijk$mnop-qrstuv-wyxz-ABCDEFGH+J-KLMN!P-QRST-UVWY.XZ@012-345678-9abc-defghijk$m-nopqrs-tuv
+    wyxzABCDEF-GH+JKL-M;
+        </sourcecode>
+        <t>
+          The above code illustrates a huge integer number and a huge decimal
+          number. These kinds of Ten64 character sequences MAY be included as
+          strings or as template literals in many programming languages. In
+          addition, these huge numbers MAY be streamed from disk or over the
+          network.
+        </t>
+      </section>
+    </section>
+    
+    <section anchor="binary" title="Binary">
+      <t>
+        Ten64 is also a system to create <xref 
+        target="bitslotmaps" format="none" sectionFormat="bare">
+        BitSlotMaps#1.3.6.1.4.1.33097.1.1.3</xref> (aka, BinaryStrings,
+        BitVectors, BitSets, etc). Numbers are read into memory using the
+        <xref target="ten64-integer-serialization-algorithm" format="none"
+        sectionFormat="bare">Ten64 integer serialization algorithm</xref>. Then
+        the binary integer numbers MAY be reinterpreted per the user's wishes.
+      </t>
+      <t>
+        Ten64 MAY also be used to represent arbitrary <xref target="octet"
+        format="none" sectionFormat="bare">octet arrays</xref>. Note, conversion
+        to <xref target="octet" format="none" sectionFormat="bare">octet arrays
+        </xref> is NOT the primary <xref target="use-cases" format="none"
+        sectionFormat="bare">Use-Case</xref> of Ten64, and that round tripping
+        between <xref target="octet" format="none" sectionFormat="bare">octet
+        arrays</xref> MAY introduce issues.
+      </t>
+    
+      <section anchor="ten64-to-octet-array-conversion" 
+               title="Ten64 to Octet Array Conversion">
+        <t>
+          When converting Ten64 binary to an array of <xref target="octet"
+          format="none" sectionFormat="bare">octets</xref>, all missing bits MUST
+          be filled with zeros. This is to ensure that the binary consists of
+          complete <xref target="octet" format="none" sectionFormat="bare">octets
+          </xref>.
+        </t>
+      </section>
+    
+      <section anchor="ten64-from-octet-byte-array-conversion" 
+               title="Ten64 from Octet (Byte) Array Conversion">
+        <t>
+          When converting arrays of octets to the Ten64 alphabet, all '0'
+          characters from the Ten64 alphabet at the right MUST be omitted.
+        </t>
+      </section>
+    </section>
+    
+    <section anchor="related-technologies" title="Related Technologies">
+      <t>
+        There are a ton of libraries in various languages, for example <xref
+        target="BigInt-Java" format="none" sectionFormat="bare">Java's BigInt
+        </xref> influenced the <xref target="ECMA-262" format="none"
+        sectionFormat="bare">ECMA Script BigInt</xref>. In addition, this <xref
+        target="ECMA-262" format="none" sectionFormat="bare">ECMA Script</xref>
+        <xref target="BigDecimal-NPM" format="none" sectionFormat="bare">
+        BigDecimal</xref> implementation is based on <xref target="BigDecimal-Java"
+        format="none" sectionFormat="bare">Java's BigDecimal</xref>. We do NOT
+        expect Ten64 to gain wide adoption over the <xref
+        target="modern-western-numeral-system" format="none"
+        sectionFormat="bare">Modern Western Numeral System</xref>, since the <xref
+        target="modern-western-numeral-system" format="none"
+        sectionFormat="bare">Modern Western Numeral System</xref> is taught in
+        early elementary schools and used all the way through advanced mathematics
+        classes.
+      </t>
+    </section>
+
     <section anchor="performance" title="Performance">
       <t>
-        In addition, to significantly reducing the number of characters required
-        for encoding, which saves on disk space in files and on the number of
+        Ten64 significantly reduces the number of characters required for encoding, 
+        which saves on disk space in files and on the number of
         bytes transferred over sockets. Ten64 SHOULD be implemented using a more
-        optimal algorithm to serialize and deserialize the data than <xref
+        optimal algorithm to serialize and de-serialize the data than <xref
         target="modern-western-numeral-system" format="none"
         sectionFormat="bare">Modern Base-10 Numeral System</xref> serialization
         uses.
       </t>
     
       <t>
-        To create integers from the Ten64 alphabet, algorithms SHOULD use case
-        (aka switch) statements to convert the Ten64 alphabet into little-endian
+        To create integers from the Ten64 alphabet, algorithms SHOULD use switch
+        statements to convert the Ten64 alphabet into little-endian
         binary (used in the majority of in memory number systems). Then the
         algorithms should shift the bits and use the binary and (i.e. &amp;)
         operator to aggregate the number into integers. This <xref
-        target="Ten64-Integer-Serialization-Algorithm" format="none"
+        target="ten64-integer-serialization-algorithm" format="none"
         sectionFormat="bare">Ten64 Integer
         Serialization#1.3.6.1.4.1.33097.0.2.4</xref> Algorithm will complete
         with a big O(s) time cost.
@@ -264,8 +441,10 @@
     
       <t>
         Comparison with other algorithms which use various serialization and
-        deserialization forms to and from the modern western numerical system is
-        generally much slower.
+        de-serialization forms to and from the <xref
+        target="modern-western-numeral-system" format="none"
+        sectionFormat="bare">modern western numerical system</xref> is generally
+        much slower.
       </t>
     
       <ul>
@@ -292,28 +471,16 @@
       </ul>
     
       <t>
-        However, When converting decimal numbers using <xref
-        target="Ten64-Decimal-Serialization-Algorithm" format="none"
+        However, when converting decimal numbers using <xref
+        target="ten64-decimal-serialization-algorithm" format="none"
         sectionFormat="bare">Ten64 Decimal
         Serialization#1.3.6.1.4.1.33097.0.2.5</xref>, division is required.
-        This incurs the following time cost depending on the division algorithm
-        used.
+        Depending on the <xref target="MathAsympoticProcessorPerformanceWikipedia"
+        format="none" sectionFormat="bare">division algorithm</xref> used, this
+        is roughly comparable to serialization and de-serialization of the <xref
+        target="modern-western-numeral-system" format="none"
+        sectionFormat="bare">modern western numerical system</xref> covered above.
       </t>
-    
-      <ul>
-        <li>
-          Serialization from <xref target="modern-western-decimal-numbers"
-          format="none" sectionFormat="bare">Modern Western Decimal
-          Numbers</xref> <xref target="Ten64-Decimal-Serialization-Algorithm"
-          format="none" sectionFormat="bare">O(c log c)</xref>
-        </li>
-        <li>
-          De-Serialization to <xref target="modern-western-decimal-numbers"
-          format="none" sectionFormat="bare">Modern Western Decimal
-          Numbers</xref> <xref target="Ten64-Decimal-Serialization-Algorithm"
-          format="none" sectionFormat="bare">O(cd²) - O(M(cd))</xref>
-        </li>
-      </ul>
     </section>
 
     <section anchor="compatibility" title="Compatibility">
@@ -530,39 +697,7 @@
         </t>
       </section>
     </section>
-    <section anchor="binary" title="Binary">
-      <section anchor="binary_sequences" title="Binary big ending sequences MAY be interpreted as integers">
-        <t>
-          The following sequences explode as follows:
-        </t>
-        <sourcecode type="example"><![CDATA[
-  #0.1;   expands to a list of integers 0, 1 which MAY also be 
-          interpreted as the decimal 0.1 depending on the context.
-  #0.1.2; expands to a segmented number / list of integers 0, 1, 2.
-  #01.11; expands the a list of integers 64, 65 which MAY also be 
-          interpreted as the decimal 64.65 depending on the context.
-  #-1.8;  expands to a list of integers -1, 8 and MAY also be 
-          interpreted as a decimal -1.8 depending on the context.
-  #-1.-9  expands to a list of integers -1, -9
-        ]]></sourcecode>
-      </section>
-  
-      <section anchor="ten64_to_octet" title="Ten64 to Octet (Byte) Array Conversion">
-        <t>
-          When converting Ten64 binary to an array of <xref target="octet" format="none" sectionFormat="bare">octets</xref>, 
-          all missing bits <bcp14>MUST</bcp14> be filled with zeros. This is to ensure 
-          that the binary consists of complete <xref target="octet" format="none" sectionFormat="bare">octets</xref>.
-        </t>
-      </section>
-  
-      <section anchor="ten64_from_octet" title="Ten64 from Octet (Byte) Array Conversion">
-        <t>
-          When converting arrays of octets to the Ten64 alphabet, all '0' characters 
-          from the Ten64 alphabet at the right <bcp14>MUST</bcp14> be omitted.
-        </t>
-      </section>
-    </section>
-    
+
     <section anchor="segmented-numbers">
       <name>Segmented Numbers and Use Cases</name>
       <t>A core feature of Ten64 is the "Segmented Number" representing a list 
@@ -844,7 +979,7 @@
     <references>
       <name>Normative References</name>
       
-      <reference anchor="Adligo.BitSlotMaps" 
+      <reference anchor="bitslotmaps" 
            target="https://adligo.github.io/papers.adligo.com/data_structures/BitSlotMaps.html">
         <front>
           <title>BitSlotMaps</title>
@@ -881,6 +1016,16 @@
           </abstract>
         </front>
         <seriesInfo name="Internet-Draft" value="draft-msporny-base58-03"/>
+      </reference>
+
+      <reference anchor="base64-rfc-4648" 
+                 target="https://www.rfc-editor.org/info/rfc4648">
+        <front>
+          <title>The Base16, Base32, and Base64 Data Encodings</title>
+          <author initials="S." surname="Josefsson" fullname="S. Josefsson"/>
+          <date year="2006" month="October"/>
+        </front>
+        <seriesInfo name="RFC" value="4648"/>
       </reference>
 
       <reference anchor="Bitcoin" target="https://bitcoin.org/bitcoin.pdf">
@@ -1107,7 +1252,7 @@
         <refcontent>IANA Registry</refcontent>
       </reference>
 
-      <reference anchor="IEEE" target="https://www.ieee.org">
+      <reference anchor="ieee" target="https://www.ieee.org">
         <front>
           <title>Institute of Electrical and Electronics Engineers (IEEE)</title>
           <author>
@@ -1482,7 +1627,7 @@
         <seriesInfo name="Wikipedia" value="Sextet"/>
       </reference>
       
-      <reference anchor="Ten64-Decimal-Serialization-Algorithm" target="https://adligo.github.io/papers.adligo.com/algorithms/concrete/Ten64DecimalSerialization.html">
+      <reference anchor="ten64-decimal-serialization-algorithm" target="https://adligo.github.io/papers.adligo.com/algorithms/concrete/Ten64DecimalSerialization.html">
         <front>
           <title>Ten64DecimalSerialization: A Concrete Algorithm for 64-bit Decimal Representation</title>
           <author>
@@ -1496,7 +1641,7 @@
         <refcontent>Adligo Algorithm Specification Series</refcontent>
       </reference>
       
-      <reference anchor="Ten64-Integer-Serialization-Algorithm" target="https://adligo.github.io/papers.adligo.com/algorithms/concrete/Ten64IntegerSerialization.html">
+      <reference anchor="ten64-integer-serialization-algorithm" target="https://adligo.github.io/papers.adligo.com/algorithms/concrete/Ten64IntegerSerialization.html">
         <front>
           <title>Ten64IntegerSerialization: A Concrete Algorithm for 64-bit Integer Representation</title>
           <author>
@@ -1614,7 +1759,7 @@
         <refcontent>NPM Package</refcontent>
       </reference>
 
-      <reference anchor="Bioctal" 
+      <reference anchor="bioctal" 
                  target="https://en.wikipedia.org/wiki/Bioctal">
         <front>
           <title>Bioctal: Hexadecimal 2.0</title>
@@ -1717,16 +1862,6 @@
           <date year="2017" month="September" day="14"/>
         </front>
         <refcontent>Smart News</refcontent>
-      </reference>
-
-      <reference anchor="RFC4648" 
-                 target="https://www.rfc-editor.org/info/rfc4648">
-        <front>
-          <title>The Base16, Base32, and Base64 Data Encodings</title>
-          <author initials="S." surname="Josefsson" fullname="S. Josefsson"/>
-          <date year="2006" month="October"/>
-        </front>
-        <seriesInfo name="RFC" value="4648"/>
       </reference>
 
       <reference anchor="W3C.REC-xml-20081126" 

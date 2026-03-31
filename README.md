@@ -5,7 +5,7 @@
 Ten64 is a [positional numeral system](#positional-number-systems-wikipedia) for representing numeric values with an alphabet of 64 characters [(aka. radix/base 64)](#radix-wikipedia).  However, unlike most [positional number systems](#positional-number-systems-wikipedia), the characters are written in ascending (aka. [big-endian](#endian-wikipedia)) and NOT descending order.
 The main differences are the use of [sextets (six bits)](#sextet) instead of [octets (aka. bytes)](#octet).  Similar to [hexadecimal](#hexadecimal), Ten64 can be used to create binary strings of arbitrary length.  Ten64 can encode one or more [Modern Western Numbers (aka Arabic, Vedic)](#modern-western-numeral-system), interpreting the characters respective [composite big-endian binary](#endian-wikipedia) as a one or more [Modern Western Numbers](#modern-western-numeral-system).
 
-The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be [optimized](#performance) for use with numbers commonly used in identifiers, such as [DIDs](#decentralized-identifiers-dids), [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid), [dates](#dates), [time](#time)[(stamp)s](#timestamps), [points](#points), and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).  Finally, Ten64 provides a disk-based number encoding system for huge numbers and number streams.
+The motivation for Ten64 is to encode numbers in a compact and human-readable format similar to [Base58](#base58).  However, Ten64 is designed to be [optimized](#performance) for use with numbers commonly used in identifiers, such as [DIDs](#decentralized-identifiers-dids), [DOIDs](#doid-repo), [IANA OIDs](#iana-oids), [UUIDs](#uuid-rfc9562), [dates](#date-interpretations), [time](#time-interpretations)[(stamp)s](#militimestamp-interpretations), [points](#point-interpretations), and more.  Unlike [Base58](#base58), and more like [hexadecimal](#hexadecimal) Ten64 aligns the [Modern Western Numerals](#modern-western-numeral-system) with the respective big-ending binary (i.e.; 0 → 0, 1 → 1, 2 → 11, etc).  Finally, Ten64 provides a disk-based number encoding system for huge numbers and number streams.
 
 ## Authors
 
@@ -42,7 +42,7 @@ improve human-machine interfaces, ranging from early discussions on
 [Hexadecimal](#hexadecimal), and [Bioctal](#bioctal). Ten64 builds on this history by using a 64-character alphabet composed of standard [ASCII-7](#ascii-7) /
 [UTF-8 characters](#utf-8).
 
-In addition to providing a solid manor to represent numbers using characters and their respective binary representations, Ten64 Extends these representations with interpretation conventions.  These interpretation conventions will likely be specified by some sort of schema system like  [EJCN (Extensible JSON Classification Notation) Schemas](#ejcn-extensible-json-classification-notation-schemas), [JSON Schemas](#json-schemas) or [XML Schemas](#xml-schemas).
+In addition to providing a solid manor to represent numbers using characters and their respective binary representations, Ten64 extends these representations with interpretation conventions.  These interpretation conventions will likely be specified by some sort of schema system like  [EJCN (Extensible JSON Classification Notation) Schemas](#ejcn-extensible-json-classification-notation-schemas), [JSON Schemas](#json-schemas) or [XML Schemas](#xml-schemas).
 
 ## Human-Readable Verses Human-Decipherable
 
@@ -65,7 +65,7 @@ This is clearly human-readable.
 
 ##### What is Human-Decipherable?
 
-Our intended meaning of the term human-decipherable in Ten64 is that most humans would be able to decipher the character stream.  Ten64 does not target human-decipherability.  We consider human-decipherability to be out of scope and may target another ID or RFC for this work.  Ten64 targets computer-decipherability and will rely on computer algorithms to translate Ten64 into in-memory integer and decimal numbers. In particular;
+Our intended meaning of the term human-decipherable in Ten64 is that most humans would be able to decipher the character stream.  Ten64 does NOT target human-decipherability.  We consider human-decipherability to be out of scope and may target another ID / RFC for this work.  Ten64 targets computer-decipherability and will rely on computer algorithms to translate Ten64 into in-memory integer and decimal numbers. In particular;
 
 - [The Ten64 Integer Serialization Algorithm](#ten64-integer-serialization-algorithm)
 - [The Ten64 Decimal Serialization Algorithm](#ten64-decimal-serialization-algorithm)
@@ -74,7 +74,7 @@ Although this is decipherable for some humans who are developers or software arc
 
 ## Special Characters Introduction
 
-Ten64 does NOT use the [Base64 RFC 4648](#base64-rfc-4648) alphabet but a alphabet similar to hexadecimal 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and '_' along with some additional special characters most notably '#','.',',' and ';', '-', and the UNIX Line Feed 10 (0x0A in [hexadecimal](#hexadecimal)).  It is designed to be human and machine-readable but is really designed to [optimized](#performance) the reading and writing of numbers for streaming and storage computer systems.  The @ and _ symbol and other alphabet symbols were chosen because they human-readable. Theoretically, this system could also be used embed numbers into programming languages in the future.  However, usage MAY require the explicit starting character pound '#', and explicit termination semicolon character ';'.  It will use a big ending binary system as follows;
+Ten64 does NOT use the [Base64 RFC 4648](#base64-rfc-4648) alphabet but an alphabet more inline with [hexadecimal](#hexadecimal) 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and '_' along with some additional special characters most notably '#','.',',' and ';', '-', and the UNIX Line Feed 10 (0x0A in [hexadecimal](#hexadecimal)).  It is designed to be human and machine-readable but is really designed to [optimized](#performance) the reading and writing of numbers for streaming and storage computer systems.  The \$,+,!, @ and _ symbols were chosen because they human-readable. Theoretically, this system could also be used embed numbers into programming languages in the future.  However, usage MAY require the explicit starting character pound '#', and explicit termination semicolon character ';'.  It will use a big ending binary system as follows;
 
 ## Special Characters and Sequences Details
 ```
@@ -99,7 +99,7 @@ UNIX Line Feeds:
 
 ```
 
-## Ten64 Alphabet Mappings;
+## Ten64 Alphabet Mappings
 | [Primary ASCII](#ascii) / [UTF8 Character](#utf8) | [Modern Western Integer](#modern-western-integers) | Big-Ending Binary [Sextet](#sextet) |
 |---------------------------------------------------|---------------------------------------------|-----------------------------------------|
 | 0                                                 | 0                                           | 000000                                  |
@@ -186,7 +186,7 @@ The primary Use-Case is simply an upgrade of [hexadecimal](#hexadecimal), where 
 
 ##### Huge Numbers and the 10-6-4 Convention
 
-Ten64 is designed to be used to encode huge numbers, and is also [optimized](#performance) for this use-case.  The 10-6-4 convention suggests huge strings of numbers SHOULD be segmented into segments of ten characters, six characters, and then four characters.  In addition, these huge strings may be separated by the Unix line feed.  This also creates a convention of at MOST 92 characters per line SHOULD be used, it is an effort to improve human readability.
+Ten64 is designed to be used to encode huge numbers, and is also [optimized](#performance) for this use-case.  The 10-6-4 convention suggests huge strings of numbers SHOULD be segmented into segments of ten characters, six characters, and then four characters.  In addition, these huge strings MAY be separated by the Unix line feed.  This also creates a convention of at MOST 92 characters per line SHOULD be used, it is an effort to improve human readability.
 
 ```
 #..
@@ -199,11 +199,11 @@ ghijk$mnop-qrstuv-wyxz-ABCDEFGH+J-KLMN!P-QRST-UVWY.XZ@012-345678-9abc-defghijk$m
 wyxzABCDEF-GH+JKL-M;
 ```
 
-The above code illustrates a huge integer number and a huge decimal number. These kinds of Ten64 character sequences MAY be included as strings or as template literals in many programming languages.  In addition, these huge numbers may be streamed from disk or over the network.
+The above code illustrates a huge integer number and a huge decimal number. These kinds of Ten64 character sequences MAY be included as strings or as template literals in many programming languages.  In addition, these huge numbers MAY be streamed from disk or over the network.
 
 # Binary
 
-Ten64 is also a system to create [BitSlotMaps#1.3.6.1.4.1.33097.1.1.3](#bitslotmaps-13614133097113) (aka, BinaryStrings, BitVectors, BitSets, etc).  Numbers are read into memory using the [Ten64 integer serialization algorithm](#ten64-integer-serialization-algorithm).  Then the binary integer numbers can be reinterpreted per the user's wishes.
+Ten64 is also a system to create [BitSlotMaps#1.3.6.1.4.1.33097.1.1.3](#bitslotmaps-13614133097113) (aka, BinaryStrings, BitVectors, BitSets, etc).  Numbers are read into memory using the [Ten64 integer serialization algorithm](#ten64-integer-serialization-algorithm).  Then the binary integer numbers MAY be reinterpreted per the user's wishes.
 
 Ten64 MAY also be used to represent arbitrary [octet arrays](#octet).  Note, conversion to [octet arrays](#octet) is NOT the primary [Use-Case](#use-case) of Ten64, and that round tripping between [octet arrays](#octet) MAY introduce issues.
 
@@ -217,15 +217,15 @@ When converting arrays of octets to the Ten64 alphabet, all '0' characters from 
 
 # Related Technologies
 
-There are a ton of number libraries in various languages, [Java's BigInt](#bigint-java) likely influenced [ECMA Scripts BigDecimal](#ecma-262).  In addition, this [ECMA Script](#ecma-262) [BigDecimal](#bigdecimal-npm) implementation is based on [Java's BigDecimal](#bigdecimal-java).  We do NOT expect Ten64 to gain wide adoption over the [Modern Western Numeral System](#modern-western-numeral-system), since the [Modern Western Numeral System](#modern-western-numeral-system) is taught in early elementary schools and used all the way through advanced mathematics classes.
+There are a ton of libraries in various languages, for example [Java's BigInt](#bigint-java) influenced the [ECMA Script BigInt](#ecma-262).  In addition, this [ECMA Script](#ecma-262) [BigDecimal](#bigdecimal-npm) implementation is based on [Java's BigDecimal](#bigdecimal-java).  We do NOT expect Ten64 to gain wide adoption over the [Modern Western Numeral System](#modern-western-numeral-system), since the [Modern Western Numeral System](#modern-western-numeral-system) is taught in early elementary schools and used all the way through advanced mathematics classes.
 
 # Performance
 
-In addition, to significantly reducing the number of characters required for encoding, which saves on disk space in files and on the number of bytes transferred over sockets.  Ten64 SHOULD be implemented using a more optimal algorithm to serialize and deserialize the data than [Modern Base-10 Numeral System](#modern-western-numeral-system) serialization uses.
+Ten64 significantly reduces the number of characters required for encoding, which saves on disk space in files and on the number of bytes transferred over sockets.  Ten64 SHOULD be implemented using a more optimal algorithm to serialize and de-serialize the data than [Modern Base-10 Numeral System](#modern-western-numeral-system) serialization uses.
 
-To create integers from the Ten64 alphabet, algorithms SHOULD use case (aka switch) statements to convert the Ten64 alphabet into little-endian binary (used in the majority of in memory number systems).  Then the algorithms should shift the bits and use the binary and (i.e. &) operator to aggregate the number into integers.  This [Ten64 Integer Serialization#1.3.6.1.4.1.33097.0.2.4](#ten64-integer-serialization-algorithm) Algorithm will complete with a big O(s) time cost.
+To create integers from the Ten64 alphabet, algorithms SHOULD use switch statements to convert the Ten64 alphabet into little-endian binary (used in the majority of in memory number systems).  Then the algorithms should shift the bits and use the binary and (i.e. &) operator to aggregate the number into integers.  This [Ten64 Integer Serialization#1.3.6.1.4.1.33097.0.2.4](#ten64-integer-serialization-algorithm) Algorithm will complete with a big O(s) time cost.
 
-Comparison with other algorithms which use various serialization and deserialization forms to and from the modern western numerical system is generally much slower.
+Comparison with other algorithms which use various serialization and de-serialization forms to and from the [modern western numerical system](#modern-western-numeral-system) is generally much slower.
 
 - [Number Conversion Calculator](#number-conversion-calculator)
 - [Number Conversion at Instructables](#number-conversion-instructables)
@@ -233,10 +233,7 @@ Comparison with other algorithms which use various serialization and deserializa
 - [Number Conversion at Lumen](#number-conversion-lumen)
 - [Number Conversion at WikiHow](#number-conversion-wikihow)
 
-However, When converting decimal numbers using [Ten64 Decimal Serialization#1.3.6.1.4.1.33097.0.2.5](#ten64-decimal-serialization-algorithm), division is required.  This incurs the following time cost depending on the division algorithm used.
-
-- Serialization from [Modern Western Decimal Numbers](#modern-western-decimal-numbers) [O(c log c)](#ten64-decimal-serialization-algorithm)
-- De-Serialization to [Modern Western Decimal Numbers](#modern-western-decimal-numbers) [O(cd²) - O(M(cd))(#ten64-decimal-serialization-algorithm)
+However, when converting decimal numbers using [Ten64 Decimal Serialization#1.3.6.1.4.1.33097.0.2.5](#ten64-decimal-serialization-algorithm), division is required.  Depending on the [division algorithm](#math-asymptotic-processor-performance-wikipedia) used,  this is roughly comparable to serialization and de-serialization of the [modern western numerical system](#modern-western-numeral-system) covered above.
 
 # Compatibility
 
