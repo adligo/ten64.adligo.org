@@ -74,7 +74,7 @@ Although this is decipherable for some humans who are developers or software arc
 
 ## Special Characters Introduction
 
-Ten64 does NOT use the [Base64 RFC 4648](#base64-rfc-4648) alphabet but an alphabet more inline with [hexadecimal](#hexadecimal) 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and '_' along with some additional special characters most notably '#','.',',' and ';', '-', and the UNIX Line Feed 10 (0x0A in [hexadecimal](#hexadecimal)).  It is designed to be human and machine-readable but is really designed to [optimized](#performance) the reading and writing of numbers for streaming and storage computer systems.  The \$,+,!, @ and _ symbols were chosen because they human-readable. Theoretically, this system could also be used embed numbers into programming languages in the future.  However, usage MAY require the explicit starting character pound '#', and explicit termination semicolon character ';'.  It will use a big ending binary system as follows;
+Ten64 does NOT use the [Base64 RFC 4648](#base64-rfc-4648) alphabet but an alphabet more inline with [hexadecimal](#hexadecimal) 0-9,a-k,$,m-z,A-H,+,J-N,!,P-Z, '@' and '_' along with some additional special characters most notably '#','.',',' and ';', '-', and the UNIX Line Feed 10 (0x0A in [hexadecimal](#hexadecimal)).  It is designed to be human and machine-readable but is really designed to be [optimized](#performance) the reading and writing of numbers for streaming and storage computer systems.  The \$,+,!, @ and _ symbols were chosen because they human-readable. Theoretically, this system could also be used embed numbers into programming languages in the future.  However, usage MAY require the explicit starting character pound '#', and explicit termination semicolon character ';'.  It will use a big ending binary system as follows;
 
 ## Special Characters and Sequences Details
 ```
@@ -225,7 +225,7 @@ Ten64 significantly reduces the number of characters required for encoding, whic
 
 To create integers from the Ten64 alphabet, algorithms SHOULD use switch statements to convert the Ten64 alphabet into little-endian binary (used in the majority of in memory number systems).  Then the algorithms should shift the bits and use the binary and (i.e. &) operator to aggregate the number into integers.  This [Ten64 Integer Serialization#1.3.6.1.4.1.33097.0.2.4](#ten64-integer-serialization-algorithm) Algorithm will complete with a big O(s) serialization and O(c) de-serialization time cost.  Note; s and c represent the [sextets](#sextet) and characters in the previous sentence, respectively.
 
-Comparison with other algorithms which use various serialization and de-serialization forms to and from the [modern western numerical system](#modern-western-numeral-system) is generally much slower.
+Comparison with other algorithms which use various serialization and de-serialization forms to and from the [Modern Western Numerical System](#modern-western-numeral-system) is generally much slower.
 
 - [Number Conversion Calculator](#number-conversion-calculator)
 - [Number Conversion at Instructables](#number-conversion-instructables)
@@ -233,11 +233,11 @@ Comparison with other algorithms which use various serialization and de-serializ
 - [Number Conversion at Lumen](#number-conversion-lumen)
 - [Number Conversion at WikiHow](#number-conversion-wikihow)
 
-However, when converting decimal numbers using [Ten64 Decimal Serialization#1.3.6.1.4.1.33097.0.2.5](#ten64-decimal-serialization-algorithm), division is required.  Depending on the [division algorithm](#math-asymptotic-processor-performance-wikipedia) used,  this is roughly comparable to serialization and de-serialization of the [modern western numerical system](#modern-western-numeral-system) covered above.
+However, when converting decimal numbers using [Ten64 Decimal Serialization#1.3.6.1.4.1.33097.0.2.5](#ten64-decimal-serialization-algorithm), division is required.  Depending on the [division algorithm](#math-asymptotic-processor-performance-wikipedia) used,  this is roughly comparable to serialization and de-serialization of the [Modern Western Numerical System](#modern-western-numeral-system) covered above.
 
 # Compatibility
 
-When drafting Ten64, we went through great lengths to attempt to make it as compatible as possible with the largest number of usage environments.  However, it is impossible to have pristine compatibility with such a large variety of usage environments.  In short, we recommend using Reserved Expansion from [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) with Ten64, ommitting the '#' and ';'.
+When drafting Ten64, we went through great lengths to attempt to make it as compatible as possible with the largest number of usage environments.  However, it is impossible to have pristine compatibility with such a large variety of usage environments.  In short, for use in the [REST Programming Style](#rest-programming-style) or other [URI/HTTP based systems](#uri-rfc3986) we recommend using Reserved Expansion from [URI Template Variable Values](https://www.rfc-editor.org/rfc/rfc6570#section-3.2.3) with Ten64, ommitting the '#' and ';'.
 
 ### URI and URI Template Compatibility
 
@@ -348,7 +348,7 @@ There are several interpretation Use-Cases for segmented numbers, including Date
 
 ## BigDecimal Interpretations
 
-Big Decimals (i.e. Java or Javascript type) can be easily represented with Ten64, which encodes the EXACT number of Decimal Places.  This provides and advantage over [JSON](#json-rfc-8259) which uses [IETF Double Precision Floating Point](#floating-point) numbers, which can cause precision issues in transit.
+Big Decimals (i.e. Java or Javascript type) can be easily represented with Ten64, which encodes the EXACT number of Decimal Places.  This provides an alternative to [JSON](#json-rfc-8259) (decimal) numbers which MAY use [IETF Single and Double Precision Floating Point](#floating-point) numbers, because of the [ECMAScript standard](#ecma-262).  The other alternative is to encode the [Modern Western Numerals](#modern-western-numeral-system) as strings, and then use something like a [BigDecimal](#bigdecimal-java) or [BigDecimal clone](#bigdecimal-npm) to interpret the text data.  See the [commentary](#commentary) for a deep dive on this topic.
 
 ## Date Interpretations
 
@@ -462,7 +462,7 @@ f12.78 → 32 bit IEEE 754 / Java single floating point decimal numbers
 d12.78 → 64 bit IEEE 754 / Java double floating point decimal numbers
 ```
 
-Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, it has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the J in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Numbers](#floating-point-ieee-754-2019).  These challenges and issues are not traceable to a single standard, but instead the result of the interaction between at least three standards bodies the [IEEE](#ieee), [IETF](#ietf) and [ECMA International](#ecma-262), and the history of [JavaScript](#javascript-wikipedia) and [Netscape](#netscape).
+Although the current state of the [JSON RFC 8259](#json-rfc-8259) specification is fairly clear, it has a muddied past, which has created confusion and varying interpretations (i.e. [GSON](#gson), [Jackson](#fasterxml-jackson) and others).  This starts with the usage of the term [JavaScript](#javascript-wikipedia) in the title, the JS in [JSON](#json-rfc-8259).  It took some time for an actual [JavaScript-like specification](#javascript-wikipedia) to emerge as [ECMA Script](#ecma-262) which specifies [IEEE 754-2019 Floating Point Numbers](#floating-point-ieee-754-2019).  These challenges and issues are not traceable to a single standard, but instead the result of the interaction between at least three standards bodies the [IEEE](#ieee), [IETF](#ietf) and [ECMA International](#ecma-262), and the history of [JavaScript](#javascript-wikipedia) and [Netscape](#netscape).
 
 As a side note, the [ECMA Script 262 website](https://tc39.es/ecma262) chews up enough resources (processor/RAM I didn't benchmark it?) that it slows down and crashes browsers on my computer with 64 GB of RAM.  However, for the brave people who want to click on these direct links;
 
@@ -526,7 +526,7 @@ false
 
 Then this new <b>BigNumber</b> type could potentially be used as the basis for further text-encoding number work with the [Modern Western Numeral System](#modern-western-numeral-system).
 
-Finally, an open question.  What should we do with repeating numbers (aka. connected overlines) (i.e. 0.&#x0305;0&#x0305;1&#x0305;2&#x0305;3&#x0305;4&#x0305;5&#x0305;6&#x0305;7&#x0305;8&#x0305;9 or 1/7 = 0.&#x0305;1&#x0305;4&#x0305;2&#x0305;8&#x0305;5&#x0305;7 ), another new <b>BigFraction</b> type perhaps?
+Finally, an open question.  What should we do with fractions/repeating numbers (aka. connected overlines) (i.e. 0.&#x0305;0&#x0305;1&#x0305;2&#x0305;3&#x0305;4&#x0305;5&#x0305;6&#x0305;7&#x0305;8&#x0305;9 or 1/7 = 0.&#x0305;1&#x0305;4&#x0305;2&#x0305;8&#x0305;5&#x0305;7 ), another new <b>BigFraction</b> type perhaps?
 
 ```
 # Github Markdown for Connected Overlines
@@ -821,6 +821,10 @@ ResearchGate. (2014, May). Why we use base-10 almost everywhere than base-60 whi
 ##### Radix Wikipedia
 
 Wikipedia contributors. (2024). Radix. In Wikipedia, The Free Encyclopedia. Retrieved March 30, 2026, from https://en.wikipedia.org/wiki/Radix
+
+##### REST Programming Style
+
+R. T. Fielding, "Architectural styles and the design of network-based software architectures," Ph.D. dissertation, Dept. Inf. Comput. Sci., Univ. California, Irvine, CA, USA, 2000. [Online]. Available: [https://roy.gbiv.com/pubs/dissertation/fielding_dissertation.pdf](https://roy.gbiv.com/pubs/dissertation/fielding_dissertation.pdf).
 
 ##### Ryū
 

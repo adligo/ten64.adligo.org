@@ -31,7 +31,7 @@
         </xref>. Similar to <xref target="hexadecimal" format="none" sectionFormat="bare">hexadecimal</xref>, Ten64
         can be used to create binary strings of arbitrary length. Ten64 can encode
         one or more <xref target="modern-western-numeral-system" format="none" sectionFormat="bare">Modern Western
-        Numbers (aka Arabic, Vedic)</xref>, interpreting the characters respective
+        Numbers (aka. Arabic, Vedic)</xref>, interpreting the characters respective
         <xref target="endian-wikipedia" format="none" sectionFormat="bare">composite big-endian binary</xref> as a
         one or more <xref target="modern-western-numeral-system"  format="none" sectionFormat="bare">Modern Western
         Numbers</xref>.
@@ -181,7 +181,7 @@
         with some additional special characters most notably '#','.',',' and
         ';', '-', and the UNIX Line Feed 10 (0x0A in <xref target="hexadecimal"
         format="none" sectionFormat="bare">hexadecimal</xref>). It is designed
-        to be human and machine-readable but is really designed to <xref
+        to be human and machine-readable but is really designed to be <xref
         target="performance" format="none" sectionFormat="bare">optimized</xref>
         the reading and writing of numbers for streaming and storage computer
         systems. The $,+,!, @ and _ symbols were chosen
@@ -399,21 +399,22 @@ UNIX Line Feeds:
     
     <section anchor="related-technologies" title="Related Technologies">
       <t>
-        There are a ton of libraries in various languages, for example <xref
-        target="BigInt-Java" format="none" sectionFormat="bare">Java's BigInt
-        </xref> influenced the <xref target="ECMA-262" format="none"
-        sectionFormat="bare">ECMA Script BigInt</xref>. In addition, this <xref
-        target="ECMA-262" format="none" sectionFormat="bare">ECMA Script</xref>
-        <xref target="BigDecimal-NPM" format="none" sectionFormat="bare">
-        BigDecimal</xref> implementation is based on <xref target="BigDecimal-Java"
-        format="none" sectionFormat="bare">Java's BigDecimal</xref>. We do NOT
-        expect Ten64 to gain wide adoption over the <xref
-        target="modern-western-numeral-system" format="none"
-        sectionFormat="bare">Modern Western Numeral System</xref>, since the <xref
-        target="modern-western-numeral-system" format="none"
-        sectionFormat="bare">Modern Western Numeral System</xref> is taught in
-        early elementary schools and used all the way through advanced mathematics
-        classes.
+        There are a ton of libraries in various languages, for example
+        <xref target="BigInt-Java" format="none" sectionFormat="bare">Java's BigInteger
+        </xref> influenced the
+        <xref target="ECMA-262" format="none" sectionFormat="bare">ECMA Script BigInt
+        </xref>. In addition, this
+        <xref target="ECMA-262" format="none" sectionFormat="bare">ECMA Script</xref>
+        <xref target="BigDecimal-NPM" format="none" sectionFormat="bare">BigDecimal
+        </xref> implementation is based on
+        <xref target="BigDecimal-Java" format="none" sectionFormat="bare">
+        Java's BigDecimal</xref>. We do NOT expect Ten64 to gain wide adoption over
+        the
+        <xref target="modern-western-numeral-system" format="none"
+        sectionFormat="bare">Modern Western Numeral System</xref>, since the
+        <xref target="modern-western-numeral-system" format="none"
+        sectionFormat="bare">Modern Western Numeral System</xref> is taught in early
+        elementary schools and used all the way through advanced mathematics classes.
       </t>
     </section>
 
@@ -447,7 +448,7 @@ UNIX Line Feeds:
         Comparison with other algorithms which use various serialization and
         de-serialization forms to and from the <xref
         target="modern-western-numeral-system" format="none"
-        sectionFormat="bare">modern western numerical system</xref> is generally
+        sectionFormat="bare">Modern Western Numerical System</xref> is generally
         much slower.
       </t>
     
@@ -483,26 +484,30 @@ UNIX Line Feeds:
         format="none" sectionFormat="bare">division algorithm</xref> used, this
         is roughly comparable to serialization and de-serialization of the <xref
         target="modern-western-numeral-system" format="none"
-        sectionFormat="bare">modern western numerical system</xref> covered above.
+        sectionFormat="bare">Modern Western Numerical System</xref> covered above.
       </t>
     </section>
 
     <section anchor="compatibility" title="Compatibility">
       <t>
-        When drafting Ten64, we went through great lengths to attempt to make it
-        as compatible as possible with the largest number of usage environments.
-        However, it is impossible to have pristine compatibility with such a large
-        variety of usage environments. In short, we recommend using Reserved
-        Expansion from <xref target="URI-Templates-RFC6570" section="3.2.3"
-        format="none" sectionFormat="bare">URI Template Variable Values</xref>
-        with Ten64, ommitting the '#' and ';'.
+        When drafting Ten64, we went through great lengths to attempt to make it as
+        compatible as possible with the largest number of usage environments. However,
+        it is impossible to have pristine compatibility with such a large variety of
+        usage environments. In short, for use in the
+        <xref target="rest-programming-style" format="none" sectionFormat="bare">REST Programming
+        Style</xref> or other
+        <xref target="uri-rfc-3986" format="none" sectionFormat="bare">URI/HTTP based
+        systems</xref> we recommend using Reserved Expansion from
+        <xref target="URI-Templates-RFC6570" section="3.2.3" format="none"
+        sectionFormat="bare">URI Template Variable Values</xref> with Ten64, ommitting
+        the '#' and ';'.
       </t>
     
       <section anchor="uri-and-uri-template-compatibility"
                title="URI and URI Template Compatibility">
         <t>
           The following Ten64 alphabet characters MAY have issues with
-          <xref target="URI-RFC3986" format="none" sectionFormat="bare">URIs
+          <xref target="uri-rfc-3986" format="none" sectionFormat="bare">URIs
           </xref> and <xref target="URI-Templates-RFC6570" format="none"
           sectionFormat="bare">URI Templates</xref>. The following section is
           in order of usage in Ten64.
@@ -514,7 +519,7 @@ UNIX Line Feeds:
         <section anchor="uri-pound-symbol" title="URI Pound Symbol '#'">
           <t>
             The pound symbol is a protected character by the <xref
-            target="URI-RFC3986" section="3.2" format="none" sectionFormat="bare">
+            target="uri-rfc-3986" section="3.2" format="none" sectionFormat="bare">
             URIs RFC3986 section 3.2</xref>. When using Ten64 inside of URIs
             (aka URLs), the pound symbol MUST be either omitted or escaped with a
             percent sign '%23'. Additionally, no major conflicts are foreseen with
@@ -526,9 +531,9 @@ UNIX Line Feeds:
         <section anchor="uri-minus-symbol" title="URI Minus Symbol '-'">
           <t>
             The minus symbol is an unreserved character by the <xref
-            target="URI-RFC3986" section="2.3" format="none" sectionFormat="bare">
+            target="uri-rfc-3986" section="2.3" format="none" sectionFormat="bare">
             URIs RFC3986 section 2.3</xref>. No special treatment of this
-            character is required for <xref target="URI-RFC3986" format="none"
+            character is required for <xref target="uri-rfc-3986" format="none"
             sectionFormat="bare">URIs</xref>. However, <xref
             target="URI-Templates-RFC6570" section="2.3" format="none"
             sectionFormat="bare">URI Template Variable Names</xref> will require
@@ -541,9 +546,9 @@ UNIX Line Feeds:
         <section anchor="uri-dollar-sign-symbol" title="URI Dollar Sign Symbol '$'">
           <t>
             The dollar sign symbol is a sub-delim character by the <xref
-            target="URI-RFC3986" section="3.4" format="none" sectionFormat="bare">
+            target="uri-rfc-3986" section="3.4" format="none" sectionFormat="bare">
             URIs RFC3986 section 3.4</xref>. It is explicitly permitted in the
-            <xref target="URI-RFC3986" section="3.4" format="none"
+            <xref target="uri-rfc-3986" section="3.4" format="none"
             sectionFormat="bare">query component of a URI</xref>. Although NOT
             required by Ten64, some languages MAY require URL encode the dollar
             symbol. In particular, Bash, PowerShell, PHP, Perl, and Ruby where it
@@ -562,9 +567,9 @@ UNIX Line Feeds:
         <section anchor="uri-plus-symbol" title="URI Plus Symbol '+'">
           <t>
             The plus symbol is a sub-delim character by the <xref
-            target="URI-RFC3986" section="3.4" format="none" sectionFormat="bare">
+            target="uri-rfc-3986" section="3.4" format="none" sectionFormat="bare">
             URIs RFC3986 section 3.4</xref>. It is explicitly permitted in the
-            <xref target="URI-RFC3986" section="3.4" format="none"
+            <xref target="uri-rfc-3986" section="3.4" format="none"
             sectionFormat="bare">query component of a URI</xref>. However, many
             languages and libraries (PHP, Python's urllib, Java Servlets)
             automatically decode this as a space, so it MAY need to be escaped as
@@ -583,9 +588,9 @@ UNIX Line Feeds:
         <section anchor="uri-exclamation-mark" title="URI Exclamation Mark '!'">
           <t>
             The exclamation mark is a sub-delim character by the <xref
-            target="URI-RFC3986" section="2.2" format="none" sectionFormat="bare">
+            target="uri-rfc-3986" section="2.2" format="none" sectionFormat="bare">
             URIs RFC3986 section 2.2</xref>. It is explicitly permitted in the
-            <xref target="URI-RFC3986" section="3.4" format="none"
+            <xref target="uri-rfc-3986" section="3.4" format="none"
             sectionFormat="bare">query component of a URI</xref>. However, many
             languages and libraries (Express.js, Ruby on Rails, and Django)
             automatically decode this as a space, so it MAY need to be escaped as
@@ -606,7 +611,7 @@ UNIX Line Feeds:
                title="Internal and Trailing Special Characters">
         <section anchor="uri-period" title="URI Period '.'">
           <t>
-            The period is unreserved in <xref target="URI-RFC3986" format="none"
+            The period is unreserved in <xref target="uri-rfc-3986" format="none"
             sectionFormat="bare">URIs RFC3986</xref>. However, it is often used
             for relative paths, We do NOT anticipate any compatibility issues.
           </t>
@@ -615,9 +620,9 @@ UNIX Line Feeds:
         <section anchor="uri-semicolon" title="URI Semicolon ';'">
           <t>
             The semicolon symbol is a sub-delim character by the <xref
-            target="URI-RFC3986" section="3.4" format="none" sectionFormat="bare">
+            target="uri-rfc-3986" section="3.4" format="none" sectionFormat="bare">
             URIs RFC3986 section 3.4</xref>. It is explicitly permitted in the
-            <xref target="URI-RFC3986" section="3.4" format="none"
+            <xref target="uri-rfc-3986" section="3.4" format="none"
             sectionFormat="bare">query component of a URI</xref>. There may be
             legacy issues with Python and Java servlets, which have NOT received
             security patches. The semicolon MAY be omitted or encoded as '%3B'.
@@ -762,19 +767,29 @@ UNIX Line Feeds:
           OIDs</xref>, Points and more.
         </t>
       </section>
-    
-      <section anchor="bigdecimal-interpretations" 
-               title="BigDecimal Interpretations">
-        <t>
-          Big Decimals (i.e. Java or Javascript type) can be easily represented
-          with Ten64, which encodes the EXACT number of Decimal Places. This
-          provides and advantage over <xref target="json-rfc-8259" format="none" 
-          sectionFormat="bare">JSON</xref> which uses <xref target="floating-point" 
-          format="none" sectionFormat="bare">IETF Double Precision Floating Point
-          </xref> numbers, which can cause precision issues in transit.
-        </t>
-      </section>
-    
+
+      <section anchor="bigdecimal-interpretations" title="BigDecimal Interpretations">
+          <t>
+            Big Decimals (i.e. Java or Javascript type) can be easily represented with
+            Ten64, which encodes the EXACT number of Decimal Places. This provides an
+            alternative to
+            <xref target="json-rfc-8259" format="none" sectionFormat="bare">JSON</xref>
+            (decimal) numbers which MAY use
+            <xref target="floating-point" format="none" sectionFormat="bare">
+            IETF Single and Double Precision Floating Point</xref> numbers, because of the
+            <xref target="ECMA-262" format="none" sectionFormat="bare">ECMAScript standard
+            </xref>. The other alternative is to encode the
+            <xref target="modern-western-numeral-system" format="none" sectionFormat="bare">
+            Modern Western Numerals</xref> as strings, and then use something like a
+            <xref target="BigDecimal-Java" format="none" sectionFormat="bare">BigDecimal
+            </xref> or
+            <xref target="BigDecimal-NPM" format="none" sectionFormat="bare">
+            BigDecimal clone</xref> to interpret the text data. See the
+            <xref target="commentary" format="none" sectionFormat="bare">commentary</xref>
+            for a deep dive on this topic.
+          </t>
+        </section>
+
       <section anchor="date-interpretations" title="Date Interpretations">
         <t>
           Dates can be greatly condensed using the Segmented Number base class.
@@ -948,9 +963,9 @@ UNIX Line Feeds:
 
       <t>
         2026-03-28 Replaced the % sign with the + sign to make
-        <xref target="URI-RFC3986" format="none" sectionFormat="bare">URI (URL)</xref>
+        <xref target="uri-rfc-3986" format="none" sectionFormat="bare">URI (URL)</xref>
         escaping easier. Replaced the question mark with the colon to make
-        <xref target="URI-RFC3986" format="none" sectionFormat="bare">URI (URL)</xref>
+        <xref target="uri-rfc-3986" format="none" sectionFormat="bare">URI (URL)</xref>
         escaping easier, and then later on replaced it with the exclamation point to
         make Ten64 more compatible with
         <xref target="decentralized-identifiers-dids" format="none" sectionFormat="bare">
@@ -992,7 +1007,7 @@ UNIX Line Feeds:
         <xref target="Jackson-GitHub" format="none" sectionFormat="bare">Jackson</xref>
         and others). This starts with the usage of the term
         <xref target="JavaScript-Wikipedia" format="none" sectionFormat="bare">
-        JavaScript</xref> in the title, the J in
+        JavaScript</xref> in the title, the JS in
         <xref target="json-rfc-8259" format="none" sectionFormat="bare">JSON</xref>.
         It took some time for an actual
         <xref target="JavaScript-Wikipedia" format="none" sectionFormat="bare">
@@ -1053,7 +1068,7 @@ UNIX Line Feeds:
         <li>
           <xref target="HTTP-Structured-Fields-RFC-9651" format="none" sectionFormat="bare">
           HTTP Structured Fields RFC 9651</xref> which does not target text but
-          <xref target="URI-RFC3986" format="none" sectionFormat="bare">
+          <xref target="uri-rfc-3986" format="none" sectionFormat="bare">
           HTTP or really UIRs RFC 3986</xref> and puts a tight limitation on decimal
           numbers, only allowing three decimal digits, which isn't compatible with
           <xref target="Bitcoin" format="none" sectionFormat="bare">Bitcoin</xref>
@@ -1184,8 +1199,8 @@ UNIX Line Feeds:
         <xref target="modern-western-numeral-system" format="none" sectionFormat="bare">
         Modern Western Numeral System</xref>.
         
-        Finally, an open question. What should we
-        do with repeating numbers (aka. connected overlines) (i.e.
+        Finally, an open question. What should we do with fractions/repeating numbers 
+        (aka. connected overlines) (i.e.
         0.&#x0305;0&#x0305;1&#x0305;2&#x0305;3&#x0305;4&#x0305;5&#x0305;6&#x0305;7&#x0305;8&#x0305;9
         or 1/7 = 0.&#x0305;1&#x0305;4&#x0305;2&#x0305;8&#x0305;5&#x0305;7 ), another new
         <strong>BigFraction</strong> type perhaps?
@@ -1863,6 +1878,17 @@ UNIX Line Feeds:
         <seriesInfo name="URL" value="https://www.researchgate.net/post/Why-we-use-base-10-almost-everywhere-than-base-60-which-was-first-invented-method"/>
       </reference>
 
+      <reference anchor="rest-programming-style" target="https://roy.gbiv.com/pubs/dissertation/fielding_dissertation.pdf">
+        <front>
+          <title>Architectural Styles and the Design of Network-based Software Architectures</title>
+          <author fullname="Roy Thomas Fielding" initials="R. T." surname="Fielding">
+            <organization>University of California, Irvine</organization>
+          </author>
+          <date year="2000"/>
+        </front>
+        <seriesInfo name="Ph.D. Dissertation" value="University of California, Irvine"/>
+      </reference>
+
       <reference anchor="radix-wikipedia" target="https://en.wikipedia.org/wiki/Radix">
         <front>
           <title>Radix</title>
@@ -2035,7 +2061,7 @@ UNIX Line Feeds:
         <seriesInfo name="STD" value="63"/>
       </reference>
 
-      <reference anchor="URI-RFC3986" target="https://www.rfc-editor.org/info/rfc3986">
+      <reference anchor="uri-rfc-3986" target="https://www.rfc-editor.org/info/rfc3986">
         <front>
           <title>Uniform Resource Identifier (URI): Generic Syntax</title>
           <author initials="T." surname="Berners-Lee" fullname="T. Berners-Lee"/>
