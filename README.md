@@ -17,9 +17,9 @@ The motivation for Ten64 is to encode numbers in a compact and human-readable fo
 
 R Ismo was instrumental in providing meticulous scrutiny to this project.  Although he disagreed and MAY still disagree with much of it, the discourse was wonderful and fully worthwhile.
 
-## Draft RFC
+## Internet Drafts [I-Ds]
 
-- [rfc.xml](rfc.xml)
+- [2026-04-01.xml](internet_drafts/2026-04-01.xml)
 - [https://author-tools.ietf.org/](https://author-tools.ietf.org/)
 
 ## Discussion Channel
