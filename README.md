@@ -32,6 +32,12 @@ This Github project will contain the Java implementation.  A Typescript implemen
 
 - [https://github.com/adligo/ten64.ts.adligo.org](https://github.com/adligo/ten64.ts.adligo.org)
 
+# Follow Ups
+
+This internet draft was followed by Ten10b, which is a separate topic all together;
+
+- [https://github.com/adligo/ten10b_v1.adligo.org](https://github.com/adligo/ten10b_v1.adligo.org)
+
 # Introduction
 
 This section is non-normative.
@@ -567,7 +573,7 @@ Note: The authors did not actually read this citation because of the price tag. 
 ##### Asymptotic Cost of Multiplication
 
 - [https://en.wikipedia.org/wiki/Multiplication_algorithm#Computational_complexity_of_multiplication](https://en.wikipedia.org/wiki/Multiplication_algorithm#Computational_complexity_of_multiplication)
--
+
 ##### Base58
 
 Nakamoto, S. (2009). "Base58 Encoding Scheme." Bitcoin Source Code. [https://github.com/bitcoin/bitcoin/blob/master/src/base58.cpp](https://github.com/bitcoin/bitcoin/blob/master/src/base58.cpp)
